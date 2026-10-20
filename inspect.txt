@@ -1,0 +1,446 @@
+
+===== ODOO20  hr.version =====
+  *date_version | date | Effective Date
+  *distance_home_work_unit | selection | Home-Work Distance unit [kilometers,miles]
+  *hr_responsible_id | many2one -> res.users | HR Responsible
+  *last_modified_date | datetime | Last Modified on
+  *last_modified_uid | many2one -> res.users | Last Modified by
+  *marital | selection | Marital Status [single,married,cohabitant,widower,divorced]
+  *resource_calendar_id | many2one -> resource.calendar | Working Hours
+  *tz | selection | Timezone [Africa/Abidjan,Africa/Accra,Africa/Addis_Ababa,Africa/Algiers,Africa/Asmara,Africa/Bamako,Africa/Bangui,Africa/Banjul,Africa/Bissau,Africa/Blantyre,Africa/Brazzaville,Africa/Bujumbura,Africa/Cairo,Africa/Casablanca,Africa/Ceuta,Africa/Conakry,Africa/Dakar,Africa/Dar_es_Salaam,Africa/Djibouti,Africa/Douala,Africa/El_Aaiun,Africa/Freetown,Africa/Gaborone,Africa/Harare,Africa/Johannesburg]
+   active | boolean | Active
+   address_id | many2one -> res.partner | Work Address
+   allocation_from_working_schedule_id | many2one -> hr.leave.allocation | Allocation from working schedule
+   analytic_distribution | json | Analytic Distribution
+   attendance_based | boolean | Attendance Based
+   children | integer | Dependent Children
+   company_id | many2one -> res.company | Company
+   contract_date_end | date | Contract End Date
+   contract_date_start | date | Contract Start Date
+   contract_template_id | many2one -> hr.version | Contract Template
+   country_id | many2one -> res.country | Nationality (Country)
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   date_to_review | datetime | Date To Review
+   department_id | many2one -> hr.department | Department
+   departure_id | many2one -> hr.employee.departure | Departure
+   disabled | boolean | Disabled
+   distance_home_work | integer | Home-Work Distance
+   employee_id | many2one -> hr.employee | Employee
+   employee_type_id | many2one -> hr.employee.type | Employee Type
+   final_yearly_costs | monetary | Yearly Cost
+   fixed_term | boolean | Fixed Term
+   holidays | float | Extra Time Off
+   hourly_wage | float | Hourly Wage
+   id | integer | ID
+   identification_id | char | Identification No
+   is_custom_job_title | boolean | Is Custom Job Title
+   is_non_resident | boolean | Non-resident
+   job_id | many2one -> hr.job | Job
+   job_title | char | Job Title
+   km_home_work | integer | Home-Work Distance in Km
+   l10n_om_company_maternity_leave_insurance_percentage | float | Company Maternity Leave Insurance %
+   l10n_om_company_old_age_disability_death_insurance_percentage | float | Company Old Age, Disability and Death Insurance %
+   l10n_om_company_sick_leave_insurance_percentage | float | Company Sick and Other Leaves Insurance %
+   l10n_om_company_unemployment_insurance_percentage | float | Company Employment Security Insurance %
+   l10n_om_company_work_injury_insurance_percentage | float | Company Work Injury and Occupational Disease Insurance %
+   l10n_om_employee_is_eos_eligible | boolean | L10N Om Employee Is Eos Eligible
+   l10n_om_employee_maternity_leave_insurance_percentage | float | Employee Maternity Leave Insurance %
+   l10n_om_employee_old_age_disability_death_insurance_percentage | float | Employee Old Age, Disability and Death Insurance %
+   l10n_om_employee_sick_leave_insurance_percentage | float | Employee Sick and Other Leaves Insurance %
+   l10n_om_employee_unemployment_insurance_percentage | float | Employee Employment Security Insurance %
+   l10n_om_employee_work_injury_insurance_percentage | float | Employee Work Injury and Occupational Disease Insurance %
+   l10n_om_identification_type | selection | Identification Type [passport,civil_status_card]
+   name | char | Name
+   passport_expiration_date | date | Passport Expiration Date
+   passport_id | char | Passport No
+   payroll_config_id | many2one -> payroll.config.settings | Payroll Config
+   payroll_properties | properties | Payroll Properties
+   payslip_run_ids | many2many -> hr.payslip.run | Pay Runs
+   private_city | char | Private City
+   private_country_id | many2one -> res.country | Private Country
+   private_state_id | many2one -> res.country.state | Private State
+   private_street | char | Private Street
+   private_street2 | char | Private Street2
+   private_zip | char | Private Zip
+   review_state | selection | Review State [1_reviewed,2_to_review,3_anomaly]
+   schedule_pay | selection | Pay Schedule [annually,semi-annually,quarterly,bi-monthly,monthly,semi-monthly,bi-weekly,weekly,daily]
+   sex | selection | Sex [male,female]
+   spouse_birthdate | date | Spouse Birthdate
+   spouse_complete_name | char | Spouse Legal Name
+   structure_id | many2one -> hr.payroll.structure | Pay Structure
+   structure_type_id | many2one -> hr.payroll.structure.type | Salary Structure Type
+   trial_date_end | date | End of Trial Period
+   wage | monetary | Wage
+   wage_type | selection | Wage Type [monthly,hourly]
+   work_location_id | many2one -> hr.work.location | Work Location
+   work_time_rate | float | Work time rate
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  hr.version =====
+   MODEL NAHI MILA: <Fault 2: "Object hr.version doesn't exist">
+
+===== ODOO20  res.partner.bank =====
+  *account_number | char | Account Number
+  *clearing_label_id | many2one -> clearing.label | Clearing Label
+  *partner_id | many2one -> res.partner | Partner
+   active | boolean | Active
+   allow_out_payment | boolean | Send Money
+   bank_bic | char | BIC/SWIFT
+   bank_name | char | Bank Name
+   city | char | City
+   clearing_number | char | Clearing Number
+   company_id | many2one -> res.company | Company
+   country_id | many2one -> res.country | Country
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   has_phishing_warnings | boolean | Has Phishing Warnings
+   holder_name | char | Holder Name
+   id | integer | ID
+   journal_id | one2many -> account.journal | Account Journal
+   note | text | Notes
+   related_moves | one2many -> account.move | Related Moves
+   sanitized_account_number | char | Sanitized Account Number
+   sequence | integer | Sequence
+   state_id | many2one -> res.country.state | Fed. State
+   street | char | Street
+   street2 | char | Street2
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+   zip | char | Zip
+
+===== ODOO16  res.partner.bank =====
+  *acc_number | char | Account Number
+  *partner_id | many2one -> res.partner | Account Holder
+   acc_holder_name | char | Account Holder Name
+   active | boolean | Active
+   allow_out_payment | boolean | Send Money
+   bank_id | many2one -> res.bank | Bank
+   company_id | many2one -> res.company | Company
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   currency_id | many2one -> res.currency | Currency
+   id | integer | ID
+   journal_id | one2many -> account.journal | Account Journal
+   sanitized_acc_number | char | Sanitized Account Number
+   sequence | integer | Sequence
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO20  product.pricelist.item =====
+  *applied_on | selection | Apply On [0_product_variant,1_product,2_product_category,3_global]
+  *base | selection | Based on [list_price,standard_price,pricelist]
+  *compute_price | selection | Compute Price [discount,markup,fixed]
+   base_pricelist_id | many2one -> product.pricelist | Other Pricelist
+   categ_id | many2one -> product.category | Category
+   company_id | many2one -> res.company | Company
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   currency_id | many2one -> res.currency | Currency
+   date_end | datetime | End Date
+   date_start | datetime | Start Date
+   fixed_price | float | Fixed Price
+   id | integer | ID
+   min_quantity | float | Min. Quantity
+   price_discount | float | Price Discount
+   price_max_margin | float | Max. Price Margin
+   price_min_margin | float | Min. Price Margin
+   price_round | float | Price Rounding
+   price_surcharge | float | Extra Fee
+   pricelist_id | many2one -> product.pricelist | Pricelist
+   product_id | many2one -> product.product | Variant
+   product_tmpl_id | many2one -> product.template | Product
+   uom_id | many2one -> uom.uom | Packaging
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  product.pricelist.item =====
+  *applied_on | selection | Apply On [3_global,2_product_category,1_product,0_product_variant]
+  *base | selection | Based on [list_price,standard_price,pricelist]
+  *compute_price | selection | Compute Price [fixed,percentage,formula]
+  *pricelist_id | many2one -> product.pricelist | Pricelist
+   active | boolean | Active
+   base_pricelist_id | many2one -> product.pricelist | Other Pricelist
+   categ_id | many2one -> product.category | Product Category
+   company_id | many2one -> res.company | Company
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   currency_id | many2one -> res.currency | Currency
+   date_end | datetime | End Date
+   date_start | datetime | Start Date
+   fixed_price | float | Fixed Price
+   id | integer | ID
+   min_quantity | float | Min. Quantity
+   percent_price | float | Percentage Price
+   price_discount | float | Price Discount
+   price_max_margin | float | Max. Price Margin
+   price_min_margin | float | Min. Price Margin
+   price_round | float | Price Rounding
+   price_surcharge | float | Price Surcharge
+   product_id | many2one -> product.product | Product Variant
+   product_tmpl_id | many2one -> product.template | Product
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO20  hr.salary.rule =====
+  *amount_select | selection | Amount Type [percentage,property_input,fix,code]
+  *code | char | Code
+  *condition_python | text | Python Condition
+  *condition_select | selection | Based on [none,property_input,domain,python]
+  *name | char | Name
+  *sequence | integer | Sequence
+  *struct_ids | many2many -> hr.payroll.structure | Pay Structures
+   account_credit | many2one -> account.account | Credit Account
+   account_debit | many2one -> account.account | Debit Account
+   active | boolean | Active
+   amount_fix | float | Fixed Amount
+   amount_percentage | float | Percentage (%)
+   amount_percentage_base | char | Percentage based on
+   amount_python_compute | text | Python Code
+   analytic_distribution | json | Analytic Distribution
+   appears_on_employee_cost_dashboard | boolean | Contributes to Employer Cost
+   appears_on_payslip | selection | Visibility [always,never,non_zero]
+   bold | boolean | Bold
+   category_ids | many2many -> hr.salary.rule.category | Categories
+   color | char | Color
+   condition_domain | char | Applicability Domain
+   country_id | many2one -> res.country | Country
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   created_by_user | boolean | Created By User
+   credit_tag_ids | many2many -> account.account.tag | Credit Tax Grids
+   debit_tag_ids | many2many -> account.account.tag | Debit Tax Grids
+   display_in_pdf_extra_info | boolean | Show in extra info section
+   employee_move_line | boolean | Set employee on account line
+   explanation_template | text | Explanation Template
+   hide_amount | boolean | Hide Amount
+   id | integer | ID
+   indented | boolean | Indented
+   input_default_value | float | Default Value
+   input_name | char | Input Name
+   input_section | many2one -> hr.salary.rule.section | Section
+   input_selected_by_default | boolean | Selected by Default
+   input_suffix | char | Input Suffix
+   input_usage_employee | boolean | Input Usage Employee
+   input_usage_payslip | boolean | Available on Payslip
+   italic | boolean | Italic
+   modified_by_user | boolean | Modified By User
+   not_computed_in_net | boolean | Excluded from Net
+   note | html | Description
+   partner_id | many2one -> res.partner | Partner
+   quantity | char | Quantity
+   round_of_computation | integer | Round at which the rule is computed
+   space_above | boolean | Space Above
+   split_move_lines | boolean | Split on names
+   title | boolean | Title only
+   underline | boolean | Underline
+   user_instructions | html | User Instructions
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  hr.salary.rule =====
+  *amount_select | selection | Amount Type [percentage,fix,code]
+  *category_id | many2one -> hr.salary.rule.category | Category
+  *code | char | Code
+  *condition_python | text | Python Condition
+  *condition_select | selection | Condition Based on [none,range,python]
+  *name | char | Name
+  *sequence | integer | Sequence
+  *struct_id | many2one -> hr.payroll.structure | Salary Structure
+   active | boolean | Active
+   amount_fix | float | Fixed Amount
+   amount_percentage | float | Percentage (%)
+   amount_percentage_base | char | Percentage based on
+   amount_python_compute | text | Python Code
+   appears_on_employee_cost_dashboard | boolean | View on Employer Cost Dashboard
+   appears_on_payroll_report | boolean | View on Payroll Reporting
+   appears_on_payslip | boolean | Appears on Payslip
+   condition_range | char | Range Based on
+   condition_range_max | float | Maximum Range
+   condition_range_min | float | Minimum Range
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   id | integer | ID
+   not_computed_in_net | boolean | Not computed in net accountably
+   note | html | Description
+   partner_id | many2one -> res.partner | Partner
+   quantity | char | Quantity
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO20  account.payment.term =====
+  *name | char | Payment Terms
+  *sequence | integer | Sequence
+   active | boolean | Active
+   company_id | many2one -> res.company | Company
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   discount_days | integer | Discount Days
+   discount_percentage | float | Discount %
+   display_on_invoice | boolean | Show installment dates
+   early_discount | boolean | Early Discount
+   early_pay_discount_computation | selection | Cash Discount Tax Reduction [included,excluded,mixed]
+   id | integer | ID
+   line_ids | one2many -> account.payment.term.line | Terms
+   note | html | Description on the Invoice
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  account.payment.term =====
+  *name | char | Payment Terms
+  *sequence | integer | Sequence
+   active | boolean | Active
+   company_id | many2one -> res.company | Company
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   display_on_invoice | boolean | Display terms on invoice
+   id | integer | ID
+   line_ids | one2many -> account.payment.term.line | Terms
+   note | html | Description on the Invoice
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO20  account.payment.term.line =====
+  *delay_type | selection | Delay Type [days_after,days_after_end_of_month,days_after_end_of_next_month,days_end_of_month_on_the]
+  *payment_id | many2one -> account.payment.term | Payment Terms
+  *value | selection | Value [percent,fixed]
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   days_next_month | char | Days on the next month
+   id | integer | ID
+   nb_days | integer | Days
+   value_amount | float | Due
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  account.payment.term.line =====
+  *days | integer | Days
+  *months | integer | Months
+  *payment_id | many2one -> account.payment.term | Payment Terms
+  *value | selection | Type [balance,percent,fixed]
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   days_after | integer | Days after End of month
+   discount_days | integer | Discount Days
+   discount_percentage | float | Discount %
+   end_month | boolean | End of month
+   id | integer | ID
+   value_amount | float | Value
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO20  account.asset =====
+  *company_id | many2one -> res.company | Company
+  *name | char | Asset Name
+   account_asset_id | many2one -> account.account | Fixed Asset Account
+   acquisition_date | date | Date
+   active | boolean | Active
+   analytic_distribution | json | Analytic Distribution
+   asset_group_id | many2one -> account.asset.group | Asset Group
+   asset_properties | properties | Properties
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   currency_id | many2one -> res.currency | Currency
+   derived_asset_ids | one2many -> account.asset | Derived Assets
+   id | integer | ID
+   main_variant_id | many2one -> account.asset.variant | Main Asset
+   non_deductible_tax_value | monetary | Non Deductible Tax Value
+   origin_asset_id | many2one -> account.asset | Original Asset
+   original_move_line_ids | many2many -> account.move.line | Journal Items
+   original_value | monetary | Asset Value
+   variant_ids | one2many -> account.asset.variant | Asset Variants
+   vehicle_id | many2one -> fleet.vehicle | Vehicle
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  account.asset =====
+  *company_id | many2one -> res.company | Company
+  *name | char | Asset Name
+  *prorata_computation_type | selection | Computation [none,constant_periods,daily_computation]
+   account_asset_id | many2one -> account.account | Fixed Asset Account
+   account_depreciation_expense_id | many2one -> account.account | Expense Account
+   account_depreciation_id | many2one -> account.account | Depreciation Account
+   acquisition_date | date | Acquisition Date
+   active | boolean | Active
+   already_depreciated_amount_import | monetary | Already Depreciated Amount Import
+   analytic_distribution | json | Analytic
+   asset_paused_days | float | Asset Paused Days
+   asset_type | selection | Asset Type [sale,purchase,expense]
+   book_value | monetary | Book Value
+   children_ids | one2many -> account.asset | Children
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   currency_id | many2one -> res.currency | Currency
+   depreciation_move_ids | one2many -> account.move | Depreciation Lines
+   disposal_date | date | Disposal Date
+   id | integer | ID
+   journal_id | many2one -> account.journal | Journal
+   method | selection | Method [linear,degressive,degressive_then_linear]
+   method_number | integer | Duration
+   method_period | selection | Number of Months in a Period [1,12]
+   method_progress_factor | float | Declining Factor
+   model_id | many2one -> account.asset | Model
+   non_deductible_tax_value | monetary | Non Deductible Tax Value
+   original_move_line_ids | many2many -> account.move.line | Journal Items
+   original_value | monetary | Original Value
+   parent_id | many2one -> account.asset | Parent
+   prorata_date | date | Prorata Date
+   salvage_value | monetary | Not Depreciable Value
+   state | selection | Status [model,draft,open,paused,close,cancelled]
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO20  stock.warehouse.orderpoint =====
+  *company_id | many2one -> res.company | Company
+  *daily_demand | float | Daily Demand
+  *location_id | many2one -> stock.location | Location
+  *min_max_based_on | selection | Based on [one_week,one_month,three_months,one_year,last_year,last_year_2,last_year_3,last_year_quarter,custom]
+  *min_max_based_on_factor | integer | Min Max Based On Factor
+  *name | char | Name
+  *product_id | many2one -> product.product | Product
+  *product_max_qty | float | Max Quantity
+  *product_min_qty | float | Min Quantity
+  *trigger | selection | Trigger [auto,manual]
+  *warehouse_id | many2one -> stock.warehouse | Warehouse
+   active | boolean | Active
+   bom_id | many2one -> mrp.bom | Bill of Materials
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   deadline_date | date | Deadline
+   id | integer | ID
+   qty_to_order_computed | float | To Order Computed
+   qty_to_order_manual | float | To Order Manual
+   replenishment_uom_id | many2one -> uom.uom | Multiple
+   route_id | many2one -> stock.route | Route
+   snoozed_until | date | Snoozed
+   supplier_id | many2one -> product.supplierinfo | Vendor Pricelist
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by
+
+===== ODOO16  stock.warehouse.orderpoint =====
+  *company_id | many2one -> res.company | Company
+  *location_id | many2one -> stock.location | Location
+  *name | char | Name
+  *product_id | many2one -> product.product | Product
+  *product_max_qty | float | Max Quantity
+  *product_min_qty | float | Min Quantity
+  *qty_multiple | float | Multiple Quantity
+  *trigger | selection | Trigger [auto,manual]
+  *warehouse_id | many2one -> stock.warehouse | Warehouse
+   active | boolean | Active
+   bom_id | many2one -> mrp.bom | Bill of Materials
+   create_date | datetime | Created on
+   create_uid | many2one -> res.users | Created by
+   group_id | many2one -> procurement.group | Procurement Group
+   id | integer | ID
+   manufacturing_visibility_days | float | Manufacturing Visibility Days
+   product_category_id | many2one -> product.category | Product Category
+   purchase_visibility_days | float | Purchase Visibility Days
+   qty_to_order | float | To Order
+   route_id | many2one -> stock.route | Preferred Route
+   snoozed_until | date | Snoozed
+   supplier_id | many2one -> product.supplierinfo | Product Supplier
+   vendor_id | many2one -> res.partner | Vendor
+   write_date | datetime | Last Updated on
+   write_uid | many2one -> res.users | Last Updated by

@@ -1,0 +1,2 @@
+src_id,name,last_error
+652,Distribution Sales (not used),HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.

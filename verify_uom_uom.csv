@@ -1,0 +1,9 @@
+src_id,src_name,src_active,dst_id,dst_name,dst_active,status,dst_ids_same_name
+29,DRM,True,33,DRM,True,SHARED_DST (kai source records aik hi dst record par - merge),
+33,Bag,True,37,Bag,True,SHARED_DST (kai source records aik hi dst record par - merge),
+45,Bag,True,37,Bag,True,SHARED_DST (kai source records aik hi dst record par - merge),
+47,Bag,True,37,Bag,True,SHARED_DST (kai source records aik hi dst record par - merge),
+48,DRM,True,33,DRM,True,SHARED_DST (kai source records aik hi dst record par - merge),
+49,DRM,True,33,DRM,True,SHARED_DST (kai source records aik hi dst record par - merge),
+51,DRM,True,33,DRM,True,SHARED_DST (kai source records aik hi dst record par - merge),
+54,DRM,True,33,DRM,True,SHARED_DST (kai source records aik hi dst record par - merge),

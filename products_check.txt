@@ -1,0 +1,76 @@
+PRODUCTS PRE-CHECK (read-only)
+
+model                                odoo16   odoo20   mapped  uniq_dst  note
+uom.uom                                  55       53       55        49  SHARED_DST 6
+product.category                        140      144      140       140  
+pos.category                            126      126      126       126  
+product.attribute                         2        9        2         2  
+product.attribute.value                  43       43       43        43  
+product.public.category                  10        -        0         0  Odoo20 mein MODEL NAHI (app install karo)
+product.ribbon                            4        -        0         0  Odoo20 mein MODEL NAHI (app install karo)
+product.template                       4357     4351     4346      4346  unmapped ~11
+product.template.attribute.line           7        7        7         7  
+product.product                        4388     4382     4305      4305  unmapped ~83
+product.supplierinfo                   3098     2082     2082      2082  unmapped ~1016
+product.pricelist                         7        8        7         7  
+product.pricelist.item                 2238      930      930       930  unmapped ~1308
+stock.warehouse.orderpoint              317      167      167       167  unmapped ~150
+mrp.bom                                   4        0        0         0  unmapped ~4
+mrp.bom.line                              5        0        0         0  unmapped ~5
+stock.lot                               800        0        0         0  unmapped ~800
+product.packaging                         0        -        0         0  
+product.image                             0        -        0         0  
+product.tag                               0        0        0         0  
+
+SOURCE DUPLICATES (same naam + default_code) - product.template
+  84 groups, jin mein 60 groups mein active + archived dono hain
+   Accesario Para Zacalos DV/DC/DS/DX | ids [1296, 24779] | active [True, False]
+   Adjustment Pin Tz Guide (16248) | ids [24796, 1298] | active [False, True]
+   Aluminium Table Ds/Dx 400mm (54669) | ids [24814, 1300] | active [False, True]
+   Aluminium Table DS/Dx 600mm (54670) | ids [24815, 1299] | active [False, True]
+   Angle Ribbed Insert  30x40x28 (55390) | ids [1301, 24821] | active [True, False]
+   Arm Lateral TI/Tx (12081) | ids [24832, 1302] | active [False, True]
+   Aspiration and Extraction | ids [1303, 24837] | active [True, False]
+   Assembly Handle Star Max | ids [24838, 1304] | active [False, True]
+   Bearing 6000 10x26x8 2RS1 | ids [24874, 1306] | active [False, True]
+   Bearing  626 6-19-6 | ids [1305, 24873] | active [True, False]
+  (fix-merged / run ka 'fix' stage inhe alag records banata hai)
+
+DEPENDENCIES (jo parent records abhi map nahi hue)
+  product.template.categ_id          -> product.category         133 distinct, 0 unmapped 
+  product.template.uom_id            -> uom.uom                   30 distinct, 0 unmapped 
+  product.template.uom_po_id         -> uom.uom                   34 distinct, 0 unmapped 
+  product.template.pos_categ_id      -> pos.category             110 distinct, 0 unmapped 
+  product.template.taxes_id          -> account.tax                1 distinct, 0 unmapped 
+  product.template.supplier_taxes_id -> account.tax                1 distinct, 0 unmapped 
+  product.template.route_ids         -> stock.route                0 distinct, 0 unmapped 
+  product.template.public_categ_ids  -> product.public.category     0 distinct, 0 unmapped 
+  product.supplierinfo.partner_id    -> res.partner               79 distinct, 0 unmapped 
+  product.pricelist.item.categ_id    -> product.category           0 distinct, 0 unmapped 
+  (unmapped ho to pehle ./run_migration.sh 1 (taxes/accounts), 7 (routes) chalao)
+
+BARCODE CONFLICTS (source mein aik barcode aik se zyada variants par)
+  1 barcodes duplicate -> barcode_conflicts.csv (inme se aik ko manually badalna hoga)
+
+FIELDS JIN KA DATA ODOO 20 MEIN NAHI JAYEGA (products_field_loss.csv)
+  product.template           allow_out_of_stock_order     REMOVED_IN_20          4295 records
+  product.template           available_threshold          REMOVED_IN_20          4357 records
+  product.template           compare_list_price           REMOVED_IN_20          191 records
+  product.template           days_to_prepare_mo           REMOVED_IN_20          4357 records
+  product.template           extra_daily                  REMOVED_IN_20          5 records
+  product.template           produce_delay                REMOVED_IN_20          4357 records
+  product.template           purchase_line_warn           REMOVED_IN_20          4357 records
+  product.template           rent_ok                      REMOVED_IN_20          5 records
+  product.template           sale_delay                   TYPE_CHANGED float->in 4357 records
+  product.template           sale_line_warn               REMOVED_IN_20          4357 records
+  product.template           service_to_purchase          REMOVED_IN_20          2 records
+  product.template           website_sequence             REMOVED_IN_20          4357 records
+  product.template           website_size_x               REMOVED_IN_20          4357 records
+  product.template           website_size_y               REMOVED_IN_20          4357 records
+  product.pricelist.item     active                       REMOVED_IN_20          930 records
+  product.pricelist.item     percent_price                REMOVED_IN_20          13 records
+  product.pricelist          discount_policy              REMOVED_IN_20          7 records
+  product.pricelist          selectable                   REMOVED_IN_20          1 records
+  product.pricelist          website_id                   REMOVED_IN_20          6 records
+  product.category           property_stock_account_input_categ_id REMOVED_IN_20          8 records
+  product.category           property_stock_account_output_categ_id REMOVED_IN_20          8 records

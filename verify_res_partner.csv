@@ -1,0 +1,3 @@
+src_id,src_name,src_active,dst_id,dst_name,dst_active,status,dst_ids_same_name
+11,Ahmed Sallam,True,17522,Ahmed Sallam,True,SHARED_DST (kai source records aik hi dst record par - merge),
+18311,Ahmed Sallam,False,17522,Ahmed Sallam,True,SHARED_DST (kai source records aik hi dst record par - merge),

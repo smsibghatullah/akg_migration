@@ -1,0 +1,976 @@
+model,field,type,status
+res.currency,iso_numeric,integer,NEW_IN_20
+res.bank,,,MODEL_MISSING_IN_ODOO20 HTTP 404 res.bank/fields_get: the model 'res.bank' does not exist
+account.account,account_status,one2many,NEW_IN_20
+account.account,account_stock_expense_id,many2one,NEW_IN_20
+account.account,account_stock_variation_id,many2one,NEW_IN_20
+account.account,active,boolean,NEW_IN_20
+account.account,allowed_journal_ids,many2many,REMOVED_IN_20 (Allowed Journals)
+account.account,asset_depreciation_account_id,many2one,NEW_IN_20
+account.account,asset_expense_account_id,many2one,NEW_IN_20
+account.account,asset_model,many2one,REMOVED_IN_20 (Asset Model)
+account.account,asset_properties_definition,properties_definition,NEW_IN_20
+account.account,budget_item_ids,one2many,NEW_IN_20
+account.account,code_mapping_ids,one2many,NEW_IN_20
+account.account,code_store,char,NEW_IN_20
+account.account,company_id,many2one,REMOVED_IN_20 (Company)
+account.account,company_ids,many2many,NEW_IN_20 REQUIRED
+account.account,create_asset,selection,REMOVED_IN_20 (Create Asset)
+account.account,deferred_account_id,many2one,NEW_IN_20
+account.account,deprecated,boolean,REMOVED_IN_20 (Deprecated)
+account.account,depreciation_model_id,many2one,NEW_IN_20
+account.account,description,text,NEW_IN_20
+account.account,fiscal_category_id,many2one,NEW_IN_20
+account.account,group_id,many2one,REMOVED_IN_20 (Group)
+account.account,internal_group,selection,VALUES_REMOVED: off_balance
+account.account,is_deferred,boolean,NEW_IN_20
+account.account,is_off_balance,boolean,REMOVED_IN_20 (Is Off Balance)
+account.account,is_vehicle_account,boolean,NEW_IN_20
+account.account,ledger_depreciation_model_ids,many2many,NEW_IN_20
+account.account,multiple_assets_per_line,boolean,REMOVED_IN_20 (Multiple Assets per Line)
+account.account,parent_id,many2one,NEW_IN_20
+account.account,parent_path,char,NEW_IN_20
+account.account,rate_ids,one2many,NEW_IN_20
+account.tax,account_move_line_ids,many2many,NEW_IN_20
+account.tax,account_reconcile_model_line_ids,many2many,NEW_IN_20
+account.tax,description,char->html,TYPE_CHANGED
+account.tax,fiscal_position_ids,many2many,NEW_IN_20
+account.tax,hr_expense_ids,many2many,NEW_IN_20
+account.tax,invoice_label,char,NEW_IN_20
+account.tax,invoice_legal_notes,html,NEW_IN_20
+account.tax,is_domestic,boolean,NEW_IN_20
+account.tax,is_withholding_tax,boolean,NEW_IN_20
+account.tax,original_tax_ids,many2many,NEW_IN_20
+account.tax,pos_order_line_ids,many2many,NEW_IN_20
+account.tax,price_include_override,selection,NEW_IN_20
+account.tax,purchase_order_line_ids,many2many,NEW_IN_20
+account.tax,real_amount,float,REMOVED_IN_20 (Real amount to apply)
+account.tax,repartition_line_ids,one2many,NEW_IN_20
+account.tax,replacing_tax_ids,many2many,NEW_IN_20
+account.tax,ubl_cii_tax_category_code,selection,NEW_IN_20
+account.tax,ubl_cii_tax_exemption_reason,char,NEW_IN_20
+account.tax,ubl_cii_tax_exemption_reason_code,selection,NEW_IN_20
+account.tax,withholding_sequence_id,many2one,NEW_IN_20
+account.journal,access_token,char,NEW_IN_20
+account.journal,account_control_ids,many2many,REMOVED_IN_20 (Allowed accounts)
+account.journal,check_manual_sequencing,boolean,REMOVED_IN_20 (Manual Numbering)
+account.journal,check_sequence_id,many2one,REMOVED_IN_20 (Check Sequence)
+account.journal,debit_sequence,boolean,NEW_IN_20
+account.journal,disable_dashboard_graph,boolean,NEW_IN_20
+account.journal,edi_format_ids,many2many,REMOVED_IN_20 (Electronic invoicing)
+account.journal,incoming_einvoice_notification_email,char,NEW_IN_20
+account.journal,invoice_reference_type,selection,VALUES_REMOVED: none
+account.journal,invoice_template_pdf_report_id,many2one,NEW_IN_20
+account.journal,is_self_billing,boolean,NEW_IN_20
+account.journal,journal_group_id,many2one,NEW_IN_20
+account.journal,journal_group_ids,many2many,REMOVED_IN_20 (Journal Groups)
+account.journal,loan_properties_definition,properties_definition,NEW_IN_20
+account.journal,non_deductible_account_id,many2one,NEW_IN_20
+account.journal,qif_date_format,selection,REMOVED_IN_20 (QIF Dates format)
+account.journal,qif_decimal_point,char,REMOVED_IN_20 (QIF Decimal Separator)
+account.journal,sale_activity_note,text,REMOVED_IN_20 (Activity Summary)
+account.journal,sale_activity_type_id,many2one,REMOVED_IN_20 (Schedule Activity)
+account.journal,sale_activity_user_id,many2one,REMOVED_IN_20 (Activity User)
+account.journal,secure_sequence_id,many2one,REMOVED_IN_20 (Secure Sequence)
+account.journal,stripe_card_ids,one2many,NEW_IN_20
+account.journal,stripe_issuing_balance,monetary,NEW_IN_20
+account.journal,stripe_issuing_balance_timestamp,integer,NEW_IN_20
+account.fiscal.position,is_domestic,boolean,NEW_IN_20
+account.fiscal.position,tax_ids,one2many->many2many,TYPE_CHANGED
+uom.uom,category_id,many2one,REMOVED_IN_20 (Category)
+uom.uom,package_type_id,many2one,NEW_IN_20
+uom.uom,parent_path,char,NEW_IN_20
+uom.uom,product_uom_ids,one2many,NEW_IN_20
+uom.uom,related_uom_ids,one2many,NEW_IN_20
+uom.uom,relative_factor,float,NEW_IN_20 REQUIRED
+uom.uom,relative_uom_id,many2one,NEW_IN_20
+uom.uom,rounding,float,REMOVED_IN_20 (Rounding Precision)
+uom.uom,sequence,integer,NEW_IN_20
+uom.uom,unece_code,char,NEW_IN_20
+uom.uom,uom_type,selection,REMOVED_IN_20 (Type)
+product.category,company_id,many2one,NEW_IN_20
+product.category,product_properties_definition,properties_definition,NEW_IN_20
+product.category,property_account_billed_not_received_id,many2one,NEW_IN_20
+product.category,property_account_bills_to_receive_id,many2one,NEW_IN_20
+product.category,property_account_invoiced_not_delivered_id,many2one,NEW_IN_20
+product.category,property_account_invoices_to_issue_id,many2one,NEW_IN_20
+product.category,property_price_difference_account_id,many2one,NEW_IN_20
+product.category,property_stock_account_production_cost_id,many2one,NEW_IN_20
+product.category,property_valuation,selection,VALUES_REMOVED: manual_periodic
+pos.category,active,boolean,NEW_IN_20
+pos.category,child_id,one2many,REMOVED_IN_20 (Children Categories)
+pos.category,child_ids,one2many,NEW_IN_20
+pos.category,color,integer,NEW_IN_20
+pos.category,complete_name,char,NEW_IN_20
+pos.category,hour_after,float,NEW_IN_20
+pos.category,hour_until,float,NEW_IN_20
+pos.category,image_512,binary,NEW_IN_20
+pos.category,pos_config_ids,many2many,NEW_IN_20
+product.attribute,active,boolean,NEW_IN_20
+product.attribute,template_value_ids,one2many,NEW_IN_20
+product.attribute,visibility,selection,REMOVED_IN_20 (Visibility)
+product.attribute.value,active,boolean,NEW_IN_20
+product.attribute.value,default_extra_price,float,NEW_IN_20
+product.attribute.value,image,binary,NEW_IN_20
+res.users,all_employee_ids,one2many,NEW_IN_20
+res.users,auth_passkey_key_ids,one2many,NEW_IN_20
+res.users,badge_ids,one2many,REMOVED_IN_20 (Badges)
+res.users,calendar_user_ids,one2many,NEW_IN_20
+res.users,commission_plan_users_ids,one2many,NEW_IN_20
+res.users,device_ids,one2many,NEW_IN_20
+res.users,digest_ids,many2many,NEW_IN_20
+res.users,employee_public_ids,one2many,NEW_IN_20
+res.users,goal_ids,one2many,REMOVED_IN_20 (Goal)
+res.users,group_ids,many2many,NEW_IN_20
+res.users,groups_id,many2many,REMOVED_IN_20 (Groups)
+res.users,im_status,char->selection,TYPE_CHANGED
+res.users,is_ceo,boolean,REMOVED_IN_20 (Is CEO)
+res.users,karma,integer,REMOVED_IN_20 (Karma)
+res.users,karma_tracking_ids,one2many,REMOVED_IN_20 (Karma Changes)
+res.users,manual_im_status,selection,NEW_IN_20
+res.users,next_rank_id,many2one,REMOVED_IN_20 (Next Rank)
+res.users,out_of_office_from,datetime,NEW_IN_20
+res.users,out_of_office_message,html,NEW_IN_20
+res.users,out_of_office_to,datetime,NEW_IN_20
+res.users,presence_ids,one2many,NEW_IN_20
+res.users,primary_calendar_id,many2one,NEW_IN_20
+res.users,rank_id,many2one,REMOVED_IN_20 (Rank)
+res.users,role_ids,many2many,NEW_IN_20
+res.users,session_ids,one2many,NEW_IN_20
+res.users,stripe_card_ids,one2many,NEW_IN_20
+res.users,target_sales_done,integer,REMOVED_IN_20 (Activities Done Target)
+res.users,target_sales_invoiced,integer,REMOVED_IN_20 (Invoiced in Sales Orders Target)
+res.users,target_sales_won,integer,REMOVED_IN_20 (Won in Opportunities Target)
+res.users,tour_enabled,boolean,NEW_IN_20
+res.users,type,selection,"VALUES_REMOVED: followup,private"
+res.users,tz,selection,"VALUES_REMOVED: Africa/Asmera,America/Argentina/ComodRivadavia,America/Buenos_Aires,America/Catamarca,America/Cordoba,America/Fort_Wayne,America/Godthab,America/Indianapolis,America/Jujuy,America/Knox_IN,America/Louisville,America/Mendoza,America/Rosario,Antarctica/South_Pole,Asia/Ashkhabad,Asia/Calcutta,Asia/Chungking,Asia/Dacca,Asia/Katmandu,Asia/Macao,Asia/Rangoon,Asia/Saigon,Asia/Thimbu,Asia/Ujung_Pandang,Asia/Ulan_Bator,Atlantic/Faeroe,Australia/ACT,Australia/LHI,Australia/NSW,Australia/North,Australia/Queensland,Australia/South,Australia/Tasmania,Australia/Victoria,Australia/West,Brazil/Acre,Brazil/DeNoronha,Brazil/East,Brazil/West,Canada/Atlantic,Canada/Central,Canada/Eastern,Canada/Mountain,Canada/Newfoundland,Canada/Pacific,Canada/Saskatchewan,Canada/Yukon,Chile/Continental,Chile/EasterIsland,Cuba,Egypt,Eire,Europe/Kiev,Europe/Uzhgorod,Europe/Zaporozhye,GB,GB-Eire,GMT+0,GMT-0,GMT0,Greenwich,Hongkong,Iceland,Iran,Israel,Jamaica,Japan,Kwajalein,Libya,Mexico/BajaNorte,Mexico/BajaSur,Mexico/General,NZ,NZ-CHAT,Navajo,PRC,Pacific/Enderbury,Pacific/Ponape,Pacific/Truk,Poland,Portugal,ROC,ROK,Singapore,Turkey,UCT,US/Alaska,US/Aleutian,US/Arizona,US/Central,US/East-Indiana,US/Eastern,US/Hawaii,US/Indiana-Starke,US/Michigan,US/Mountain,US/Pacific,US/Samoa,Universal,W-SU,Zulu"
+hr.job,contract_type_id,many2one,REMOVED_IN_20 (Employment Type)
+hr.job,employee_type_id,many2one,NEW_IN_20
+hr.job,job_skill_ids,one2many,NEW_IN_20
+hr.job,no_of_hired_employee,integer,REMOVED_IN_20 (Hired Employees)
+hr.job,recruiter_id,many2one,NEW_IN_20
+hr.job,skill_ids,many2many,NEW_IN_20
+resource.calendar,calendar_type,selection,NEW_IN_20 REQUIRED
+resource.calendar,days_per_week,float,NEW_IN_20
+resource.calendar,leave_accrual_plan_id,many2one,NEW_IN_20
+resource.calendar,reference_calendar_id,many2one,NEW_IN_20
+resource.calendar,two_weeks_calendar,boolean,REMOVED_IN_20 (Calendar in 2 weeks mode)
+resource.calendar,tz,selection,REMOVED_IN_20 (Timezone)
+resource.calendar,version_ids,one2many,NEW_IN_20
+resource.calendar.attendance,category_options_ids,many2many,NEW_IN_20
+resource.calendar.attendance,date,date,NEW_IN_20
+resource.calendar.attendance,date_from,date,REMOVED_IN_20 (Starting Date)
+resource.calendar.attendance,date_to,date,REMOVED_IN_20 (End Date)
+resource.calendar.attendance,display_type,selection,REMOVED_IN_20 (Display Type)
+resource.calendar.attendance,duration_based,boolean,NEW_IN_20
+resource.calendar.attendance,duration_hours,float,NEW_IN_20
+resource.calendar.attendance,name,char,REMOVED_IN_20 (Name)
+resource.calendar.attendance,recurrency,boolean,NEW_IN_20
+resource.calendar.attendance,recurrency_count,integer,NEW_IN_20
+resource.calendar.attendance,recurrency_end_type,selection,NEW_IN_20
+resource.calendar.attendance,recurrency_excluded_occurences,json,NEW_IN_20
+resource.calendar.attendance,recurrency_interval,integer,NEW_IN_20
+resource.calendar.attendance,recurrency_type,selection,NEW_IN_20
+resource.calendar.attendance,recurrency_until,date,NEW_IN_20
+resource.calendar.attendance,resource_id,many2one,REMOVED_IN_20 (Resource)
+resource.calendar.attendance,week_type,selection,REMOVED_IN_20 (Week Number)
+hr.work.location,location_type,selection,NEW_IN_20 REQUIRED
+hr.departure.reason,active,boolean,NEW_IN_20
+hr.departure.reason,country_id,many2one,NEW_IN_20
+hr.employee,address_home_id,many2one,REMOVED_IN_20 (Address)
+hr.employee,attendance_manager_id,many2one,NEW_IN_20
+hr.employee,bank_account_id,many2one,REMOVED_IN_20 (Bank Account Number)
+hr.employee,bank_account_ids,many2many,NEW_IN_20
+hr.employee,birthday_month,selection,NEW_IN_20
+hr.employee,birthday_public_display,boolean,NEW_IN_20
+hr.employee,contract_id,many2one,REMOVED_IN_20 (Current Contract)
+hr.employee,contract_ids,one2many,REMOVED_IN_20 (Employee Contracts)
+hr.employee,contract_template_id,many2one,NEW_IN_20
+hr.employee,contract_warning,boolean,REMOVED_IN_20 (Contract Warning)
+hr.employee,current_leave_state,selection,VALUES_REMOVED: draft
+hr.employee,current_version_id,many2one,NEW_IN_20
+hr.employee,date_to_review,datetime,NEW_IN_20
+hr.employee,direct_badge_ids,one2many,REMOVED_IN_20 (Direct Badge)
+hr.employee,driving_license_name,char,NEW_IN_20
+hr.employee,employee_properties,properties,NEW_IN_20
+hr.employee,employee_type,selection,REMOVED_IN_20 (Employee Type)
+hr.employee,external_code,char,NEW_IN_20
+hr.employee,friday_location_id,many2one,NEW_IN_20
+hr.employee,gender,selection,REMOVED_IN_20 (Gender)
+hr.employee,hr_icon_display,selection,"VALUES_REMOVED: presence_absent_active,presence_to_define"
+hr.employee,hr_presence_state,selection,VALUES_REMOVED: to_define
+hr.employee,id_card_name,char,NEW_IN_20
+hr.employee,internet_invoice_name,char,NEW_IN_20
+hr.employee,leave_ids,one2many,NEW_IN_20
+hr.employee,legal_name,char,NEW_IN_20
+hr.employee,mobility_card,char,REMOVED_IN_20 (Mobility Card)
+hr.employee,monday_location_id,many2one,NEW_IN_20
+hr.employee,notes,text,REMOVED_IN_20 (Notes)
+hr.employee,overtime_ids,one2many,REMOVED_IN_20 (Overtime)
+hr.employee,phone_sanitized,char,NEW_IN_20
+hr.employee,private_phone,char,NEW_IN_20
+hr.employee,private_stripe_id,char,NEW_IN_20
+hr.employee,review_state,selection,NEW_IN_20 REQUIRED
+hr.employee,salary_distribution,json,NEW_IN_20
+hr.employee,saturday_location_id,many2one,NEW_IN_20
+hr.employee,sim_card_name,char,NEW_IN_20
+hr.employee,sinid,char,REMOVED_IN_20 (SIN No)
+hr.employee,ssnid,char,REMOVED_IN_20 (SSN No)
+hr.employee,study_school,char,REMOVED_IN_20 (School)
+hr.employee,sunday_location_id,many2one,NEW_IN_20
+hr.employee,thursday_location_id,many2one,NEW_IN_20
+hr.employee,today_location_name,char,NEW_IN_20
+hr.employee,tuesday_location_id,many2one,NEW_IN_20
+hr.employee,tz,selection,"VALUES_REMOVED: Africa/Asmera,America/Argentina/ComodRivadavia,America/Buenos_Aires,America/Catamarca,America/Cordoba,America/Fort_Wayne,America/Godthab,America/Indianapolis,America/Jujuy,America/Knox_IN,America/Louisville,America/Mendoza,America/Rosario,Antarctica/South_Pole,Asia/Ashkhabad,Asia/Calcutta,Asia/Chungking,Asia/Dacca,Asia/Katmandu,Asia/Macao,Asia/Rangoon,Asia/Saigon,Asia/Thimbu,Asia/Ujung_Pandang,Asia/Ulan_Bator,Atlantic/Faeroe,Australia/ACT,Australia/LHI,Australia/NSW,Australia/North,Australia/Queensland,Australia/South,Australia/Tasmania,Australia/Victoria,Australia/West,Brazil/Acre,Brazil/DeNoronha,Brazil/East,Brazil/West,Canada/Atlantic,Canada/Central,Canada/Eastern,Canada/Mountain,Canada/Newfoundland,Canada/Pacific,Canada/Saskatchewan,Canada/Yukon,Chile/Continental,Chile/EasterIsland,Cuba,Egypt,Eire,Europe/Kiev,Europe/Uzhgorod,Europe/Zaporozhye,GB,GB-Eire,GMT+0,GMT-0,GMT0,Greenwich,Hongkong,Iceland,Iran,Israel,Jamaica,Japan,Kwajalein,Libya,Mexico/BajaNorte,Mexico/BajaSur,Mexico/General,NZ,NZ-CHAT,Navajo,PRC,Pacific/Enderbury,Pacific/Ponape,Pacific/Truk,Poland,Portugal,ROC,ROK,Singapore,Turkey,UCT,US/Alaska,US/Aleutian,US/Arizona,US/Central,US/East-Indiana,US/Eastern,US/Hawaii,US/Indiana-Starke,US/Michigan,US/Mountain,US/Pacific,US/Samoa,Universal,W-SU,Zulu"
+hr.employee,vehicle,char,REMOVED_IN_20 (Company Vehicle)
+hr.employee,version_ids,one2many,NEW_IN_20 REQUIRED
+hr.employee,wednesday_location_id,many2one,NEW_IN_20
+hr.contract->hr.version,address_id,many2one,NEW_IN_20
+hr.contract->hr.version,allocation_from_working_schedule_id,many2one,NEW_IN_20
+hr.contract->hr.version,analytic_account_id,many2one,REMOVED_IN_20 (Analytic Account)
+hr.contract->hr.version,analytic_distribution,json,NEW_IN_20
+hr.contract->hr.version,attendance_based,boolean,NEW_IN_20
+hr.contract->hr.version,calendar_changed,boolean,REMOVED_IN_20 (Calendar Changed)
+hr.contract->hr.version,children,integer,NEW_IN_20
+hr.contract->hr.version,contract_date_end,date,NEW_IN_20
+hr.contract->hr.version,contract_date_start,date,NEW_IN_20
+hr.contract->hr.version,contract_template_id,many2one,NEW_IN_20
+hr.contract->hr.version,contract_type_id,many2one,REMOVED_IN_20 (Contract Type)
+hr.contract->hr.version,country_id,many2one,NEW_IN_20
+hr.contract->hr.version,date_generated_from,datetime,REMOVED_IN_20 (Generated From)
+hr.contract->hr.version,date_generated_to,datetime,REMOVED_IN_20 (Generated To)
+hr.contract->hr.version,date_to_review,datetime,NEW_IN_20
+hr.contract->hr.version,date_version,date,NEW_IN_20 REQUIRED
+hr.contract->hr.version,departure_id,many2one,NEW_IN_20
+hr.contract->hr.version,disabled,boolean,NEW_IN_20
+hr.contract->hr.version,distance_home_work,integer,NEW_IN_20
+hr.contract->hr.version,distance_home_work_unit,selection,NEW_IN_20 REQUIRED
+hr.contract->hr.version,employee_type_id,many2one,NEW_IN_20
+hr.contract->hr.version,final_yearly_costs,monetary,NEW_IN_20
+hr.contract->hr.version,fixed_term,boolean,NEW_IN_20
+hr.contract->hr.version,holidays,float,NEW_IN_20
+hr.contract->hr.version,hourly_wage,monetary->float,TYPE_CHANGED
+hr.contract->hr.version,identification_id,char,NEW_IN_20
+hr.contract->hr.version,is_custom_job_title,boolean,NEW_IN_20
+hr.contract->hr.version,is_non_resident,boolean,NEW_IN_20
+hr.contract->hr.version,job_title,char,NEW_IN_20
+hr.contract->hr.version,kanban_state,selection,REMOVED_IN_20 (Kanban State)
+hr.contract->hr.version,km_home_work,integer,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_maternity_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_old_age_disability_death_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_sick_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_unemployment_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_work_injury_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_is_eos_eligible,boolean,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_maternity_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_old_age_disability_death_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_sick_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_unemployment_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_work_injury_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_identification_type,selection,NEW_IN_20
+hr.contract->hr.version,l10n_sa_housing_allowance,monetary,REMOVED_IN_20 (Saudi Housing Allowance)
+hr.contract->hr.version,l10n_sa_number_of_days,integer,REMOVED_IN_20 (Saudi Number of Days)
+hr.contract->hr.version,l10n_sa_other_allowances,monetary,REMOVED_IN_20 (Saudi Other Allowances)
+hr.contract->hr.version,l10n_sa_transportation_allowance,monetary,REMOVED_IN_20 (Saudi Transportation Allowance)
+hr.contract->hr.version,last_generation_date,date,REMOVED_IN_20 (Last Generation Date)
+hr.contract->hr.version,last_modified_date,datetime,NEW_IN_20 REQUIRED
+hr.contract->hr.version,last_modified_uid,many2one,NEW_IN_20 REQUIRED
+hr.contract->hr.version,marital,selection,NEW_IN_20 REQUIRED
+hr.contract->hr.version,notes,html,REMOVED_IN_20 (Notes)
+hr.contract->hr.version,passport_expiration_date,date,NEW_IN_20
+hr.contract->hr.version,passport_id,char,NEW_IN_20
+hr.contract->hr.version,payroll_config_id,many2one,NEW_IN_20
+hr.contract->hr.version,payroll_properties,properties,NEW_IN_20
+hr.contract->hr.version,payslip_run_ids,many2many,NEW_IN_20
+hr.contract->hr.version,private_city,char,NEW_IN_20
+hr.contract->hr.version,private_country_id,many2one,NEW_IN_20
+hr.contract->hr.version,private_state_id,many2one,NEW_IN_20
+hr.contract->hr.version,private_street,char,NEW_IN_20
+hr.contract->hr.version,private_street2,char,NEW_IN_20
+hr.contract->hr.version,private_zip,char,NEW_IN_20
+hr.contract->hr.version,review_state,selection,NEW_IN_20
+hr.contract->hr.version,sex,selection,NEW_IN_20
+hr.contract->hr.version,spouse_birthdate,date,NEW_IN_20
+hr.contract->hr.version,spouse_complete_name,char,NEW_IN_20
+hr.contract->hr.version,standard_calendar_id,many2one,REMOVED_IN_20 (Standard Calendar)
+hr.contract->hr.version,state,selection,REMOVED_IN_20 (Status)
+hr.contract->hr.version,structure_id,many2one,NEW_IN_20
+hr.contract->hr.version,time_credit,boolean,REMOVED_IN_20 (Part Time)
+hr.contract->hr.version,time_credit_type_id,many2one,REMOVED_IN_20 (Part Time Work Entry Type)
+hr.contract->hr.version,tz,selection,NEW_IN_20 REQUIRED
+hr.contract->hr.version,work_entry_source,selection,REMOVED_IN_20 (Work Entry Source)
+hr.contract->hr.version,work_location_id,many2one,NEW_IN_20
+res.partner,additional_identifiers,json,NEW_IN_20
+res.partner,additional_info,char,REMOVED_IN_20 (Additional info)
+res.partner,autopost_bills,selection,NEW_IN_20 REQUIRED
+res.partner,buyer_id,many2one,NEW_IN_20
+res.partner,channel_member_ids,one2many,NEW_IN_20
+res.partner,city_id,many2one,NEW_IN_20
+res.partner,company_name,char,REMOVED_IN_20 (Company Name)
+res.partner,company_registry,char,REMOVED_IN_20 (Company ID)
+res.partner,complete_name,char,NEW_IN_20
+res.partner,credit_blocking,monetary,REMOVED_IN_20 (Blocking Amount)
+res.partner,credit_check,boolean,REMOVED_IN_20 (Active Credit)
+res.partner,credit_warning,monetary,REMOVED_IN_20 (Warning Amount)
+res.partner,date,date,REMOVED_IN_20 (Date)
+res.partner,debit_limit,monetary,REMOVED_IN_20 (Payable Limit)
+res.partner,group_on,selection,NEW_IN_20 REQUIRED
+res.partner,group_rfq,selection,NEW_IN_20 REQUIRED
+res.partner,ignore_abnormal_invoice_amount,boolean,NEW_IN_20
+res.partner,ignore_abnormal_invoice_date,boolean,NEW_IN_20
+res.partner,incoterm_id,many2one,NEW_IN_20
+res.partner,incoterm_location,char,NEW_IN_20
+res.partner,invoice_edi_format_store,char,NEW_IN_20
+res.partner,invoice_sending_method,selection,NEW_IN_20
+res.partner,invoice_template_pdf_report_id,many2one,NEW_IN_20
+res.partner,invoice_warn,selection,REMOVED_IN_20 (Invoice)
+res.partner,invoice_warn_msg,text,REMOVED_IN_20 (Message for Invoice)
+res.partner,is_created_by_ocr,boolean,NEW_IN_20
+res.partner,last_time_entries_checked,datetime,REMOVED_IN_20 (Latest Invoices & Payments Matching Date)
+res.partner,mobile,char,REMOVED_IN_20 (Mobile)
+res.partner,online_partner_information,char,REMOVED_IN_20 (Online Partner Information)
+res.partner,partner_gid,integer,REMOVED_IN_20 (Company database ID)
+res.partner,picking_warn,selection,REMOVED_IN_20 (Stock Picking)
+res.partner,plan_to_change_bike,boolean,REMOVED_IN_20 (Plan To Change Bike)
+res.partner,plan_to_change_car,boolean,REMOVED_IN_20 (Plan To Change Car)
+res.partner,properties,properties,NEW_IN_20
+res.partner,property_inbound_payment_method_line_id,many2one,NEW_IN_20
+res.partner,property_outbound_payment_method_line_id,many2one,NEW_IN_20
+res.partner,publish_on,datetime,NEW_IN_20
+res.partner,published_date,datetime,NEW_IN_20
+res.partner,purchase_incoterm_id,many2one,NEW_IN_20
+res.partner,purchase_incoterm_location,char,NEW_IN_20
+res.partner,purchase_warn,selection,REMOVED_IN_20 (Purchase Order)
+res.partner,qr_code_method,selection,NEW_IN_20
+res.partner,routing_endpoint,char,NEW_IN_20
+res.partner,routing_scheme,selection,NEW_IN_20
+res.partner,rtc_session_ids,one2many,NEW_IN_20
+res.partner,sale_warn,selection,REMOVED_IN_20 (Sales Warnings)
+res.partner,seo_name,char,REMOVED_IN_20 (Seo name)
+res.partner,should_be_geolocalized,boolean,NEW_IN_20
+res.partner,signup_expiration,datetime,REMOVED_IN_20 (Signup Expiration)
+res.partner,specific_property_product_pricelist,many2one,NEW_IN_20
+res.partner,street_name,char,NEW_IN_20
+res.partner,street_number,char,NEW_IN_20
+res.partner,street_number2,char,NEW_IN_20
+res.partner,suggest_based_on,char,NEW_IN_20
+res.partner,suggest_days,integer,NEW_IN_20
+res.partner,suggest_percent,integer,NEW_IN_20
+res.partner,team_id,many2one,REMOVED_IN_20 (Sales Team)
+res.partner,title,many2one,REMOVED_IN_20 (Title)
+res.partner,type,selection,"VALUES_REMOVED: followup,private"
+res.partner,tz,selection,"VALUES_REMOVED: Africa/Asmera,America/Argentina/ComodRivadavia,America/Buenos_Aires,America/Catamarca,America/Cordoba,America/Fort_Wayne,America/Godthab,America/Indianapolis,America/Jujuy,America/Knox_IN,America/Louisville,America/Mendoza,America/Rosario,Antarctica/South_Pole,Asia/Ashkhabad,Asia/Calcutta,Asia/Chungking,Asia/Dacca,Asia/Katmandu,Asia/Macao,Asia/Rangoon,Asia/Saigon,Asia/Thimbu,Asia/Ujung_Pandang,Asia/Ulan_Bator,Atlantic/Faeroe,Australia/ACT,Australia/LHI,Australia/NSW,Australia/North,Australia/Queensland,Australia/South,Australia/Tasmania,Australia/Victoria,Australia/West,Brazil/Acre,Brazil/DeNoronha,Brazil/East,Brazil/West,Canada/Atlantic,Canada/Central,Canada/Eastern,Canada/Mountain,Canada/Newfoundland,Canada/Pacific,Canada/Saskatchewan,Canada/Yukon,Chile/Continental,Chile/EasterIsland,Cuba,Egypt,Eire,Europe/Kiev,Europe/Uzhgorod,Europe/Zaporozhye,GB,GB-Eire,GMT+0,GMT-0,GMT0,Greenwich,Hongkong,Iceland,Iran,Israel,Jamaica,Japan,Kwajalein,Libya,Mexico/BajaNorte,Mexico/BajaSur,Mexico/General,NZ,NZ-CHAT,Navajo,PRC,Pacific/Enderbury,Pacific/Ponape,Pacific/Truk,Poland,Portugal,ROC,ROK,Singapore,Turkey,UCT,US/Alaska,US/Aleutian,US/Arizona,US/Central,US/East-Indiana,US/Eastern,US/Hawaii,US/Indiana-Starke,US/Michigan,US/Mountain,US/Pacific,US/Samoa,Universal,W-SU,Zulu"
+res.partner,website_description,html,REMOVED_IN_20 (Website Partner Full Description)
+res.partner,website_meta_description,text,REMOVED_IN_20 (Website meta description)
+res.partner,website_meta_keywords,char,REMOVED_IN_20 (Website meta keywords)
+res.partner,website_meta_og_img,char,REMOVED_IN_20 (Website opengraph image)
+res.partner,website_meta_title,char,REMOVED_IN_20 (Website meta title)
+res.partner,website_short_description,text,REMOVED_IN_20 (Website Partner Short Description)
+res.partner,x_studio_mobile,char,REMOVED_IN_20 (Mobile)
+res.partner,x_studio_tax_id,char,REMOVED_IN_20 (Tax ID)
+res.partner.bank,acc_holder_name,char,REMOVED_IN_20 (Account Holder Name)
+res.partner.bank,acc_number,char,REMOVED_IN_20 (Account Number)
+res.partner.bank,account_number,char,NEW_IN_20 REQUIRED
+res.partner.bank,bank_id,many2one,REMOVED_IN_20 (Bank)
+res.partner.bank,city,char,NEW_IN_20
+res.partner.bank,clearing_label_id,many2one,NEW_IN_20 REQUIRED
+res.partner.bank,clearing_number,char,NEW_IN_20
+res.partner.bank,country_id,many2one,NEW_IN_20
+res.partner.bank,currency_id,many2one,REMOVED_IN_20 (Currency)
+res.partner.bank,has_phishing_warnings,boolean,NEW_IN_20
+res.partner.bank,holder_name,char,NEW_IN_20
+res.partner.bank,note,text,NEW_IN_20
+res.partner.bank,related_moves,one2many,NEW_IN_20
+res.partner.bank,sanitized_acc_number,char,REMOVED_IN_20 (Sanitized Account Number)
+res.partner.bank,sanitized_account_number,char,NEW_IN_20
+res.partner.bank,state_id,many2one,NEW_IN_20
+res.partner.bank,street,char,NEW_IN_20
+res.partner.bank,street2,char,NEW_IN_20
+res.partner.bank,zip,char,NEW_IN_20
+product.template,accessory_product_ids,many2many,REMOVED_IN_20 (Accessory Products)
+product.template,allow_out_of_stock_order,boolean,REMOVED_IN_20 (Continue selling when out-of-stock)
+product.template,alternative_product_ids,many2many,REMOVED_IN_20 (Alternative Products)
+product.template,available_threshold,float,REMOVED_IN_20 (Show Threshold)
+product.template,combo_ids,many2many,NEW_IN_20
+product.template,compare_list_price,float,REMOVED_IN_20 (Compare to Price)
+product.template,days_to_prepare_mo,float,REMOVED_IN_20 (Days to prepare Manufacturing Order)
+product.template,detailed_type,selection,REMOVED_IN_20 (Product Type)
+product.template,expense_policy,selection,REMOVED_IN_20 (Re-Invoice Expenses)
+product.template,fixed_pricelist_rule_ids,one2many,NEW_IN_20
+product.template,is_favorite,boolean,NEW_IN_20
+product.template,is_published,boolean,REMOVED_IN_20 (Is Published)
+product.template,is_storable,boolean,NEW_IN_20
+product.template,landed_cost_on_product_ids,many2many,NEW_IN_20
+product.template,lot_sequence_id,many2one,NEW_IN_20
+product.template,lot_valuated,boolean,NEW_IN_20
+product.template,out_of_stock_message,html,REMOVED_IN_20 (Out-of-Stock Message)
+product.template,pickup_time,float,NEW_IN_20
+product.template,pos_categ_id,many2one,REMOVED_IN_20 (Point of Sale Category)
+product.template,pos_categ_ids,many2many,NEW_IN_20
+product.template,pos_optional_product_ids,many2many,NEW_IN_20
+product.template,pos_sequence,integer,NEW_IN_20
+product.template,pricelist_rule_ids,one2many,NEW_IN_20
+product.template,priority,selection,REMOVED_IN_20 (Favorite)
+product.template,produce_delay,float,REMOVED_IN_20 (Manufacturing Lead Time)
+product.template,product_document_ids,one2many,NEW_IN_20
+product.template,product_pricing_ids,one2many,REMOVED_IN_20 (Custom Pricings)
+product.template,product_properties,properties,NEW_IN_20
+product.template,product_template_image_ids,one2many,REMOVED_IN_20 (Extra Product Media)
+product.template,public_categ_ids,many2many,REMOVED_IN_20 (Website Product Category)
+product.template,public_description,html,NEW_IN_20
+product.template,purchase_line_warn,selection,REMOVED_IN_20 (Purchase Order Line Warning)
+product.template,rating_ids,one2many,REMOVED_IN_20 (Rating)
+product.template,rating_last_value,float,REMOVED_IN_20 (Rating Last Value)
+product.template,reinvoice_policy,selection,NEW_IN_20
+product.template,rent_ok,boolean,REMOVED_IN_20 (Can be Rented)
+product.template,rent_periodicity,selection,NEW_IN_20
+product.template,return_time,float,NEW_IN_20
+product.template,salary_rule_ids,many2many,NEW_IN_20
+product.template,sale_delay,float->integer,TYPE_CHANGED
+product.template,sale_line_warn,selection,REMOVED_IN_20 (Sales Order Line)
+product.template,seo_name,char,REMOVED_IN_20 (Seo name)
+product.template,service_tracking,selection,NEW_IN_20 REQUIRED
+product.template,show_availability,boolean,REMOVED_IN_20 (Show availability Qty)
+product.template,tracking,selection,VALUES_REMOVED: none
+product.template,type,selection,VALUES_REMOVED: product
+product.template,uom_ids,many2many,NEW_IN_20
+product.template,uom_po_id,many2one,REMOVED_IN_20 (Purchase UoM)
+product.template,valuation,selection,VALUES_REMOVED: manual_periodic
+product.template,website_description,html,REMOVED_IN_20 (Description for the website)
+product.template,website_id,many2one,REMOVED_IN_20 (Website)
+product.template,website_meta_description,text,REMOVED_IN_20 (Website meta description)
+product.template,website_meta_keywords,char,REMOVED_IN_20 (Website meta keywords)
+product.template,website_meta_og_img,char,REMOVED_IN_20 (Website opengraph image)
+product.template,website_meta_title,char,REMOVED_IN_20 (Website meta title)
+product.template,website_ribbon_id,many2one,REMOVED_IN_20 (Ribbon)
+product.template,website_sequence,integer,REMOVED_IN_20 (Website Sequence)
+product.template,website_size_x,integer,REMOVED_IN_20 (Size X)
+product.template,website_size_y,integer,REMOVED_IN_20 (Size Y)
+product.template.attribute.line,sequence,integer,NEW_IN_20
+product.product,expense_job_position_limit_ids,one2many,NEW_IN_20
+product.product,extra_uom_ids,many2many,NEW_IN_20
+product.product,is_favorite,boolean,NEW_IN_20
+product.product,is_image_fetch_pending,boolean,NEW_IN_20
+product.product,lot_properties_definition,properties_definition,NEW_IN_20
+product.product,packaging_ids,one2many,REMOVED_IN_20 (Product Packages)
+product.product,product_document_ids,one2many,NEW_IN_20
+product.product,product_uom_ids,one2many,NEW_IN_20
+product.product,product_variant_image_ids,one2many,REMOVED_IN_20 (Extra Variant Images)
+product.product,sale_delay,float->integer,TYPE_CHANGED
+product.product,stock_notification_partner_ids,many2many,REMOVED_IN_20 (Back in stock Notifications)
+product.product,stock_valuation_layer_ids,one2many,REMOVED_IN_20 (Stock Valuation Layer)
+product.product,stripe_mcc_ids,one2many,NEW_IN_20
+product.product,tracking,selection,VALUES_REMOVED: none
+product.product,type,selection,VALUES_REMOVED: product
+product.product,valuation,selection,VALUES_REMOVED: manual_periodic
+product.supplierinfo,discount,float,NEW_IN_20
+product.supplierinfo,uom_id,many2one,NEW_IN_20 REQUIRED
+product.pricelist,code,char,REMOVED_IN_20 (E-commerce Promotional Code)
+product.pricelist,discount_policy,selection,REMOVED_IN_20 (Discount Policy)
+product.pricelist,product_pricing_ids,one2many,REMOVED_IN_20 (Recurring Price Rules)
+product.pricelist,selectable,boolean,REMOVED_IN_20 (Selectable)
+product.pricelist,website_id,many2one,REMOVED_IN_20 (Website)
+product.pricelist.item,active,boolean,REMOVED_IN_20 (Active)
+product.pricelist.item,compute_price,selection,"VALUES_REMOVED: formula,percentage"
+product.pricelist.item,percent_price,float,REMOVED_IN_20 (Percentage Price)
+product.pricelist.item,uom_id,many2one,NEW_IN_20
+stock.warehouse,crossdock_route_id,many2one,REMOVED_IN_20 (Crossdock Route)
+stock.warehouse,qc_type_id,many2one,NEW_IN_20
+stock.warehouse,return_type_id,many2one,REMOVED_IN_20 (Return Type)
+stock.warehouse,store_type_id,many2one,NEW_IN_20
+stock.warehouse,xdock_type_id,many2one,NEW_IN_20
+stock.location,comment,html,REMOVED_IN_20 (Additional Information)
+stock.location,posx,integer,REMOVED_IN_20 (Corridor (X))
+stock.location,posy,integer,REMOVED_IN_20 (Shelves (Y))
+stock.location,posz,integer,REMOVED_IN_20 (Height (Z))
+stock.location,return_location,boolean,REMOVED_IN_20 (Is a Return Location?)
+stock.location,scrap_location,boolean,REMOVED_IN_20 (Is a Scrap Location?)
+stock.location,valuation_account_id,many2one,NEW_IN_20
+stock.location,valuation_in_account_id,many2one,REMOVED_IN_20 (Stock Valuation Account (Incoming))
+stock.location,valuation_out_account_id,many2one,REMOVED_IN_20 (Stock Valuation Account (Outgoing))
+stock.route,package_type_selectable,boolean,NEW_IN_20
+stock.route,packaging_ids,many2many,REMOVED_IN_20 (Packagings)
+stock.route,packaging_selectable,boolean,REMOVED_IN_20 (Applicable on Packaging)
+stock.rule,group_id,many2one,REMOVED_IN_20 (Fixed Procurement Group)
+stock.rule,group_propagation_option,selection,REMOVED_IN_20 (Propagation of Procurement Group)
+stock.rule,location_dest_from_rule,boolean,NEW_IN_20
+stock.rule,picking_type_code_domain,char->json,TYPE_CHANGED
+stock.rule,propagate_warehouse_id,many2one,REMOVED_IN_20 (Warehouse to Propagate)
+stock.rule,push_domain,char,NEW_IN_20
+stock.picking.type,allocated_location_id,many2one,NEW_IN_20
+stock.picking.type,auto_batch,boolean,NEW_IN_20
+stock.picking.type,auto_close_production,boolean,NEW_IN_20
+stock.picking.type,auto_confirm_production,boolean,NEW_IN_20
+stock.picking.type,auto_print_delivery_slip,boolean,NEW_IN_20
+stock.picking.type,auto_print_done_mrp_lot,boolean,NEW_IN_20
+stock.picking.type,auto_print_done_mrp_product_labels,boolean,NEW_IN_20
+stock.picking.type,auto_print_done_production_order,boolean,NEW_IN_20
+stock.picking.type,auto_print_generated_mrp_lot,boolean,NEW_IN_20
+stock.picking.type,auto_print_lot_labels,boolean,NEW_IN_20
+stock.picking.type,auto_print_mrp_reception_report,boolean,NEW_IN_20
+stock.picking.type,auto_print_mrp_reception_report_labels,boolean,NEW_IN_20
+stock.picking.type,auto_print_package_label,boolean,NEW_IN_20
+stock.picking.type,auto_print_packages,boolean,NEW_IN_20
+stock.picking.type,auto_print_product_labels,boolean,NEW_IN_20
+stock.picking.type,auto_print_reception_report,boolean,NEW_IN_20
+stock.picking.type,auto_print_reception_report_labels,boolean,NEW_IN_20
+stock.picking.type,auto_print_return_slip,boolean,NEW_IN_20
+stock.picking.type,auto_show_allocation_report,boolean,NEW_IN_20
+stock.picking.type,auto_show_reception_report,boolean,REMOVED_IN_20 (Show Reception Report at Validation)
+stock.picking.type,barcode_allow_extra_product,boolean,NEW_IN_20
+stock.picking.type,barcode_default_snln_generation,selection,NEW_IN_20
+stock.picking.type,batch_auto_confirm,boolean,NEW_IN_20
+stock.picking.type,batch_group_by_dest_loc,boolean,NEW_IN_20
+stock.picking.type,batch_group_by_destination,boolean,NEW_IN_20
+stock.picking.type,batch_group_by_partner,boolean,NEW_IN_20
+stock.picking.type,batch_group_by_src_loc,boolean,NEW_IN_20
+stock.picking.type,batch_max_lines,integer,NEW_IN_20
+stock.picking.type,batch_max_pickings,integer,NEW_IN_20
+stock.picking.type,batch_properties_definition,properties_definition,NEW_IN_20
+stock.picking.type,done_mrp_lot_label_to_print,selection,NEW_IN_20
+stock.picking.type,favorite_user_ids,many2many,NEW_IN_20
+stock.picking.type,generated_mrp_lot_label_to_print,selection,NEW_IN_20
+stock.picking.type,group_lines_by_product,boolean,NEW_IN_20
+stock.picking.type,lot_label_format,selection,NEW_IN_20
+stock.picking.type,move_type,selection,NEW_IN_20 REQUIRED
+stock.picking.type,mrp_product_label_to_print,selection,NEW_IN_20
+stock.picking.type,package_label_to_print,selection,NEW_IN_20
+stock.picking.type,picking_properties_definition,properties_definition,NEW_IN_20
+stock.picking.type,prefill_shop_floor_lots,boolean,NEW_IN_20
+stock.picking.type,product_label_format,selection,NEW_IN_20
+stock.picking.type,set_package_type,boolean,NEW_IN_20
+stock.picking.type,show_operations,boolean,REMOVED_IN_20 (Show Detailed Operations)
+stock.picking.type,show_reserved,boolean,REMOVED_IN_20 (Pre-fill Detailed Operations)
+stock.picking.type,show_reserved_sns,boolean,NEW_IN_20
+stock.picking.type,use_auto_consume_components_lots,boolean,REMOVED_IN_20 (Consume Reserved Lots/Serial Numbers automatically)
+stock.picking.type,wave_category_ids,many2many,NEW_IN_20
+stock.picking.type,wave_date_granularity,selection,NEW_IN_20
+stock.picking.type,wave_group_by_category,boolean,NEW_IN_20
+stock.picking.type,wave_group_by_date,boolean,NEW_IN_20
+stock.picking.type,wave_group_by_location,boolean,NEW_IN_20
+stock.picking.type,wave_group_by_product,boolean,NEW_IN_20
+stock.picking.type,wave_location_ids,many2many,NEW_IN_20
+stock.picking.type,wo_properties_definition,properties_definition,NEW_IN_20
+pos.payment.method,account_bank_statement_id,many2one,NEW_IN_20
+pos.payment.method,currency_ids,many2many,NEW_IN_20
+pos.payment.method,custom_image,binary,NEW_IN_20
+pos.payment.method,is_cash_count,boolean,REMOVED_IN_20 (Cash)
+pos.payment.method,online_payment_provider_ids,many2many,NEW_IN_20
+pos.payment.method,payment_method_type,selection,NEW_IN_20 REQUIRED
+pos.payment.method,payment_provider,selection,NEW_IN_20
+pos.payment.method,qr_code_method,selection,NEW_IN_20
+pos.payment.method,sequence,integer,NEW_IN_20
+pos.payment.method,split_transactions,boolean,REMOVED_IN_20 (Identify Customer)
+pos.payment.method,use_payment_terminal,selection,REMOVED_IN_20 (Use a Payment Terminal)
+pos.config,access_token,char,NEW_IN_20
+pos.config,auto_validate_electronic_payment,boolean,NEW_IN_20
+pos.config,available_preset_ids,many2many,NEW_IN_20
+pos.config,basic_receipt,boolean,NEW_IN_20
+pos.config,cashier_employee_ids,many2many,NEW_IN_20
+pos.config,closing_journal_id,many2one,NEW_IN_20 REQUIRED
+pos.config,custom_email,char,NEW_IN_20
+pos.config,custom_logo,binary,NEW_IN_20
+pos.config,custom_logo_name,char,NEW_IN_20
+pos.config,custom_phone,char,NEW_IN_20
+pos.config,custom_receipt_address,char,NEW_IN_20
+pos.config,custom_website,char,NEW_IN_20
+pos.config,customer_display_bg_img,binary,NEW_IN_20
+pos.config,customer_display_bg_img_name,char,NEW_IN_20
+pos.config,default_partner_id,many2one,NEW_IN_20 REQUIRED
+pos.config,default_preset_id,many2one,NEW_IN_20
+pos.config,default_product_id,many2one,NEW_IN_20 REQUIRED
+pos.config,device_seq_id,many2one,NEW_IN_20
+pos.config,email,char,NEW_IN_20
+pos.config,employee_ids,many2many,REMOVED_IN_20 (Employees with access)
+pos.config,epson_printer_ip,char,REMOVED_IN_20 (Epson Printer IP)
+pos.config,fallback_nomenclature_id,many2one,NEW_IN_20
+pos.config,fast_payment_method_ids,many2many,NEW_IN_20
+pos.config,floor_ids,one2many,REMOVED_IN_20 (Restaurant Floors)
+pos.config,gift_card_settings,selection,REMOVED_IN_20 (Gift Cards settings)
+pos.config,iface_cashdrawer,boolean,REMOVED_IN_20 (Cashdrawer)
+pos.config,iface_customer_facing_display_local,boolean,REMOVED_IN_20 (Local Customer Facing Display)
+pos.config,iface_customer_facing_display_via_proxy,boolean,REMOVED_IN_20 (Customer Facing Display)
+pos.config,iface_electronic_scale,boolean,REMOVED_IN_20 (Electronic Scale)
+pos.config,iface_group_by_categ,boolean,NEW_IN_20
+pos.config,iface_orderline_notes,boolean,REMOVED_IN_20 (Internal Notes)
+pos.config,iface_print_skip_screen,boolean,REMOVED_IN_20 (Skip Preview Screen)
+pos.config,iface_print_via_proxy,boolean,REMOVED_IN_20 (Print via Proxy)
+pos.config,iface_scan_via_proxy,boolean,REMOVED_IN_20 (Scan via Proxy)
+pos.config,iface_splitbill,boolean,REMOVED_IN_20 (Bill Splitting)
+pos.config,iface_start_categ_id,many2one,REMOVED_IN_20 (Initial Category)
+pos.config,invoice_journal_id,many2one,REMOVED_IN_20 (Invoice Journal)
+pos.config,is_header_or_footer,boolean,REMOVED_IN_20 (Custom Header & Footer)
+pos.config,is_order_printer,boolean,REMOVED_IN_20 (Order Printer)
+pos.config,is_posbox,boolean,REMOVED_IN_20 (PosBox)
+pos.config,is_table_management,boolean,REMOVED_IN_20 (Floors & Tables)
+pos.config,l10n_gcc_dual_language_receipt,boolean,NEW_IN_20
+pos.config,last_data_change,datetime,NEW_IN_20
+pos.config,limited_partners_amount,integer,REMOVED_IN_20 (Limited Partners Amount)
+pos.config,limited_partners_loading,boolean,REMOVED_IN_20 (Limited Partners Loading)
+pos.config,limited_products_amount,integer,REMOVED_IN_20 (Limited Products Amount)
+pos.config,limited_products_loading,boolean,REMOVED_IN_20 (Limited Product Loading)
+pos.config,logo,binary,NEW_IN_20
+pos.config,manager_employee_ids,many2many,NEW_IN_20
+pos.config,module_pos_appointment,boolean,NEW_IN_20
+pos.config,module_pos_avatax,boolean,NEW_IN_20
+pos.config,module_pos_mercury,boolean,REMOVED_IN_20 (Integrated Card Payments)
+pos.config,module_pos_sms,boolean,NEW_IN_20
+pos.config,module_pos_urban_piper,boolean,NEW_IN_20
+pos.config,note_ids,many2many,NEW_IN_20
+pos.config,order_backend_seq_id,many2one,NEW_IN_20
+pos.config,order_line_seq_id,many2one,NEW_IN_20
+pos.config,order_seq_id,many2one,NEW_IN_20
+pos.config,partner_load_background,boolean,REMOVED_IN_20 (Partner Load Background)
+pos.config,phone,char,NEW_IN_20
+pos.config,pos_snooze_ids,one2many,NEW_IN_20
+pos.config,preparation_devices,boolean,NEW_IN_20
+pos.config,preparation_printer_ids,many2many,NEW_IN_20
+pos.config,printer_ids,many2many,REMOVED_IN_20 (Order Printers)
+pos.config,product_load_background,boolean,REMOVED_IN_20 (Product Load Background)
+pos.config,proxy_ip,char,REMOVED_IN_20 (IP Address)
+pos.config,receipt_address,char,NEW_IN_20
+pos.config,receipt_printer_ids,many2many,NEW_IN_20
+pos.config,restrictive_employee_ids,many2many,NEW_IN_20
+pos.config,sequence_id,many2one,REMOVED_IN_20 (Order IDs Sequence)
+pos.config,sequence_line_id,many2one,REMOVED_IN_20 (Order Line IDs Sequence)
+pos.config,session_closing_daily_hour,float,NEW_IN_20
+pos.config,session_closing_mode,selection,NEW_IN_20
+pos.config,show_category_images,boolean,NEW_IN_20
+pos.config,show_product_images,boolean,NEW_IN_20
+pos.config,start_category,boolean,REMOVED_IN_20 (Start Category)
+pos.config,supervised_employee_ids,many2many,NEW_IN_20
+pos.config,tip_percentage_1,integer,NEW_IN_20
+pos.config,tip_percentage_2,integer,NEW_IN_20
+pos.config,tip_percentage_3,integer,NEW_IN_20
+pos.config,trusted_config_ids,many2many,NEW_IN_20
+pos.config,use_closing_entry_by_product,boolean,NEW_IN_20
+pos.config,use_custom_receipt_info,boolean,NEW_IN_20
+pos.config,use_download_invoice,boolean,NEW_IN_20
+pos.config,use_fast_payment,boolean,NEW_IN_20
+pos.config,use_header_or_footer,boolean,NEW_IN_20
+pos.config,use_order_printer,boolean,NEW_IN_20
+pos.config,use_presets,boolean,NEW_IN_20
+pos.config,website,char,NEW_IN_20
+hr.work.entry.type,allocation_notif_subtype_id,many2one,NEW_IN_20
+hr.work.entry.type,allocation_validation_type,selection,NEW_IN_20
+hr.work.entry.type,allow_request_on_top,boolean,NEW_IN_20
+hr.work.entry.type,allows_negative,boolean,NEW_IN_20
+hr.work.entry.type,amount_rate,float,NEW_IN_20
+hr.work.entry.type,category_ids,many2many,NEW_IN_20
+hr.work.entry.type,count_as,selection,NEW_IN_20 REQUIRED
+hr.work.entry.type,count_days_as,selection,NEW_IN_20
+hr.work.entry.type,country_id,many2one,NEW_IN_20
+hr.work.entry.type,create_calendar_meeting,boolean,NEW_IN_20
+hr.work.entry.type,description,text,NEW_IN_20
+hr.work.entry.type,display_code,char,NEW_IN_20
+hr.work.entry.type,display_hours,boolean,NEW_IN_20
+hr.work.entry.type,elligible_for_accrual_rate,boolean,NEW_IN_20
+hr.work.entry.type,employee_requests,boolean,NEW_IN_20 REQUIRED
+hr.work.entry.type,external_code,char,NEW_IN_20
+hr.work.entry.type,hide_on_dashboard,boolean,NEW_IN_20
+hr.work.entry.type,include_public_holidays_in_duration,boolean,NEW_IN_20
+hr.work.entry.type,is_extra_hours,boolean,NEW_IN_20
+hr.work.entry.type,is_leave,boolean,REMOVED_IN_20 (Time Off)
+hr.work.entry.type,is_unforeseen,boolean,REMOVED_IN_20 (Unforeseen Absence)
+hr.work.entry.type,leave_notif_subtype_id,many2one,NEW_IN_20
+hr.work.entry.type,leave_type_ids,one2many,REMOVED_IN_20 (Time Off Type)
+hr.work.entry.type,leave_validation_type,selection,NEW_IN_20
+hr.work.entry.type,max_allowed_negative,integer,NEW_IN_20
+hr.work.entry.type,modified_by_user,boolean,NEW_IN_20
+hr.work.entry.type,optional_category_ids,many2many,NEW_IN_20
+hr.work.entry.type,request_unit,selection,NEW_IN_20 REQUIRED
+hr.work.entry.type,requires_allocation,boolean,NEW_IN_20 REQUIRED
+hr.work.entry.type,resource_calendar_attendance_ids,one2many,NEW_IN_20
+hr.work.entry.type,resource_calendar_selectable,boolean,NEW_IN_20
+hr.work.entry.type,round_days,selection,REMOVED_IN_20 (Rounding)
+hr.work.entry.type,support_document,boolean,NEW_IN_20
+hr.work.entry.type,time_off_selectable,boolean,NEW_IN_20
+hr.work.entry.type,unit_of_measure,selection,NEW_IN_20 REQUIRED
+hr.work.entry.type,unpaid,boolean,NEW_IN_20
+hr.work.entry.type,unpaid_structure_ids,many2many,REMOVED_IN_20 (Unpaid in Structures Types)
+hr.salary.rule.category,active,boolean,NEW_IN_20
+hr.salary.rule.category,country_id,many2one,NEW_IN_20
+hr.salary.rule.category,is_premium_pay,boolean,NEW_IN_20
+hr.salary.rule.category,optional_on_work_entry_type_ids,many2many,NEW_IN_20
+hr.salary.rule.category,premium_amount_per_day,float,NEW_IN_20
+hr.salary.rule.category,premium_amount_per_hour,float,NEW_IN_20
+hr.salary.rule.category,premium_percentage_hourly_rate,float,NEW_IN_20
+hr.payroll.structure.type,active,boolean,NEW_IN_20
+hr.payroll.structure.type,salary_benefits_ids,one2many,NEW_IN_20
+hr.payroll.structure.type,sequence,integer,NEW_IN_20
+hr.payroll.structure,employee_type_ids,many2many,NEW_IN_20
+hr.payroll.structure,hide_basic_on_pdf,boolean,NEW_IN_20
+hr.payroll.structure,input_line_type_ids,many2many,REMOVED_IN_20 (Other Input Line)
+hr.payroll.structure,rule_ids,one2many->many2many,TYPE_CHANGED
+hr.payroll.structure,sequence,integer,NEW_IN_20
+hr.payroll.structure,unpaid_work_entry_type_ids,many2many,REMOVED_IN_20 (Unpaid Work Entry Type)
+hr.payroll.structure,version_properties_definition,properties_definition,NEW_IN_20
+hr.payroll.structure,ytd_computation,boolean,NEW_IN_20
+hr.salary.rule,analytic_distribution,json,NEW_IN_20
+hr.salary.rule,appears_on_payroll_report,boolean,REMOVED_IN_20 (View on Payroll Reporting)
+hr.salary.rule,appears_on_payslip,boolean->selection,TYPE_CHANGED
+hr.salary.rule,bold,boolean,NEW_IN_20
+hr.salary.rule,category_id,many2one,REMOVED_IN_20 (Category)
+hr.salary.rule,category_ids,many2many,NEW_IN_20
+hr.salary.rule,color,char,NEW_IN_20
+hr.salary.rule,condition_domain,char,NEW_IN_20
+hr.salary.rule,condition_range,char,REMOVED_IN_20 (Range Based on)
+hr.salary.rule,condition_range_max,float,REMOVED_IN_20 (Maximum Range)
+hr.salary.rule,condition_range_min,float,REMOVED_IN_20 (Minimum Range)
+hr.salary.rule,condition_select,selection,VALUES_REMOVED: range
+hr.salary.rule,country_id,many2one,NEW_IN_20
+hr.salary.rule,created_by_user,boolean,NEW_IN_20
+hr.salary.rule,credit_tag_ids,many2many,NEW_IN_20
+hr.salary.rule,debit_tag_ids,many2many,NEW_IN_20
+hr.salary.rule,display_in_pdf_extra_info,boolean,NEW_IN_20
+hr.salary.rule,employee_move_line,boolean,NEW_IN_20
+hr.salary.rule,explanation_template,text,NEW_IN_20
+hr.salary.rule,hide_amount,boolean,NEW_IN_20
+hr.salary.rule,indented,boolean,NEW_IN_20
+hr.salary.rule,input_default_value,float,NEW_IN_20
+hr.salary.rule,input_name,char,NEW_IN_20
+hr.salary.rule,input_section,many2one,NEW_IN_20
+hr.salary.rule,input_selected_by_default,boolean,NEW_IN_20
+hr.salary.rule,input_suffix,char,NEW_IN_20
+hr.salary.rule,input_usage_employee,boolean,NEW_IN_20
+hr.salary.rule,input_usage_payslip,boolean,NEW_IN_20
+hr.salary.rule,italic,boolean,NEW_IN_20
+hr.salary.rule,modified_by_user,boolean,NEW_IN_20
+hr.salary.rule,round_of_computation,integer,NEW_IN_20
+hr.salary.rule,space_above,boolean,NEW_IN_20
+hr.salary.rule,split_move_lines,boolean,NEW_IN_20
+hr.salary.rule,struct_id,many2one,REMOVED_IN_20 (Salary Structure)
+hr.salary.rule,struct_ids,many2many,NEW_IN_20 REQUIRED
+hr.salary.rule,title,boolean,NEW_IN_20
+hr.salary.rule,underline,boolean,NEW_IN_20
+hr.salary.rule,user_instructions,html,NEW_IN_20
+hr.rule.parameter,active,boolean,NEW_IN_20
+hr.rule.parameter,created_by_user,boolean,NEW_IN_20
+hr.rule.parameter,modified_by_user,boolean,NEW_IN_20
+hr.rule.parameter.value,modified_by_user,boolean,NEW_IN_20
+website,account_on_checkout,selection,REMOVED_IN_20 (Customer Accounts)
+website,add_to_cart_action,selection,REMOVED_IN_20 (Add To Cart Action)
+website,all_pricelist_ids,one2many,REMOVED_IN_20 (All pricelists)
+website,block_third_party_domains,boolean,NEW_IN_20
+website,cart_abandoned_delay,float,REMOVED_IN_20 (Abandoned Delay)
+website,cart_recovery_mail_template_id,many2one,REMOVED_IN_20 (Cart Recovery Email)
+website,contact_us_button_url,char,REMOVED_IN_20 (Contact Us Button URL)
+website,cookie_policy_id,many2one,NEW_IN_20
+website,custom_blocked_third_party_domains,text,NEW_IN_20
+website,domain_punycode,char,NEW_IN_20
+website,enabled_portal_reorder_button,boolean,REMOVED_IN_20 (Re-order From Portal)
+website,google_places_api_key,char,NEW_IN_20
+website,header_search_limit,integer,NEW_IN_20
+website,header_search_order_by,char,NEW_IN_20 REQUIRED
+website,header_search_type,char,NEW_IN_20 REQUIRED
+website,llms_txt,text,NEW_IN_20
+website,prevent_zero_price_sale,boolean,REMOVED_IN_20 (Hide 'Add To Cart' when price = 0)
+website,prevent_zero_price_sale_text,char,REMOVED_IN_20 (Text to show instead of price)
+website,product_page_grid_columns,integer,REMOVED_IN_20 (Product Page Grid Columns)
+website,product_page_image_layout,selection,REMOVED_IN_20 (Product Page Image Layout)
+website,product_page_image_spacing,selection,REMOVED_IN_20 (Product Page Image Spacing)
+website,product_page_image_width,selection,REMOVED_IN_20 (Product Page Image Width)
+website,salesperson_id,many2one,REMOVED_IN_20 (Salesperson)
+website,salesteam_id,many2one,REMOVED_IN_20 (Sales Team)
+website,send_abandoned_cart_email,boolean,REMOVED_IN_20 (Send email to customers who abandoned their cart.)
+website,shop_default_sort,selection,REMOVED_IN_20 (Shop Default Sort)
+website,shop_extra_field_ids,one2many,REMOVED_IN_20 (E-Commerce Extra Fields)
+website,shop_ppg,integer,REMOVED_IN_20 (Number of products in the grid on the shop)
+website,shop_ppr,integer,REMOVED_IN_20 (Number of grid columns on the shop)
+website,social_facebook,char,REMOVED_IN_20 (Facebook Account)
+website,social_github,char,REMOVED_IN_20 (GitHub Account)
+website,social_instagram,char,REMOVED_IN_20 (Instagram Account)
+website,social_linkedin,char,REMOVED_IN_20 (LinkedIn Account)
+website,social_twitter,char,REMOVED_IN_20 (Twitter Account)
+website,social_youtube,char,REMOVED_IN_20 (Youtube Account)
+website,warehouse_id,many2one,REMOVED_IN_20 (Warehouse)
+ir.attachment,thumbnail,binary,NEW_IN_20
+ir.attachment,voice_ids,one2many,NEW_IN_20
+website.page,breadcrumb_color,char,NEW_IN_20
+website.page,breadcrumb_overlay,boolean,NEW_IN_20
+website.page,breadcrumb_text_color,char,NEW_IN_20
+website.page,breadcrumb_visible,boolean,NEW_IN_20
+website.page,date_publish,datetime,REMOVED_IN_20 (Publishing Date)
+website.page,header_text_color,char,NEW_IN_20
+website.page,is_new_page_template,boolean,NEW_IN_20
+website.page,parent_id,many2one,NEW_IN_20
+website.page,publish_on,datetime,NEW_IN_20
+website.page,published_date,datetime,NEW_IN_20
+website.page,type,selection,VALUES_REMOVED: tree
+website.page,visibility,selection,VALUES_REMOVED: 
+website.menu,controller_page_id,many2one,NEW_IN_20
+website.menu,group_ids,many2many,NEW_IN_20
+website.menu,manual_url,char,NEW_IN_20
+blog.blog,,,"MODEL_MISSING_IN_ODOO16 <Fault 2: ""Object blog.blog doesn't exist"">"
+blog.tag.category,,,"MODEL_MISSING_IN_ODOO16 <Fault 2: ""Object blog.tag.category doesn't exist"">"
+blog.tag,,,"MODEL_MISSING_IN_ODOO16 <Fault 2: ""Object blog.tag doesn't exist"">"
+blog.post,,,"MODEL_MISSING_IN_ODOO16 <Fault 2: ""Object blog.post doesn't exist"">"
+product.public.category,,,MODEL_MISSING_IN_ODOO20 HTTP 404 product.public.category/fields_get: the model 'product.public.category' does not exist
+product.ribbon,,,MODEL_MISSING_IN_ODOO20 HTTP 404 product.ribbon/fields_get: the model 'product.ribbon' does not exist
+hr.contract->hr.version,address_id,many2one,NEW_IN_20
+hr.contract->hr.version,allocation_from_working_schedule_id,many2one,NEW_IN_20
+hr.contract->hr.version,analytic_account_id,many2one,REMOVED_IN_20 (Analytic Account)
+hr.contract->hr.version,analytic_distribution,json,NEW_IN_20
+hr.contract->hr.version,attendance_based,boolean,NEW_IN_20
+hr.contract->hr.version,calendar_changed,boolean,REMOVED_IN_20 (Calendar Changed)
+hr.contract->hr.version,children,integer,NEW_IN_20
+hr.contract->hr.version,contract_date_end,date,NEW_IN_20
+hr.contract->hr.version,contract_date_start,date,NEW_IN_20
+hr.contract->hr.version,contract_template_id,many2one,NEW_IN_20
+hr.contract->hr.version,contract_type_id,many2one,REMOVED_IN_20 (Contract Type)
+hr.contract->hr.version,country_id,many2one,NEW_IN_20
+hr.contract->hr.version,date_generated_from,datetime,REMOVED_IN_20 (Generated From)
+hr.contract->hr.version,date_generated_to,datetime,REMOVED_IN_20 (Generated To)
+hr.contract->hr.version,date_to_review,datetime,NEW_IN_20
+hr.contract->hr.version,date_version,date,NEW_IN_20 REQUIRED
+hr.contract->hr.version,departure_id,many2one,NEW_IN_20
+hr.contract->hr.version,disabled,boolean,NEW_IN_20
+hr.contract->hr.version,distance_home_work,integer,NEW_IN_20
+hr.contract->hr.version,distance_home_work_unit,selection,NEW_IN_20 REQUIRED
+hr.contract->hr.version,employee_type_id,many2one,NEW_IN_20
+hr.contract->hr.version,final_yearly_costs,monetary,NEW_IN_20
+hr.contract->hr.version,fixed_term,boolean,NEW_IN_20
+hr.contract->hr.version,holidays,float,NEW_IN_20
+hr.contract->hr.version,hourly_wage,monetary->float,TYPE_CHANGED
+hr.contract->hr.version,identification_id,char,NEW_IN_20
+hr.contract->hr.version,is_custom_job_title,boolean,NEW_IN_20
+hr.contract->hr.version,is_non_resident,boolean,NEW_IN_20
+hr.contract->hr.version,job_title,char,NEW_IN_20
+hr.contract->hr.version,kanban_state,selection,REMOVED_IN_20 (Kanban State)
+hr.contract->hr.version,km_home_work,integer,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_maternity_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_old_age_disability_death_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_sick_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_unemployment_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_company_work_injury_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_is_eos_eligible,boolean,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_maternity_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_old_age_disability_death_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_sick_leave_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_unemployment_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_employee_work_injury_insurance_percentage,float,NEW_IN_20
+hr.contract->hr.version,l10n_om_identification_type,selection,NEW_IN_20
+hr.contract->hr.version,l10n_sa_housing_allowance,monetary,REMOVED_IN_20 (Saudi Housing Allowance)
+hr.contract->hr.version,l10n_sa_number_of_days,integer,REMOVED_IN_20 (Saudi Number of Days)
+hr.contract->hr.version,l10n_sa_other_allowances,monetary,REMOVED_IN_20 (Saudi Other Allowances)
+hr.contract->hr.version,l10n_sa_transportation_allowance,monetary,REMOVED_IN_20 (Saudi Transportation Allowance)
+hr.contract->hr.version,last_generation_date,date,REMOVED_IN_20 (Last Generation Date)
+hr.contract->hr.version,last_modified_date,datetime,NEW_IN_20 REQUIRED
+hr.contract->hr.version,last_modified_uid,many2one,NEW_IN_20 REQUIRED
+hr.contract->hr.version,marital,selection,NEW_IN_20 REQUIRED
+hr.contract->hr.version,notes,html,REMOVED_IN_20 (Notes)
+hr.contract->hr.version,passport_expiration_date,date,NEW_IN_20
+hr.contract->hr.version,passport_id,char,NEW_IN_20
+hr.contract->hr.version,payroll_config_id,many2one,NEW_IN_20
+hr.contract->hr.version,payroll_properties,properties,NEW_IN_20
+hr.contract->hr.version,payslip_run_ids,many2many,NEW_IN_20
+hr.contract->hr.version,private_city,char,NEW_IN_20
+hr.contract->hr.version,private_country_id,many2one,NEW_IN_20
+hr.contract->hr.version,private_state_id,many2one,NEW_IN_20
+hr.contract->hr.version,private_street,char,NEW_IN_20
+hr.contract->hr.version,private_street2,char,NEW_IN_20
+hr.contract->hr.version,private_zip,char,NEW_IN_20
+hr.contract->hr.version,review_state,selection,NEW_IN_20
+hr.contract->hr.version,sex,selection,NEW_IN_20
+hr.contract->hr.version,spouse_birthdate,date,NEW_IN_20
+hr.contract->hr.version,spouse_complete_name,char,NEW_IN_20
+hr.contract->hr.version,standard_calendar_id,many2one,REMOVED_IN_20 (Standard Calendar)
+hr.contract->hr.version,state,selection,REMOVED_IN_20 (Status)
+hr.contract->hr.version,structure_id,many2one,NEW_IN_20
+hr.contract->hr.version,time_credit,boolean,REMOVED_IN_20 (Part Time)
+hr.contract->hr.version,time_credit_type_id,many2one,REMOVED_IN_20 (Part Time Work Entry Type)
+hr.contract->hr.version,tz,selection,NEW_IN_20 REQUIRED
+hr.contract->hr.version,work_entry_source,selection,REMOVED_IN_20 (Work Entry Source)
+hr.contract->hr.version,work_location_id,many2one,NEW_IN_20
+account.tax.repartition.line,invoice_tax_id,many2one,REMOVED_IN_20 (Invoice Tax)
+account.tax.repartition.line,refund_tax_id,many2one,REMOVED_IN_20 (Refund Tax)
+account.tax.repartition.line,tag_ids_domain,binary->json,TYPE_CHANGED
+hr.payslip.input.type->hr.salary.rule,account_credit,many2one,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,account_debit,many2one,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,active,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,amount_fix,float,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,amount_percentage,float,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,amount_percentage_base,char,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,amount_python_compute,text,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,amount_select,selection,NEW_IN_20 REQUIRED
+hr.payslip.input.type->hr.salary.rule,analytic_distribution,json,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,appears_on_employee_cost_dashboard,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,appears_on_payslip,selection,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,bold,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,category_ids,many2many,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,color,char,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,condition_domain,char,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,condition_python,text,NEW_IN_20 REQUIRED
+hr.payslip.input.type->hr.salary.rule,condition_select,selection,NEW_IN_20 REQUIRED
+hr.payslip.input.type->hr.salary.rule,created_by_user,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,credit_tag_ids,many2many,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,debit_tag_ids,many2many,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,display_in_pdf_extra_info,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,employee_move_line,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,explanation_template,text,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,hide_amount,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,indented,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_default_value,float,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_name,char,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_section,many2one,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_selected_by_default,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_suffix,char,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_usage_employee,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,input_usage_payslip,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,italic,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,modified_by_user,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,not_computed_in_net,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,note,html,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,partner_id,many2one,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,quantity,char,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,round_of_computation,integer,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,sequence,integer,NEW_IN_20 REQUIRED
+hr.payslip.input.type->hr.salary.rule,space_above,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,split_move_lines,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,title,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,underline,boolean,NEW_IN_20
+hr.payslip.input.type->hr.salary.rule,user_instructions,html,NEW_IN_20
+hr.leave.type->hr.work.entry.type,accruals_ids,one2many,REMOVED_IN_20 (Accruals)
+hr.leave.type->hr.work.entry.type,allocation_validation_type,selection,"VALUES_REMOVED: no,officer"
+hr.leave.type->hr.work.entry.type,allow_request_on_top,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,allows_negative,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,amount_rate,float,NEW_IN_20
+hr.leave.type->hr.work.entry.type,category_ids,many2many,NEW_IN_20
+hr.leave.type->hr.work.entry.type,code,char,NEW_IN_20 REQUIRED
+hr.leave.type->hr.work.entry.type,color_name,selection,REMOVED_IN_20 (Color in Report)
+hr.leave.type->hr.work.entry.type,company_id,many2one,REMOVED_IN_20 (Company)
+hr.leave.type->hr.work.entry.type,count_as,selection,NEW_IN_20 REQUIRED
+hr.leave.type->hr.work.entry.type,count_days_as,selection,NEW_IN_20
+hr.leave.type->hr.work.entry.type,country_id,many2one,NEW_IN_20
+hr.leave.type->hr.work.entry.type,description,text,NEW_IN_20
+hr.leave.type->hr.work.entry.type,display_code,char,NEW_IN_20
+hr.leave.type->hr.work.entry.type,display_hours,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,elligible_for_accrual_rate,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,employee_requests,selection->boolean,TYPE_CHANGED
+hr.leave.type->hr.work.entry.type,external_code,char,NEW_IN_20
+hr.leave.type->hr.work.entry.type,hide_on_dashboard,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,icon_id,many2one,REMOVED_IN_20 (Cover Image)
+hr.leave.type->hr.work.entry.type,include_public_holidays_in_duration,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,is_extra_hours,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,max_allowed_negative,integer,NEW_IN_20
+hr.leave.type->hr.work.entry.type,modified_by_user,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,optional_category_ids,many2many,NEW_IN_20
+hr.leave.type->hr.work.entry.type,overtime_deductible,boolean,REMOVED_IN_20 (Deduct Extra Hours)
+hr.leave.type->hr.work.entry.type,requires_allocation,selection->boolean,TYPE_CHANGED
+hr.leave.type->hr.work.entry.type,resource_calendar_attendance_ids,one2many,NEW_IN_20
+hr.leave.type->hr.work.entry.type,resource_calendar_selectable,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,responsible_id,many2one,REMOVED_IN_20 (Responsible Time Off Officer)
+hr.leave.type->hr.work.entry.type,round_days_type,selection,NEW_IN_20 REQUIRED
+hr.leave.type->hr.work.entry.type,time_off_selectable,boolean,NEW_IN_20
+hr.leave.type->hr.work.entry.type,time_type,selection,REMOVED_IN_20 (Kind of Time Off)
+hr.leave.type->hr.work.entry.type,unit_of_measure,selection,NEW_IN_20 REQUIRED
+hr.leave.type->hr.work.entry.type,work_entry_type_id,many2one,REMOVED_IN_20 (Work Entry Type)
+res.bank,,,MODEL_MISSING_IN_ODOO20 HTTP 404 res.bank/fields_get: the model 'res.bank' does not exist
+product.packaging->product.uom,name,char,REMOVED_IN_20 (Product Packaging)
+product.packaging->product.uom,package_type_id,many2one,REMOVED_IN_20 (Package Type)
+product.packaging->product.uom,purchase,boolean,REMOVED_IN_20 (Purchase)
+product.packaging->product.uom,qty,float,REMOVED_IN_20 (Contained Quantity)
+product.packaging->product.uom,route_ids,many2many,REMOVED_IN_20 (Routes)
+product.packaging->product.uom,sales,boolean,REMOVED_IN_20 (Sales)
+product.packaging->product.uom,sequence,integer,REMOVED_IN_20 (Sequence)
+product.packaging->product.uom,uom_id,many2one,NEW_IN_20 REQUIRED

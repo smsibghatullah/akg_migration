@@ -1,0 +1,319 @@
+model,name,modules,count
+report.stock.quantity,Stock Quantity Report,stock,765486
+mail.message,Message,"mail, portal, portal_rating, rating, sms, snailmail",616626
+account.move.line,Journal Item,"account, account_3way_match, account_accountant, account_asset, account_asset_fleet, account_base_import, account_edi, account_fleet, account_followup, account_predictive_bills, account_reports, custom_remove_powered_by_odoo, hr_expense, l10n_gcc_invoice, mrp_account, point_of_sale, purchase, purchase_mrp, purchase_stock, sale, sale_expense, sale_expense_margin, sale_mrp, sale_stock, stock_account, stock_landed_costs",443339
+mail.followers,Document Followers,"mail, sms",387687
+mail.tracking.value,Mail Tracking Value,mail,297531
+stock.move,Stock Move,"custom_inventory_picking, mrp, mrp_account, point_of_sale, pos_warehouse_delivery, product_expiry, purchase_mrp, purchase_request, purchase_stock, sale_mrp, sale_stock, stock, stock_account",157887
+stock.report,Stock Report,"stock_account_enterprise, stock_enterprise",157353
+account.move,Journal Entry,"account, account_3way_match, account_accountant, account_asset, account_asset_fleet, account_auto_transfer, account_check_printing, account_edi, account_fleet, account_invoice_extract, account_invoice_extract_purchase, account_payment, account_payment_approval, account_predictive_bills, account_reports, account_reports_tax_reminder, bi_pos_customer_ref, hr_expense, l10n_gcc_invoice, l10n_sa, point_of_sale, purchase, purchase_stock, sale, sale_stock, sale_stock_renting, stock_account, stock_landed_costs, website_sale, whatsapp_mail_messaging",153105
+stock.move.line,Product Moves (Stock Move Line),"custom_inventory_picking, mrp, product_expiry, purchase_request, sale_mrp, stock, stock_account, stock_barcode, stock_barcode_mrp, stock_barcode_product_expiry",152863
+stock.valuation.layer,Stock Valuation Layer,"stock_account, stock_landed_costs",144860
+account.partial.reconcile,Partial Reconcile,account,131421
+account.invoice.report,Invoices Statistics,"account, sale",114646
+sale.report,Sales Analysis Report,"pos_sale, pos_sale_margin, sale, sale_enterprise, sale_margin, sale_stock, website_sale, website_sale_dashboard",110552
+website.track,Visited Pages,"website, website_sale",96226
+pos.order.line,Point of Sale Order Lines,"point_of_sale, pos_loyalty, pos_restaurant, pos_sale, pos_warehouse_delivery",94287
+report.pos.order,Point of Sale Orders Report,"point_of_sale, pos_hr",94016
+account.full.reconcile,Full Reconcile,account,86238
+stock.picking,Transfer,"custom_inventory_picking, mrp, point_of_sale, pos_warehouse_delivery, product_expiry, purchase_stock, sale_stock, stock, stock_account, stock_barcode, stock_dropshipping, stock_sms, website_sale_stock",71782
+ir.model.data,Model Data,"base, web_studio, website",57137
+pos.payment,Point of Sale Payments,"point_of_sale, pos_restaurant",56378
+pos.order,Point of Sale Orders,"bi_pos_customer_ref, l10n_sa_pos, point_of_sale, pos_hr, pos_hr_restaurant, pos_loyalty, pos_restaurant, pos_sale, pos_warehouse_delivery",55562
+ir.attachment,Attachment,"account_edi, account_invoice_extract, attachment_indexation, base, hr_expense_extract, mail, web_editor, web_unsplash, website",38585
+ir.property,Company Property,base,35362
+sale.order.line,Sales Order Line,"bi_pos_customer_ref, pos_sale, pos_sale_loyalty, sale, sale_expense_margin, sale_loyalty, sale_management, sale_margin, sale_mrp, sale_product_configurator, sale_purchase, sale_renting, sale_stock, sale_stock_margin, sale_stock_renting, sale_temporal, stock_dropshipping, website_sale, website_sale_loyalty, website_sale_stock",22835
+hr.work.entry,HR Work Entry,"hr_payroll, hr_work_entry, hr_work_entry_contract, hr_work_entry_contract_attendance, hr_work_entry_holidays",21748
+hr.work.entry.report,Work Entries Analysis Report,hr_payroll,20916
+account.bank.statement.line,Bank Statement Line,"account, account_accountant, account_bank_statement_import, account_online_synchronization, point_of_sale, stock_accountant",18152
+res.partner,Contact,"account, account_check_printing, account_followup, account_online_synchronization, account_reports, appointment, auth_signup, base, base_geolocalize, bus, calendar, crm, customer_credit_control_trial, fleet, hr, hr_holidays, mail, mail_mobile, partner_autocomplete, payment, phone_validation, point_of_sale, portal, pos_credit_limit, privacy_lookup, product, purchase, purchase_stock, sale, sale_account_manager_customer_credit_limit_approval, sales_team, sms, snailmail, stock, stock_barcode, survey, web_enterprise, web_map, web_mobile, website, website_partner, website_sale",17488
+website.visitor,Website Visitor,"website, website_crm, website_crm_sms, website_sale, website_sms",16695
+ir.model.fields,Fields,"base, mail, web_studio, website",15455
+stock.valuation.adjustment.lines,Valuation Adjustment Lines,stock_landed_costs,14640
+mail.mail,Outgoing Mails,mail,11440
+stock.quant,Quants,"product_expiry, stock, stock_account, stock_barcode",11372
+account.payment,Payments,"Attendance_module_dsm, account, account_accountant, account_check_printing, account_edi, account_payment, account_payment_approval, point_of_sale, website_payment",9810
+sale.order,Sales Order,"customer_credit_control_trial, customer_credit_warning, pos_sale, sale, sale_account_manager_customer_credit_limit_approval, sale_crm, sale_expense, sale_loyalty, sale_management, sale_margin, sale_mrp, sale_purchase, sale_purchase_stock, sale_renting, sale_renting_crm, sale_stock, sale_temporal, stock_dropshipping, website_sale, website_sale_loyalty, website_sale_product_configurator, website_sale_stock, whatsapp_mail_messaging",9720
+procurement.group,Procurement Group,"mrp, point_of_sale, product_expiry, sale_stock, stock, stock_dropshipping",8913
+hr.attendance,Attendance,"Attendance_module_dsm, hr_attendance, hr_work_entry_contract_attendance",8262
+hr.attendance.report,Attendance Statistics,hr_attendance,8262
+purchase.order.line,Purchase Order Line,"purchase, purchase_mrp, purchase_request, purchase_stock, sale_purchase, stock_dropshipping, stock_landed_costs",8076
+purchase.report,Purchase Report,"purchase, purchase_stock",8030
+vendor.delay.report,Vendor Delay Report,purchase_stock,7387
+account.analytic.line,Analytic Line,"account, analytic, analytic_enterprise, mrp_account, sale",5944
+mail.notification,Message Notifications,"mail, sms, snailmail",5827
+hr.attendance.overtime,Attendance Overtime,hr_attendance,5021
+product.product,Product Variant,"account, loyalty, mrp, mrp_account, mrp_account_enterprise, point_of_sale, pos_product_free_qty, pos_sale_product_configurator, product, product_expiry, product_margin, purchase, purchase_stock, sale, sale_renting, sale_stock_renting, sale_temporal, stock, stock_account, stock_barcode, stock_barcode_mrp, stock_barcode_product_expiry, website_sale, website_sale_stock",4388
+product.template,Product,"account, hr_expense, loyalty, mrp, mrp_account, mrp_account_enterprise, point_of_sale, product, product_expiry, purchase, purchase_request, purchase_stock, sale, sale_expense, sale_product_configurator, sale_purchase, sale_renting, sale_stock, sale_stock_renting, sale_temporal, stock, stock_account, stock_landed_costs, website_sale, website_sale_stock",4357
+pos.session,Point of Sale Session,"bi_pos_restrict_zero_qty, point_of_sale, pos_credit_limit, pos_discount, pos_epson_printer_restaurant, pos_hr, pos_loyalty, pos_restaurant, pos_sale, pos_sale_product_configurator, pos_settle_due, pos_warehouse_delivery",3799
+ir.model.constraint,Model Constraint,base,3498
+product.supplierinfo,Supplier Pricelist,"product, purchase, purchase_stock",3098
+ir.ui.view,View,"base, base_import_module, mail, portal, web_cohort, web_editor, web_gantt, web_grid, web_map, web_studio, website",3063
+mail.activity,Activity,"account_reports, approvals, calendar, crm, hr_payroll_holidays, mail, note, web_studio",3039
+ir.module.module.dependency,Module dependency,base,3031
+purchase.bill.union,Purchases & Bills Union,purchase,2996
+ir.model.fields.selection,Fields Selection,base,2474
+product.pricelist.item,Pricelist Rule,product,2238
+purchase.order,Purchase Order,"purchase, purchase_mrp, purchase_request, purchase_stock, sale_purchase, sale_purchase_stock, stock_dropshipping",1983
+calendar.attendee,Calendar Attendee Information,"appointment, calendar",1464
+calendar.event,Calendar Event,"appointment, appointment_crm, calendar, calendar_sms, crm, website_appointment_crm",1461
+ir.sequence,Sequence,base,1422
+res.country.state,Country state,base,1414
+hr.payslip.line,Payslip Line,hr_payroll,1389
+ir.module.module,Module,"base, base_import_module, base_install_request, web_studio, website",1375
+ir.model.access,Model Access,"base, web_studio",1359
+loyalty.card,Loyalty Coupon,"loyalty, pos_loyalty, sale_loyalty, website_sale_loyalty",1341
+ir.actions.actions,Actions,base,906
+ir.actions.act_window_close,Action Window Close,base,906
+stock.landed.cost.lines,Stock Landed Cost Line,stock_landed_costs,900
+stock.lot,Lot/Serial,"mrp, product_expiry, purchase_stock, sale_stock, sale_stock_renting, stock, stock_barcode",800
+ir.model,Models,"base, bus, mail, sms, web, web_studio, website",728
+purchase.request.line,Purchase Request Line,purchase_request,714
+hr.contract.employee.report,Contract and Employee Analysis Report,hr_contract_reports,665
+ir.actions.act_window,Action Window,"base, web_studio",663
+pos.config,Point of Sale Configuration,"bi_pos_customer_ref, bi_pos_restrict_zero_qty, l10n_sa_pos, point_of_sale, pos_discount, pos_enterprise, pos_epson_printer, pos_hr, pos_loyalty, pos_restaurant, pos_sale, pos_warehouse_delivery",644
+survey.user_input.line,Survey User Input Line,survey,566
+ir.ui.menu,Menu,"base, hr, hr_attendance, web, web_enterprise, web_studio",520
+hr.payslip.worked_days,Payslip Worked Days,"hr_payroll, hr_payroll_attendance",381
+hr.payroll.report,Payroll Analysis Report,hr_payroll,361
+hr.payslip,Pay Slip,"hr_payroll, hr_payroll_account, hr_payroll_attendance, hr_payroll_expense, hr_payroll_fleet, hr_payroll_holidays, l10n_sa_hr_payroll",353
+stock.location,Inventory Locations,"stock, stock_account, stock_barcode",346
+ir.rule,Rule,"base, web_studio, website",344
+hr.payslip.input,Payslip Input,hr_payroll,343
+stock.warehouse.orderpoint,Minimum Inventory Rule,"mrp, purchase_request, purchase_stock, stock",317
+base_import.mapping,Base Import Mapping,base_import,314
+ir.model.relation,Relation Model,base,255
+res.country,Country,"base, bi_pos_customer_ref, website_payment, website_sale",250
+sale.rental.report,Rental Analysis Report,"sale_renting, sale_stock_renting",217
+ir.actions.act_window.view,Action Window View,"base, mail, web, web_cohort, web_grid, web_map, web_studio",207
+hr.leave.report,Time Off Summary / Report,hr_holidays,207
+hr.leave.employee.type.report,Time Off Summary / Report,hr_holidays,207
+hr.leave.allocation,Time Off Allocation,"hr_holidays, hr_holidays_attendance",206
+purchase.request.allocation,Purchase Request Allocation,purchase_request,198
+account.account.template,Templates for Accounts,"account, l10n_multilang",196
+account.account,Account,"account, account_accountant, account_asset, account_base_import, account_reports, l10n_multilang, spreadsheet_account",191
+pos.pack.operation.lot,Specify product lot/serial number in pos order line,point_of_sale,174
+purchase.request,Purchase Request,purchase_request,168
+res.currency,Currency,"account, base, product, spreadsheet",167
+account.payment.term.line,Payment Terms Line,account,165
+ir.module.category,Application,base,160
+account.report.expression,Accounting Report Expression,account,149
+stock.landed.cost,Stock Landed Cost,"mrp_landed_costs, stock_landed_costs",142
+product.category,Product Category,"account, product, stock, stock_account",140
+appointment.question,Appointment Questions,appointment,135
+fleet.vehicle.cost.report,Fleet Analysis Report,fleet,135
+ir.actions.server,Server Action,"base, base_automation, mail, sms, web_studio, website",133
+pos.category,Point of Sale Category,point_of_sale,126
+account.tax.repartition.line.template,Tax Repartition Line Template,account,122
+account.report.line,Accounting Report Line,"account, account_reports",121
+sale.order.coupon.points,Sale Order Coupon Points - Keeps track of how a sale order impacts a coupon,sale_loyalty,113
+res.groups,Access Groups,"account, base, mail, web_studio",110
+appointment.answer,Appointment Question Answers,appointment,105
+mail.channel.member,Listeners of a Channel,mail,101
+stock.rule,Stock Rule,"mrp, mrp_account, point_of_sale, purchase_request, purchase_stock, sale_stock, stock, stock_dropshipping",100
+account.account.tag,Account Tag,"account, l10n_multilang",95
+ir.asset,Asset,"base, website",91
+stock.picking.type,Picking Type,"mrp, point_of_sale, stock, stock_barcode",91
+resource.calendar.attendance,Work Detail,"hr_work_entry, resource",89
+account.report.column,Accounting Report Column,account,85
+res.lang,Languages,"base, website",85
+survey.question,Survey Question,survey,81
+stock.putaway.rule,Putaway Rule,stock,71
+fleet.vehicle.model.brand,Brand of the vehicle,fleet,66
+sale.rental.schedule,Rental Schedule,"sale_renting, sale_stock_renting",66
+hr.contract,Employee Contract,"hr_contract, hr_payroll, hr_payroll_account, hr_payroll_attendance, hr_work_entry_contract, hr_work_entry_contract_attendance, hr_work_entry_holidays, l10n_sa_hr_payroll",65
+appointment.answer.input,Appointment Answer Inputs,appointment,64
+res.users.log,Users Log,base,62
+ir.actions.report,Report Action,"account, account_edi, account_edi_ubl_cii, base, snailmail, web_studio",57
+uom.uom,Product Unit of Measure,"account_edi, point_of_sale, product, stock, stock_barcode, uom",55
+mail.message.subtype,Message subtypes,"hr_holidays, mail",53
+ir.config_parameter,System Parameter,"base, crm, mail",53
+account.payment.method.line,Payment Methods,"account, account_payment",52
+mail.channel,Discussion Channel,"hr, mail, mail_bot, mail_mobile",51
+fleet.vehicle.model,Model of a vehicle,fleet,48
+ir.actions.client,Client Action,base,47
+ir.cron,Scheduled Actions,base,46
+stock.route,Inventory Routes,"sale_stock, stock",45
+mail.template,Email Templates,"account_edi, account_edi_ubl_cii, custom_remove_powered_by_odoo, mail, web_studio",44
+product.attribute.value,Attribute Value,"product, sale",43
+account.asset,Asset/Revenue Recognition,"account_asset, account_asset_fleet",41
+barcode.rule,Barcode Rule,"barcodes, barcodes_gs1_nomenclature, point_of_sale, pos_loyalty, stock",39
+res.currency.rate,Currency Rate,"base, spreadsheet",39
+theme.ir.attachment,Theme Attachments,website,39
+product.template.attribute.value,Product Template Attribute Value,product,38
+hr.resume.line,Resume line of an employee,"hr_skills, hr_skills_survey",34
+account.payment.term,Payment Terms,account,32
+account.journal,Journal,"account, account_3way_match, account_accountant, account_bank_statement_import, account_bank_statement_import_camt, account_bank_statement_import_csv, account_bank_statement_import_ofx, account_bank_statement_import_qif, account_check_printing, account_edi, account_online_synchronization, account_payment, account_reports, hr_expense, hr_payroll_account, l10n_multilang, point_of_sale",30
+payment.icon,Payment Icon,payment,30
+resource.resource,Resources,"hr, hr_contract, resource",29
+hr.salary.rule,Salary Rule,"hr_payroll, hr_payroll_account",29
+hr.payslip.run,Payslip Batches,hr_payroll,28
+hr.employee,Employee,"hr, hr_attendance, hr_contract, hr_expense, hr_fleet, hr_holidays, hr_hourly_cost, hr_org_chart, hr_payroll, hr_skills, hr_work_entry, hr_work_entry_contract, pos_hr",27
+digest.tip,Digest Tips,digest,27
+hr.employee.skill.report,Employee Skills Report,hr_skills,27
+hr.employee.public,Public Employee,"hr, hr_attendance, hr_contract, hr_expense, hr_fleet, hr_org_chart, hr_skills",27
+survey.question.answer,Survey Label,survey,26
+hr.contract.history,Contract history,"hr_contract, hr_payroll, hr_payroll_account",25
+account.tax.template,Templates for Taxes,"account, l10n_multilang",24
+account.root,Account codes first 2 digits,account,23
+mail.activity.type,Activity Type,"account_reports, calendar, mail, note, web_studio",23
+crm.iap.lead.industry,CRM IAP Lead Industry,crm_iap_mine,23
+ir.default,Default Values,"base, web_studio",23
+ir.filters,Filters,"base, web_studio",22
+appointment.slot,Online Appointment : Time Slot,appointment,22
+crm.iap.lead.role,People Role,crm_iap_mine,22
+res.partner.industry,Industry,base,21
+pos.payment.method,Point of Sale Payment Methods,point_of_sale,21
+survey.user_input,Survey User Input,"hr_skills_survey, survey",20
+res.partner.bank,Bank Accounts,"account, base",19
+account.report,Accounting Report,"account, account_asset, account_reports",19
+spreadsheet.dashboard,Spreadsheet Dashboard,"spreadsheet_dashboard, spreadsheet_dashboard_edition",17
+appointment.type,Appointment Type,"appointment, appointment_crm, appointment_hr, website_appointment",16
+gamification.goal,Gamification Goal,gamification,16
+resource.calendar.leaves,Resource Time Off Detail,"hr_holidays, hr_work_entry, resource",16
+res.users,User,"account, auth_signup, auth_totp, auth_totp_mail, auth_totp_portal, base, base_import, base_setup, bus, calendar, contacts, crm, digest, gamification, hr, hr_attendance, hr_contract, hr_expense, hr_fleet, hr_gamification, hr_holidays, hr_holidays_attendance, hr_payroll, hr_skills, mail, mail_bot, note, phone_validation, resource, sale_account_manager_customer_credit_limit_approval, sale_crm, sale_stock, sales_team, web_unsplash, website",16
+hr.job,Job Position,hr,15
+hr.leave,Time Off,"hr_holidays, hr_holidays_attendance, hr_holidays_gantt, hr_payroll_holidays, hr_work_entry_holidays",15
+pos.bill,Coins/Bills,point_of_sale,15
+payment.provider,Payment Provider,"account_payment, payment, sale, website_payment, website_sale",15
+hr.leave.type,Time Off Type,"hr_holidays, hr_holidays_attendance, hr_work_entry_holidays",15
+website.configurator.feature,Website Configurator Feature,website,15
+gamification.goal.definition,Gamification Goal Definition,gamification,14
+account.report.manager,Manage Summary and Footnotes of Reports,account_reports,14
+res.partner.title,Partner Title,base,14
+website.menu,Website Menu,website,14
+spreadsheet.revision,Collaborative spreadsheet revision,spreadsheet_edition,13
+hr.leave.report.calendar,Time Off Calendar,"hr_holidays, hr_holidays_gantt",13
+theme.ir.ui.view,Theme UI View,website,12
+crm.lead,Lead/Opportunity,"crm, crm_enterprise, crm_iap_enrich, crm_iap_mine, iap_crm, sale_crm, sale_renting_crm, website_crm",11
+res.bank,Bank,base,11
+account.incoterms,Incoterms,account,11
+website.page,Page,website,11
+bus.presence,User Presence,"bus, mail",11
+res.users.settings,User Settings,mail,11
+hr.department,Department,"hr, hr_expense, hr_holidays",10
+hr.salary.attachment.report,Salary Attachment / Report,hr_payroll,10
+sale.temporal.recurrence,Sale temporal Recurrence,"sale_renting, sale_temporal",10
+utm.medium,UTM Medium,utm,10
+utm.source,UTM Source,utm,10
+product.public.category,Website Product Category,website_sale,10
+note.note,Note,"hr_payroll, note",9
+approval.category,Approval Category,"approvals, approvals_purchase",9
+decimal.precision,Decimal Precision,"base, product",9
+hr.work.entry.type,HR Work Entry Type,"hr_payroll, hr_work_entry, hr_work_entry_contract, hr_work_entry_holidays",9
+product.pricing,Pricing rule of temporal products,sale_temporal,9
+resource.calendar,Resource Working Time,"hr_contract, hr_holidays, hr_payroll, resource",9
+stock.warehouse,Warehouse,"mrp, point_of_sale, pos_warehouse_delivery, purchase_stock, stock, stock_barcode",9
+calendar.alarm,Event Alarm,"appointment, calendar, calendar_sms",8
+gamification.challenge.line,Gamification generic goal for challenge,gamification,8
+spreadsheet.dashboard.group,Group of dashboards,spreadsheet_dashboard,8
+hr.payslip.input.type,Payslip Input Type,hr_payroll,8
+account.tax.repartition.line,Tax Repartition Line,account,8
+mail.alias,Email Aliases,"hr, mail",7
+crm.lead.scoring.frequency.field,Fields that can be used for predictive lead scoring computation,crm,7
+account.fiscal.position,Fiscal Position,"account, l10n_multilang",7
+crm.lead.scoring.frequency,Lead Scoring Frequency,crm,7
+report.paperformat,Paper Format Config,"base, web_studio",7
+product.pricelist,Pricelist,"product, sale_temporal, website_sale",7
+product.template.attribute.line,Product Template Attribute Line,"product, website_sale",7
+uom.category,Product UoM Categories,"point_of_sale, uom",7
+account.reconcile.model.line,Rules for the reconciliation model,account,7
+mrp.workcenter.productivity.loss,Workcenter Productivity Losses,mrp,7
+ir.actions.act_url,Action URL,base,6
+account.edi.format,EDI format,"account_edi, account_edi_ubl_cii",6
+hr.salary.rule.category,Salary Rule Category,hr_payroll,6
+hr.payroll.structure,Salary Structure,"hr_payroll, hr_payroll_account",6
+website.snippet.filter,Website Snippet Filter,"website, website_sale",6
+account.analytic.account,Analytic Account,"account, account_budget, analytic, l10n_multilang, mrp_account, purchase",5
+gamification.badge,Gamification Badge,"gamification, hr_gamification, survey",5
+account.reconcile.model,Preset to create journal entries during a invoices and payments matching,"account, sale_account_accountant",5
+mrp.bom.line,Bill of Material Line,"mrp, purchase_mrp",5
+fleet.vehicle.assignation.log,Drivers history on a vehicle,"fleet, hr_fleet",5
+hr.employee.category,Employee Category,hr,5
+hr.plan.activity.type,Plan activity type,hr,5
+gamification.karma.rank,Rank based on karma,gamification,5
+account.tax.group,Tax Group,account,5
+hr.work.location,Work Location,hr,5
+mrp.bom,Bill of Material,"mrp, mrp_account, purchase_mrp, sale_mrp",4
+gamification.challenge,Gamification Challenge,"gamification, survey",4
+crm.team,Sales Team,"crm, pos_sale, sale, sale_crm, sales_team, website_sale",4
+res.country.group,Country Group,"base, product",4
+crm.recurring.plan,CRM Recurring revenue plans,crm,4
+crm.stage,CRM Stages,crm,4
+iap.account,IAP Account,"iap, iap_mail",4
+mrp.workcenter.productivity.loss.type,MRP Workorder productivity losses,mrp,4
+note.stage,Note Stage,note,4
+sms.sms,Outgoing SMS,sms,4
+product.ribbon,Product ribbon,website_sale,4
+product.removal,Removal Strategy,stock,4
+report.layout,Report Layout,base,4
+web_tour.tour,Tours,web_tour,4
+fleet.vehicle.state,Vehicle Status,fleet,4
+hr.expense,Expense,"hr_expense, hr_expense_extract, hr_expense_predict_product, sale_expense",3
+hr.expense.sheet,Expense Report,"hr_expense, hr_expense_extract, hr_payroll_expense, sale_expense",3
+fleet.vehicle,Vehicle,"account_fleet, fleet, hr_fleet",3
+account.cash.rounding,Account Cash Rounding,"account, point_of_sale",3
+calendar.filters,Calendar Filters,calendar,3
+ir.actions.todo,Configuration Wizards,base,3
+hr.departure.reason,Departure Reason,hr,3
+fleet.vehicle.odometer,Odometer log for a vehicle,"fleet, hr_fleet",3
+onboarding.onboarding.step,Onboarding Step,"appointment, onboarding",3
+crm.lost.reason,Opp. Lost Reason,crm,3
+account.payment.method,Payment Methods,"account, account_check_printing, account_payment",3
+crm.iap.lead.seniority,People Seniority,crm_iap_mine,3
+sale.order.option,Sale Options,sale_management,3
+account.fiscal.position.template,Template for Fiscal Position,"account, l10n_multilang",3
+hr.resume.line.type,Type of a resumé line,hr_skills,3
+crm.team.member,Sales Team Member,"crm, sales_team",2
+fleet.vehicle.log.contract,Vehicle Contract,"fleet, hr_fleet",2
+account.chart.template,Account Chart Template,"account, account_followup, account_reports, l10n_multilang, l10n_sa, l10n_sa_hr_payroll_account, point_of_sale, stock_account",2
+hr.leave.accrual.plan,Accrual Plan,hr_holidays,2
+hr.leave.accrual.level,Accrual Plan Level,hr_holidays,2
+approval.category.approver,Approval Type Approver,approvals,2
+db.backup.configure,Automatic Database Backup,auto_database_backup,2
+barcode.nomenclature,Barcode Nomenclature,"barcodes, barcodes_gs1_nomenclature",2
+hr.contract.type,Contract Type,hr,2
+calendar.recurrence,Event Recurrence Rule,calendar,2
+ir.exports.line,Exports Line,base,2
+account_followup.followup.line,Follow-up Criteria,account_followup,2
+base.geo_provider,Geo Provider,base_geolocalize,2
+loyalty.reward,Loyalty Reward,"loyalty, pos_loyalty, sale_loyalty",2
+loyalty.rule,Loyalty Rule,"loyalty, pos_loyalty, website_sale_loyalty",2
+ir.mail_server,Mail Server,"base, mail, microsoft_outlook",2
+onboarding.progress.step,Onboarding Progress Step Tracker,onboarding,2
+hr.plan,plan,hr,2
+product.attribute,Product Attribute,"product, sale, website_sale",2
+hr.rule.parameter,Salary Rule Parameter,hr_payroll,2
+hr.rule.parameter.value,Salary Rule Parameter Value,hr_payroll,2
+hr.payroll.structure.type,Salary Structure Type,"hr_contract, hr_payroll",2
+sms.template,SMS Templates,sms,2
+account.tax,Tax,"account, l10n_multilang, point_of_sale",2
+theme.ir.asset,Theme Asset,website,2
+gamification.karma.tracking,Track Karma Changes,gamification,2
+website,Website,"website, website_appointment, website_crm, website_sale, website_sale_dashboard, website_sale_product_configurator, website_sale_stock, whatsapp_mail_messaging",2
+account.online.link,Bank Connection,account_online_synchronization,1
+crossovered.budget,Budget,account_budget,1
+res.company,Companies,"account, account_accountant, account_asset, account_check_printing, account_invoice_extract, account_online_synchronization, account_reports, barcodes, base, hr, hr_attendance, hr_expense, hr_expense_extract, hr_holidays_attendance, hr_payroll, hr_payroll_holidays, mail, mrp, partner_autocomplete, payment, point_of_sale, product, purchase, purchase_stock, resource, sale, sale_account_manager_customer_credit_limit_approval, sale_management, sale_renting, sale_stock, sale_stock_renting, snailmail, social_media, spreadsheet_account, stock, stock_dropshipping, stock_landed_costs, stock_sms, web, web_studio, website, website_sale, website_sale_dashboard",1
+survey.survey,Survey,survey,1
+account.transfer.model,Account Transfer Model,account_auto_transfer,1
+account.transfer.model.line,Account Transfer Model Line,account_auto_transfer,1
+account.analytic.plan,Analytic Plans,analytic,1
+account.budget.post,Budgetary Position,account_budget,1
+crossovered.budget.lines,Budget Line,account_budget,1
+utm.stage,Campaign Stage,utm,1
+crm.iap.lead.mining.request,CRM Lead Mining Request,crm_iap_mine,1
+crm.tag,CRM Tag,sales_team,1
+digest.digest,Digest,"account, account_accountant, crm, digest, point_of_sale, sale_management, website_sale, website_sale_dashboard",1
+calendar.event.type,Event Meeting Type,calendar,1
+ir.exports,Exports,base,1
+fleet.service.type,Fleet Service Type,fleet,1
+fetchmail.server,Incoming Mail Server,"mail, microsoft_outlook",1
+loyalty.program,Loyalty Program,"loyalty, pos_loyalty, sale_loyalty, website_sale_loyalty",1
+mail.message.reaction,Message Reaction,mail,1
+note.tag,Note Tag,note,1
+onboarding.onboarding,Onboarding,"appointment, onboarding",1
+onboarding.progress,Onboarding Progress Tracker,onboarding,1
+sale.order.template,Quotation Template,sale_management,1
+sale.order.template.line,Quotation Template Line,sale_management,1
+ir.sequence.date_range,Sequence Date Range,base,1
+utm.tag,UTM Tag,utm,1

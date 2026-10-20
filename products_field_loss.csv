@@ -1,0 +1,22 @@
+model,field,label,type,status,src_records_with_value
+product.template,allow_out_of_stock_order,Continue selling when out-of-stock,boolean,REMOVED_IN_20,4295
+product.template,available_threshold,Show Threshold,float,REMOVED_IN_20,4357
+product.template,compare_list_price,Compare to Price,float,REMOVED_IN_20,191
+product.template,days_to_prepare_mo,Days to prepare Manufacturing Order,float,REMOVED_IN_20,4357
+product.template,extra_daily,Extra Day,float,REMOVED_IN_20,5
+product.template,produce_delay,Manufacturing Lead Time,float,REMOVED_IN_20,4357
+product.template,purchase_line_warn,Purchase Order Line Warning,selection,REMOVED_IN_20,4357
+product.template,rent_ok,Can be Rented,boolean,REMOVED_IN_20,5
+product.template,sale_delay,Customer Lead Time,float,TYPE_CHANGED float->integer,4357
+product.template,sale_line_warn,Sales Order Line,selection,REMOVED_IN_20,4357
+product.template,service_to_purchase,Subcontract Service,boolean,REMOVED_IN_20,2
+product.template,website_sequence,Website Sequence,integer,REMOVED_IN_20,4357
+product.template,website_size_x,Size X,integer,REMOVED_IN_20,4357
+product.template,website_size_y,Size Y,integer,REMOVED_IN_20,4357
+product.pricelist.item,active,Active,boolean,REMOVED_IN_20,930
+product.pricelist.item,percent_price,Percentage Price,float,REMOVED_IN_20,13
+product.pricelist,discount_policy,Discount Policy,selection,REMOVED_IN_20,7
+product.pricelist,selectable,Selectable,boolean,REMOVED_IN_20,1
+product.pricelist,website_id,Website,many2one,REMOVED_IN_20,6
+product.category,property_stock_account_input_categ_id,Stock Input Account,many2one,REMOVED_IN_20,8
+product.category,property_stock_account_output_categ_id,Stock Output Account,many2one,REMOVED_IN_20,8

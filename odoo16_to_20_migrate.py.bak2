@@ -1,0 +1,1781 @@
+#!/usr/bin/env python3
+"""
+Odoo 16 -> Odoo 20 MASTER DATA migration   (v2: field_diff.csv ke hisaab se)
+
+Odoo 16  : XML-RPC (login + password)
+Odoo 20  : JSON-2 API (API key)
+
+Commands:
+  python3 odoo16_to_20_migrate.py compare                  # field_diff.csv
+  python3 odoo16_to_20_migrate.py inspect res.partner.bank hr.version   # inspect.txt (dst+src fields)
+  python3 odoo16_to_20_migrate.py migrate --dry-run
+  python3 odoo16_to_20_migrate.py migrate                  # normal steps (experimental steps skip)
+  python3 odoo16_to_20_migrate.py migrate --only res.users,hr.employee
+  python3 odoo16_to_20_migrate.py list                     # steps ki list (experimental mark ke saath)
+  python3 odoo16_to_20_migrate.py opening --cutover 2026-09-30   # opening balances / open items ka report (read-only)
+  python3 odoo16_to_20_migrate.py verify product.template [--names-file names.xlsx]   # sach mein dst mein hai ya nahi (archived/merge/naam)
+  python3 odoo16_to_20_migrate.py unmerge product.template   # merge hue records alag karo (phir migrate dobara)
+  python3 odoo16_to_20_migrate.py report product.template pos.config   # kaun se records nahi aye + wajah
+  python3 odoo16_to_20_migrate.py scan                     # Odoo16 mein kaun sa data hai (transactional) -> scan_report.txt/csv
+
+Files: idmap.json (old id -> new id), migration.log, unresolved.csv
+Script re-runnable hai. PEHLE STAGING PAR CHALAO.
+"""
+import xmlrpc.client, json, csv, os, sys, argparse, logging
+import urllib.request, urllib.error
+
+# ======================= CONFIG =======================
+SRC = dict(url="https://odoo.akghardware.com", db="AKG_Hardware",
+           user="babar@akghardware.com", password="Babar123456")
+DST = dict(url="http://38.242.193.145:8050", db="AKG_HARDWARE",
+           api_key="2d946e0915bbe4e761f0d7523af8191cf3863404")
+# Optional: agar isi folder mein local_config.py ho (SRC aur DST dicts ke saath) to wo upar wali values badal deti hai.
+# Is tarah script update karne par credentials dobara nahi bharne parte.
+try:
+    from local_config import SRC, DST  # noqa
+except ImportError:
+    pass
+# ======================================================
+BATCH = 50
+# Website translations: jo languages Odoo 20 mein INSTALL/ACTIVE hain unke codes yahan likho, jaise ["ar_001"]
+# (page content, menu, blog ki translations bhi copy hongi). Khali ho to sirf default language.
+LANGS = []
+# Payroll salary rules ke python code mein 'contract.' ko Odoo 20 ke 'version.' se badalna (hr.contract -> hr.version).
+# Badle hue har rule ki warning log mein aati hai - Odoo 20 mein verify karna zaroori hai.
+PAYROLL_CONTRACT_TO_VERSION = True
+IDMAP_FILE = "idmap.json"
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s",
+                    handlers=[logging.StreamHandler(), logging.FileHandler("migration.log")])
+log = logging.getLogger("mig")
+
+CTX = {"active_test": False, "tracking_disable": True, "mail_create_nosubscribe": True,
+       "mail_create_nolog": True, "mail_notrack": True, "no_reset_password": True}
+
+ALT_MODELS = {"stock.location.route": "stock.route", "stock.route": "stock.location.route"}
+# field renames (sirf tab lagte hain jab naya naam dst mein ho)
+AUTO_RENAMES = {"groups_id": "group_ids", "acc_number": "account_number", "acc_holder_name": "holder_name",
+                "date_start": "contract_date_start", "date_end": "contract_date_end"}   # hr.contract -> hr.version
+GLOBAL_SKIP = {"id", "create_uid", "create_date", "write_uid", "write_date", "display_name",
+               "__last_update", "parent_path", "password", "signup_token", "signup_type",
+               "signup_expiration", "access_token", "login_date"}
+
+
+def canon(m):
+    return "stock.route" if m in ("stock.location.route", "stock.route") else m
+
+
+def m2o_id(x):
+    """many2one value ([id, name] ya sirf id) se id"""
+    return x[0] if isinstance(x, (list, tuple)) else x
+
+
+# ----------------------------------------------------------------- connections
+class Odoo:
+    """Odoo 16 : XML-RPC"""
+    def __init__(self, cfg):
+        self.cfg = cfg
+        common = xmlrpc.client.ServerProxy(cfg["url"] + "/xmlrpc/2/common", allow_none=True)
+        self.uid = common.authenticate(cfg["db"], cfg["user"], cfg["password"], {})
+        if not self.uid:
+            raise SystemExit("Login fail: " + cfg["url"])
+        self.obj = xmlrpc.client.ServerProxy(cfg["url"] + "/xmlrpc/2/object", allow_none=True)
+        self._f, self.err = {}, {}
+
+    def call(self, model, method, *args, **kw):
+        return self.obj.execute_kw(self.cfg["db"], self.uid, self.cfg["password"], model, method, list(args), kw)
+
+    def fields(self, model):
+        if model not in self._f:
+            try:
+                self._f[model] = self.call(model, "fields_get", attributes=[
+                    "type", "relation", "store", "readonly", "required", "selection",
+                    "string", "company_dependent"])
+            except Exception as e:
+                self._f[model] = None
+                self.err[model] = str(e)[:200]
+        return self._f[model]
+
+
+class Odoo2(Odoo):
+    """Odoo 20 : JSON-2 API (POST /json/2/<model>/<method>, bearer API key)"""
+    POS = {"search": ["domain"], "search_read": ["domain"], "search_count": ["domain"],
+           "read": ["ids"], "write": ["ids", "vals"], "create": ["vals_list"], "unlink": ["ids"]}
+
+    def __init__(self, cfg):
+        self.cfg = cfg
+        self._f, self.err = {}, {}
+        self.call("res.users", "context_get")  # connection/API key test
+
+    def call(self, model, method, *args, **kw):
+        body = dict(kw)
+        for n, v in zip(self.POS.get(method, []), args):
+            body[n] = [v] if n == "vals_list" else v
+        req = urllib.request.Request(
+            "%s/json/2/%s/%s" % (self.cfg["url"], model, method),
+            data=json.dumps(body).encode(), method="POST",
+            headers={"Authorization": "bearer " + self.cfg["api_key"],
+                     "X-Odoo-Database": self.cfg["db"],
+                     "Content-Type": "application/json", "User-Agent": "akg-migration"})
+        try:
+            res = json.loads(urllib.request.urlopen(req, timeout=300).read().decode())
+        except urllib.error.HTTPError as e:
+            txt = e.read().decode(errors="replace")
+            try:
+                txt = json.loads(txt).get("message", txt)
+            except Exception:
+                pass
+            raise RuntimeError("HTTP %s %s/%s: %s" % (e.code, model, method, str(txt)[:300]))
+        if method == "create" and isinstance(res, list):
+            return res[0]
+        return res
+
+
+src = dst = None
+DRY = False
+DOMAIN_OVERRIDE = None
+
+
+def src_model(name):
+    for c in (name, ALT_MODELS.get(name)):
+        if c and src.fields(c) is not None:
+            return c
+    return None
+
+
+def dst_model(name):
+    for c in (name, ALT_MODELS.get(name)):
+        if c and dst.fields(c) is not None:
+            return c
+    return None
+
+
+# ----------------------------------------------------------------- helpers
+_meta = {}
+
+
+def model_meta(conn, model):
+    """ir.model.fields se: computed aur related fields ki list"""
+    key = (id(conn), model)
+    if key not in _meta:
+        try:
+            rows = conn.call("ir.model.fields", "search_read", [("model", "=", model)],
+                             fields=["name", "compute", "related"])
+        except Exception as e:
+            log.warning("ir.model.fields read fail (%s): %s", model, str(e)[:120])
+            rows = []
+        _meta[key] = {"computed": {r["name"] for r in rows if r.get("compute")},
+                      "related": {r["name"] for r in rows if r.get("related")}}
+    return _meta[key]
+
+
+# create/write fail ho aur error mein ye keyword ho to wo field hata kar dobara koshish (value dropped_values.csv mein)
+RETRY_DROP = [("vat", "vat"), ("barcode", "barcode"), ("uom_ids", "uom")]
+
+
+def safe_call(dm, did, vals):
+    """create/write; kuch aam constraint errors par (VAT, barcode, uom) wo field hata kar dobara koshish"""
+    for attempt in range(4):
+        try:
+            if did:
+                dst.call(dm, "write", [did], vals, context=CTX)
+                return did
+            return dst.call(dm, "create", vals, context=CTX)
+        except RuntimeError as e:
+            msg = str(e).lower()
+            hit = next((f for f, kw in RETRY_DROP if f in vals and kw in msg), None)
+            if not hit:
+                raise
+            v = vals.pop(hit)
+            if hit == "vat":
+                vals["comment"] = (vals.get("comment") or "") + "<p>VAT (invalid, import nahi hua): %s</p>" % v
+            log.warning("%s '%s': %s=%r hata kar dobara koshish (error: %s)", dm, vals.get("name"), hit, v, str(e)[:120])
+            new = not os.path.exists("dropped_values.csv")
+            with open("dropped_values.csv", "a", newline="", encoding="utf-8") as fh:
+                w = csv.writer(fh)
+                if new:
+                    w.writerow(["model", "name", "field", "value", "error"])
+                w.writerow([dm, vals.get("name"), hit, v, str(e)[:200]])
+    raise RuntimeError("safe_call: bar bar retry ke baad bhi fail")
+
+
+# ----------------------------------------------------------------- id map
+class IdMap:
+    def __init__(self, path):
+        self.path = path
+        self.d = json.load(open(path)) if os.path.exists(path) else {}
+
+    def get(self, model, sid):
+        return self.d.get(model, {}).get(str(sid))
+
+    def set(self, model, sid, did):
+        self.d.setdefault(model, {})[str(sid)] = did
+
+    def protected(self, dm):
+        return self.d.setdefault("_protected", {}).setdefault(dm, [])
+
+    def save(self):
+        json.dump(self.d, open(self.path, "w"))
+
+
+idmap = None
+_xml_cache = {}
+PENDING = []  # (dst_model, dst_id, dst_field, type, src_rel, src_value)
+
+
+def xmlid_map(smodel):
+    """Standard (module.xmlid) records ko src->dst map karta hai"""
+    if smodel in _xml_cache:
+        return _xml_cache[smodel]
+    out = {}
+    dmodel = dst_model(smodel)
+    if dmodel and src.fields(smodel) is not None:
+        s = src.call("ir.model.data", "search_read", [("model", "=", smodel)], fields=["module", "name", "res_id"])
+        d = dst.call("ir.model.data", "search_read", [("model", "=", dmodel)], fields=["module", "name", "res_id"])
+        dm = {(r["module"], r["name"]): r["res_id"] for r in d}
+        out = {r["res_id"]: dm[(r["module"], r["name"])] for r in s if (r["module"], r["name"]) in dm}
+    _xml_cache[smodel] = out
+    return out
+
+
+def resolve(smodel, sid):
+    if not sid:
+        return False
+    v = idmap.get(smodel, sid)
+    if v:
+        return v
+    v = xmlid_map(smodel).get(sid)
+    if v:
+        idmap.set(smodel, sid, v)
+    return v
+
+
+def dname(f, df, ren):
+    if f in ren:
+        return ren[f]
+    if f in df:
+        return f
+    a = AUTO_RENAMES.get(f)
+    return a if a in df else f
+
+
+# ----------------------------------------------------------------- hooks  hook(vals, rec, later) -> vals | None
+def h_account(vals, rec, later):
+    # Odoo 16: deprecated -> Odoo 20: active ; company_id -> company_ids (required)
+    if "deprecated" in rec and "active" in dst.fields("account.account"):
+        vals["active"] = not rec["deprecated"]
+    if "company_ids" in dst.fields("account.account") and rec.get("company_id"):
+        c = resolve("res.company", m2o_id(rec["company_id"]))
+        if c:
+            vals["company_ids"] = [[6, 0, [c]]]
+        else:
+            log.error("account %s: company map nahi mili", rec.get("code"))
+    return vals
+
+
+_ref_uom = {}
+
+
+def h_uom(vals, rec, later):
+    # Odoo 20: category/uom_type khatam; relative_uom_id + relative_factor (required)
+    if rec.get("uom_type") == "reference":
+        vals["relative_factor"] = 1.0
+    else:
+        vals["relative_factor"] = rec.get("factor_inv") or 1.0
+        cat = m2o_id(rec["category_id"])
+        if cat not in _ref_uom:
+            r = src.call("uom.uom", "search", [("category_id", "=", cat), ("uom_type", "=", "reference")],
+                         limit=1, context=CTX)
+            _ref_uom[cat] = r[0] if r else None
+        c = resolve("uom.uom", _ref_uom[cat]) if _ref_uom[cat] else None
+        if c:
+            vals["relative_uom_id"] = c
+    return vals
+
+
+def post_calendar(rec, did):
+    """Naya calendar default attendance lines ke saath banta hai -> unhe hata do (overlap error)"""
+    done = idmap.d.setdefault("_cal_cleared", [])
+    if did in done:
+        return
+    ids = dst.call("resource.calendar", "read", [did], fields=["attendance_ids"])[0]["attendance_ids"]
+    if ids:
+        am = idmap.d.get("resource.calendar.attendance", {})
+        for k in [k for k, v in am.items() if v in ids]:
+            am.pop(k)
+        dst.call("resource.calendar", "write", [did], {"attendance_ids": [[5, 0, 0]]}, context=CTX)
+    done.append(did)
+
+
+def h_attendance(vals, rec, later):
+    if rec.get("week_type") in ("1", 1):
+        log.warning("attendance %s: 2-week calendar ka doosra hafta - Odoo20 mein 2-week mode nahi, skip", rec.get("id"))
+        return None
+    if "duration_based" in dst.fields("resource.calendar.attendance"):
+        vals["duration_based"] = False
+    return vals
+
+
+def h_user(vals, rec, later):
+    return vals
+
+
+def post_user(rec, did):
+    if rec.get("partner_id"):
+        p = m2o_id(dst.call("res.users", "read", [did], fields=["partner_id"])[0]["partner_id"])
+        idmap.set("res.partner", m2o_id(rec["partner_id"]), p)
+
+
+def find_employee(rec):
+    """User se bana hua auto-employee dobara na bane"""
+    if rec.get("user_id"):
+        du = resolve("res.users", m2o_id(rec["user_id"]))
+        if du:
+            r = dst.call("hr.employee", "search", [("user_id", "=", du)], limit=1, context=CTX)
+            if r:
+                return r[0]
+    return None
+
+
+def h_employee(vals, rec, later):
+    if rec.get("bank_account_id"):  # bank_account_id -> bank_account_ids (m2m)
+        later.append(("bank_account_ids", "many2many", "res.partner.bank", [m2o_id(rec["bank_account_id"])]))
+    return vals
+
+
+def post_employee(rec, did):
+    if rec.get("work_contact_id") and "work_contact_id" in dst.fields("hr.employee"):
+        p = dst.call("hr.employee", "read", [did], fields=["work_contact_id"])[0]["work_contact_id"]
+        if p:
+            idmap.set("res.partner", m2o_id(rec["work_contact_id"]), m2o_id(p))
+
+
+def h_partner(vals, rec, later):
+    notes = []
+    for k in ("mobile", "x_studio_mobile"):
+        v = rec.get(k)
+        if v:
+            if not vals.get("phone"):
+                vals["phone"] = v
+            elif v != vals["phone"]:
+                notes.append("Mobile: " + v)
+    if rec.get("x_studio_tax_id") and not vals.get("vat"):
+        vals["vat"] = rec["x_studio_tax_id"]
+    if rec.get("company_registry"):
+        notes.append("Company ID: " + rec["company_registry"])
+    if notes:
+        vals["comment"] = (vals.get("comment") or "") + "<p>" + " | ".join(notes) + "</p>"
+    return vals
+
+
+EXPENSE_POLICY = {"no": "no", "cost": "at_cost", "sales_price": "sales_price"}
+
+
+def h_product_tmpl(vals, rec, later):
+    dt = rec.get("detailed_type") or rec.get("type")
+    if dt == "product":                       # storable
+        vals.update(type="consu", is_storable=True)
+    elif dt in ("consu", "service"):
+        vals["type"] = dt
+    if rec.get("sale_delay"):                 # float -> integer
+        vals["sale_delay"] = int(round(rec["sale_delay"]))
+    pc = rec.get("pos_categ_id")              # pos_categ_id -> pos_categ_ids
+    if pc:
+        c = resolve("pos.category", m2o_id(pc))
+        if c:
+            vals["pos_categ_ids"] = [[6, 0, [c]]]
+    if "is_favorite" in dst.fields("product.template") and "priority" in rec:
+        vals["is_favorite"] = rec.get("priority") == "1"
+    ep = EXPENSE_POLICY.get(rec.get("expense_policy"))
+    if ep and "reinvoice_policy" in dst.fields("product.template"):
+        allowed = [x[0] for x in (dst.fields("product.template")["reinvoice_policy"].get("selection") or [])]
+        if ep in allowed:
+            vals["reinvoice_policy"] = ep
+    # Purchase UoM: Odoo 20 mein uom_po_id nahi -> extra UoM (uom_ids) mein
+    po, base = rec.get("uom_po_id"), rec.get("uom_id")
+    if po and base and m2o_id(po) != m2o_id(base) and "uom_ids" in dst.fields("product.template"):
+        c = resolve("uom.uom", m2o_id(po))
+        if c:
+            vals["uom_ids"] = [[6, 0, [c]]]
+    return vals
+
+
+def find_variant(rec):
+    t = resolve("product.template", m2o_id(rec["product_tmpl_id"]))
+    if not t:
+        return None
+    ids = rec.get("product_template_variant_value_ids") or []
+    sv = set()
+    if ids:
+        for r in src.call("product.template.attribute.value", "read", ids, fields=["product_attribute_value_id"]):
+            sv.add(resolve("product.attribute.value", m2o_id(r["product_attribute_value_id"])))
+    cands = dst.call("product.product", "search_read", [("product_tmpl_id", "=", t)],
+                     fields=["product_template_variant_value_ids"], context=CTX)
+    for c in cands:
+        cid = c["product_template_variant_value_ids"]
+        vs = set()
+        if cid:
+            vs = {m2o_id(r["product_attribute_value_id"]) for r in dst.call(
+                "product.template.attribute.value", "read", cid, fields=["product_attribute_value_id"])}
+        if vs == sv:
+            return c["id"]
+    return None
+
+
+def _fix_code(txt, code, field):
+    if not txt or not PAYROLL_CONTRACT_TO_VERSION:
+        return txt
+    new = re.sub(r"\bcontract\.", "version.", txt).replace("payslip.contract_id", "payslip.version_id")
+    if new != txt:
+        log.warning("salary rule %s (%s): 'contract' -> 'version' badla - Odoo 20 mein verify karo", code, field)
+    return new
+
+
+def h_salary_rule(vals, rec, later):
+    # struct_id -> struct_ids (required, m2m) ; category_id -> category_ids
+    if rec.get("struct_id") and "struct_ids" in dst.fields("hr.salary.rule"):
+        c = resolve("hr.payroll.structure", m2o_id(rec["struct_id"]))
+        if c:
+            vals["struct_ids"] = [[6, 0, [c]]]
+    if rec.get("category_id") and "category_ids" in dst.fields("hr.salary.rule"):
+        c = resolve("hr.salary.rule.category", m2o_id(rec["category_id"]))
+        if c:
+            vals["category_ids"] = [[6, 0, [c]]]
+    ap = rec.get("appears_on_payslip")           # boolean -> selection
+    if isinstance(ap, bool):
+        vals["appears_on_payslip"] = "always" if ap else "never"
+    if rec.get("condition_select") == "range":   # range condition Odoo 20 mein nahi -> python
+        rng = rec.get("condition_range") or "0"
+        vals["condition_select"] = "python"
+        vals["condition_python"] = "result = %s >= %s and %s <= %s" % (
+            rng, rec.get("condition_range_min") or 0.0, rng, rec.get("condition_range_max") or 0.0)
+    for f in ("condition_python", "amount_python_compute", "amount_percentage_base", "quantity"):
+        if vals.get(f):
+            vals[f] = _fix_code(vals[f], rec.get("code"), f)
+    return vals
+
+
+def h_pos_payment(vals, rec, later):
+    # Odoo 20: payment_method_type (required) naya; is_cash_count khatam (cash = journal type cash)
+    df = dst.fields("pos.payment.method") or {}
+    # 'type' (cash / bank / pay_later) Odoo 20 mein required stored field hai (Odoo 16 wali logic:
+    # cash method -> cash, journal ho to bank, journal na ho to Customer Account)
+    if "type" in df and not vals.get("type"):
+        t = "cash" if rec.get("is_cash_count") else ("bank" if rec.get("journal_id") else "pay_later")
+        allowed = [x[0] for x in (df["type"].get("selection") or [])]
+        if not allowed or t in allowed:
+            vals["type"] = t
+        else:
+            log.warning("payment method '%s': type '%s' dst mein allowed nahi %s", rec.get("name"), t, allowed)
+    if "payment_method_type" in df and not vals.get("payment_method_type"):
+        allowed = [x[0] for x in (df["payment_method_type"].get("selection") or [])]
+        if allowed:
+            vals["payment_method_type"] = "none" if "none" in allowed else allowed[0]
+            log.info("payment method '%s': payment_method_type=%s (allowed: %s)",
+                     rec.get("name"), vals["payment_method_type"], allowed)
+    return vals
+
+
+_walkin = {}
+
+
+def _walkin_partner():
+    if "id" not in _walkin:
+        r = dst.call("res.partner", "search", [("name", "=", "Walk-in Customer")], limit=1, context=CTX)
+        _walkin["id"] = r[0] if r else dst.call("res.partner", "create", {"name": "Walk-in Customer"}, context=CTX)
+    return _walkin["id"]
+
+
+def h_pos_config(vals, rec, later):
+    """Odoo 20 mein naye required fields + constraint: default pricelist available pricelists mein ho."""
+    req = ["closing_journal_id", "default_partner_id", "default_product_id"]
+    try:
+        dg = dst.call("pos.config", "default_get", fields_list=req, context=CTX) or {}
+    except Exception:
+        dg = {}
+    if not vals.get("closing_journal_id") and not dg.get("closing_journal_id") and vals.get("journal_id"):
+        vals["closing_journal_id"] = vals["journal_id"]
+    if not vals.get("default_partner_id") and not dg.get("default_partner_id") and not DRY:
+        vals["default_partner_id"] = _walkin_partner()
+    pl = vals.get("pricelist_id")
+    if pl:
+        ids = list(vals.get("available_pricelist_ids", [[6, 0, []]])[0][2])
+        if pl not in ids:
+            ids.append(pl)
+        vals["available_pricelist_ids"] = [[6, 0, ids]]
+    for k in req:
+        if not vals.get(k) and not dg.get(k):
+            log.debug("pos.config '%s': %s ki value nahi mili (default_get bhi nahi)", rec.get("name"), k)
+    return vals
+
+
+# ----------------------------------------------------------------- WEBSITE
+import re
+_URL_RE = re.compile(r"(/web/(?:image|content))/(\d+)((?:-[0-9a-f]+)?)")
+_OID_RE = re.compile(r'(data-original-id=")(\d+)(")')
+
+
+def rewrite_urls(txt):
+    """Content ke andar purani attachment ids (/web/image/123...) ko nayi ids se badalta hai"""
+    if not txt or not isinstance(txt, str):
+        return txt
+
+    def sub(m):
+        d = idmap.get("ir.attachment", m.group(2))
+        return "%s/%s" % (m.group(1), d) if d else m.group(0)
+
+    def sub2(m):
+        d = idmap.get("ir.attachment", m.group(2))
+        return m.group(1) + (str(d) if d else m.group(2)) + m.group(3)
+    return _OID_RE.sub(sub2, _URL_RE.sub(sub, txt))
+
+
+def translate_record(sm, dm, sid, did, fields):
+    sf_, df_ = src.fields(sm) or {}, dst.fields(dm) or {}
+    fl = [f for f in fields if f in sf_ and f in df_]
+    for lang in LANGS:
+        try:
+            tr = src.call(sm, "read", [sid], fields=fl, context=dict(CTX, lang=lang))[0]
+            vals = {f: rewrite_urls(tr[f]) for f in fl if tr.get(f)}
+            if vals:
+                dst.call(dm, "write", [did], vals, context=dict(CTX, lang=lang))
+        except Exception as e:
+            log.warning("translation %s#%s (%s) fail: %s", dm, did, lang, str(e)[:150])
+
+
+def seed_websites():
+    s = src.call("website", "search", [], order="id", context=CTX)
+    d = dst.call("website", "search", [], order="id", context=CTX)
+    if s and d and not idmap.get("website", s[0]):
+        idmap.set("website", s[0], d[0])
+        idmap.protected("website").append(d[0])
+        log.info("website map: src %s -> dst %s (pehli website pehli se)", s[0], d[0])
+    if LANGS:
+        active = [r["code"] for r in dst.call("res.lang", "search_read", [("active", "=", True)], fields=["code"])]
+        for lg in LANGS:
+            if lg not in active:
+                log.warning("LANGS: '%s' Odoo 20 mein active nahi - pehle language install karo", lg)
+
+
+def post_website(rec, did):
+    """Naya website banne par Odoo default pages/menus bana deta hai - unhe hata do (hum apne laate hain)"""
+    if did in idmap.protected("website"):
+        return
+    done = idmap.d.setdefault("_site_cleaned", [])
+    if did in done:
+        return
+    for model, dom in (("website.menu", [("website_id", "=", did), ("parent_id", "!=", False)]),
+                       ("website.page", [("website_id", "=", did)])):
+        try:
+            ids = dst.call(model, "search", dom, context=CTX)
+            if ids:
+                dst.call(model, "unlink", ids, context=CTX)
+        except Exception as e:
+            log.warning("default %s hataane mein masla: %s", model, str(e)[:150])
+    done.append(did)
+
+
+def h_attachment(vals, rec, later):
+    if not rec.get("datas"):
+        return None
+    vals["datas"] = rec["datas"]
+    vals.pop("res_model", None)      # purani res_id naye database mein ghalat record ki taraf jati
+    vals.pop("res_id", None)
+    vals["public"] = True
+    return vals
+
+
+_VIEW_WANT = ["name", "arch_db", "active", "track", "customize_show", "priority", "visibility", "type"]
+
+
+def _slug(url):
+    return re.sub(r"[^a-z0-9_]+", "_", (url or "page").lower()).strip("_") or "home"
+
+
+def h_page(vals, rec, later):
+    """website.page ka view (QWeb content) bhi saath migrate karta hai; url+website same ho to usi page ka view update"""
+    vsrc = m2o_id(rec["view_id"])
+    sfv, dfv = src.fields("ir.ui.view") or {}, dst.fields("ir.ui.view") or {}
+    want = [f for f in _VIEW_WANT + ["key", "website_id"] if f in sfv and f in dfv]
+    sv = src.call("ir.ui.view", "read", [vsrc], fields=want, context=CTX)[0]
+    vv = {f: sv[f] for f in _VIEW_WANT if f in want and sv.get(f) not in (None,) and f != "type"}
+    vv["type"] = "qweb"
+    if vv.get("arch_db"):
+        vv["arch_db"] = rewrite_urls(vv["arch_db"])
+    web = resolve("website", m2o_id(rec["website_id"])) if rec.get("website_id") else False
+    if web:
+        vv["website_id"] = web
+    claimed = set(idmap.d.get("website.page", {}).values())
+    mapped = idmap.get("website.page", rec["id"])          # pehle migrate ho chuka page (dobara chalane par)
+    ex = [mapped] if mapped else dst.call(
+        "website.page", "search", [("url", "=", rec["url"]), ("website_id", "=", web or False)], limit=1, context=CTX)
+    if ex and (mapped or ex[0] not in claimed):
+        # maujooda page (default Home/Contact us ya pehle ka migrate hua) - uska view update
+        dview = m2o_id(dst.call("website.page", "read", ex, fields=["view_id"])[0]["view_id"])
+        if not DRY:
+            dst.call("ir.ui.view", "write", [dview], vv, context=CTX)
+        vals["view_id"] = dview
+    else:
+        key = sv.get("key") or "website.page_%s" % _slug(rec["url"])
+        if dst.call("ir.ui.view", "search", [("key", "=", key), ("website_id", "=", web or False)],
+                    limit=1, context=CTX):
+            key += "_migrated"
+        vv["key"] = key
+        if not DRY:
+            vals["view_id"] = dst.call("ir.ui.view", "create", vv, context=CTX)
+    return vals
+
+
+def post_page(rec, did):
+    if not LANGS:
+        return
+    dview = m2o_id(dst.call("website.page", "read", [did], fields=["view_id"])[0]["view_id"])
+    for lang in LANGS:
+        try:
+            tr = src.call("ir.ui.view", "read", [m2o_id(rec["view_id"])], fields=["arch_db"],
+                          context=dict(CTX, lang=lang))[0]
+            if tr.get("arch_db"):
+                dst.call("ir.ui.view", "write", [dview], {"arch_db": rewrite_urls(tr["arch_db"])},
+                         context=dict(CTX, lang=lang))
+        except Exception as e:
+            log.warning("page translation %s (%s) fail: %s", rec.get("url"), lang, str(e)[:150])
+
+
+def find_root_menu(rec):
+    if rec.get("parent_id"):
+        return None
+    web = resolve("website", m2o_id(rec["website_id"])) if rec.get("website_id") else False
+    r = dst.call("website.menu", "search", [("website_id", "=", web or False), ("parent_id", "=", False)],
+                 limit=1, context=CTX)
+    return r[0] if r else None
+
+
+def h_menu(vals, rec, later):
+    if vals.get("mega_menu_content"):
+        vals["mega_menu_content"] = rewrite_urls(vals["mega_menu_content"])
+    return vals
+
+
+def h_blog_post(vals, rec, later):
+    for k in ("content", "teaser_manual", "cover_properties"):
+        if vals.get(k):
+            vals[k] = rewrite_urls(vals[k])
+    return vals
+
+
+# ----------------------------------------------------------------- ROUND 2 masters
+def find_version(rec):
+    """Employee banne par Odoo ne ek version bana diya hota hai - pehla contract usi par likho,
+    baqi contracts naye versions banenge."""
+    e = resolve("hr.employee", m2o_id(rec["employee_id"])) if rec.get("employee_id") else None
+    if not e:
+        return None
+    claimed = set(idmap.d.get("hr.contract", {}).values())
+    for v in dst.call("hr.version", "search", [("employee_id", "=", e)], order="date_version, id", context=CTX):
+        if v not in claimed:
+            return v
+    return None
+
+
+def h_contract(vals, rec, later):
+    import datetime
+    if not vals.get("employee_id"):
+        log.warning("contract %s: employee migrate nahi hua - skip", rec.get("id"))
+        return None
+    d = rec.get("date_start") or (rec.get("create_date") or "")[:10] or datetime.date.today().isoformat()
+    if rec.get("state") == "cancel" and "active" in (dst.fields("hr.version") or {}):
+        vals["active"] = False
+    if vals.get("active", True):
+        # Odoo 20: aik employee ke do ACTIVE versions ki effective date same nahi ho sakti -> date +1 din
+        mine = idmap.get("hr.contract", rec["id"]) or find_version(rec)
+        shifted = False
+        for _ in range(90):
+            same = dst.call("hr.version", "search", [("employee_id", "=", vals["employee_id"]),
+                                                     ("date_version", "=", d), ("active", "=", True)], context=CTX)
+            if not [v for v in same if v != mine]:
+                break
+            d = (datetime.date.fromisoformat(d) + datetime.timedelta(days=1)).isoformat()
+            shifted = True
+        if shifted:
+            log.warning("contract %s: effective date same thi, date_version %s kar di (contract dates wahi hain)",
+                        rec.get("id"), d)
+    vals["date_version"] = d
+    return vals
+
+
+_clearing = {}
+
+
+def _clearing_label():
+    if "id" not in _clearing:
+        cid = None
+        try:
+            r = dst.call("clearing.label", "search", [], limit=1, context=CTX)
+            cid = r[0] if r else dst.call("clearing.label", "create", {"name": "Other"}, context=CTX)
+        except Exception as e:
+            log.error("clearing.label nahi mila/ban saka: %s - 'inspect clearing.label' chalao", str(e)[:150])
+        _clearing["id"] = cid
+    return _clearing["id"]
+
+
+def h_bank_account(vals, rec, later):
+    # res.bank Odoo 20 mein nahi: bank ka naam/BIC account par hi
+    if rec.get("bank_id"):
+        sfb = src.fields("res.bank") or {}
+        want = [f for f in ("name", "bic", "country", "city") if f in sfb]
+        b = src.call("res.bank", "read", [m2o_id(rec["bank_id"])], fields=want, context=CTX)[0]
+        if b.get("name"):
+            vals["bank_name"] = b["name"]
+        if b.get("bic"):
+            vals["bank_bic"] = b["bic"]
+        if b.get("city"):
+            vals["city"] = b["city"]
+        if b.get("country"):
+            c = resolve("res.country", m2o_id(b["country"]))
+            if c:
+                vals["country_id"] = c
+    if "clearing_label_id" in (dst.fields("res.partner.bank") or {}) and not vals.get("clearing_label_id"):
+        cl = _clearing_label()
+        if cl:
+            vals["clearing_label_id"] = cl
+    return vals
+
+
+def h_variant(vals, rec, later):
+    """Jo variant Odoo 20 mein nahi bana (dynamic attributes) usay combination ke saath khud banao"""
+    t = vals.get("product_tmpl_id")
+    if not t:
+        log.warning("variant %s: template migrate nahi hua - skip", rec.get("id"))
+        return None
+    if idmap.get("product.product", rec["id"]) or find_variant(rec):
+        return vals                                  # pehle se maujood - combination na chhero
+    ids = rec.get("product_template_attribute_value_ids") or []
+    ptav = []
+    if ids:
+        for r in src.call("product.template.attribute.value", "read", ids, fields=["product_attribute_value_id"],
+                          context=CTX):
+            av = resolve("product.attribute.value", m2o_id(r["product_attribute_value_id"]))
+            f = dst.call("product.template.attribute.value", "search",
+                         [("product_tmpl_id", "=", t), ("product_attribute_value_id", "=", av)],
+                         limit=1, context=CTX) if av else []
+            if not f:
+                log.warning("variant %s '%s': attribute value dst template par nahi mili - skip (attribute lines "
+                            "dobara chalao)", rec.get("id"), rec.get("display_name") or rec.get("name"))
+                return None
+            ptav.append(f[0])
+    if ptav:
+        vals["product_template_attribute_value_ids"] = [[6, 0, ptav]]
+    return vals
+
+
+def find_salary_rule(rec):
+    """Odoo 20 ki structure mein pehle se wahi code ka rule ho to wahi (unique-by-structure constraint)"""
+    if not rec.get("struct_id") or not rec.get("code"):
+        return None
+    st = resolve("hr.payroll.structure", m2o_id(rec["struct_id"]))
+    if not st:
+        return None
+    r = dst.call("hr.salary.rule", "search", [("code", "=", rec["code"]), ("struct_ids", "in", [st])],
+                 limit=1, context=CTX)
+    return r[0] if r else None
+
+
+def h_orderpoint(vals, rec, later):
+    mn, mx = vals.get("product_min_qty"), vals.get("product_max_qty")
+    if mn is not None and mx is not None and mn > mx:     # Odoo 20: min <= max zaroori
+        vals["product_max_qty"] = mn
+        log.debug("orderpoint %s: min %s > max %s tha, max=min kiya", rec.get("id"), mn, mx)
+    return vals
+
+
+def h_pricelist_item(vals, rec, later):
+    if rec.get("active") is False:
+        return None                                  # Odoo 20 mein 'active' nahi
+    cp = rec.get("compute_price")
+    if cp == "percentage":                           # percent_price -> discount
+        vals["compute_price"] = "discount"
+        vals["price_discount"] = rec.get("percent_price") or 0.0
+    elif cp == "formula":
+        vals["compute_price"] = "discount"
+    elif cp == "fixed":
+        vals["compute_price"] = "fixed"
+    ap = vals.get("applied_on")
+    need = {"1_product": "product_tmpl_id", "0_product_variant": "product_id", "2_product_category": "categ_id"}
+    if ap in need and not vals.get(need[ap]):
+        log.warning("pricelist item %s: %s migrate nahi hua - skip (warna global rule ban jata)", rec.get("id"), need[ap])
+        return None
+    if not vals.get("pricelist_id"):
+        log.warning("pricelist item %s: pricelist migrate nahi hui - skip", rec.get("id"))
+        return None
+    if vals.get("base") == "pricelist" and not vals.get("base_pricelist_id"):
+        log.warning("pricelist item %s: base pricelist migrate nahi hui - skip", rec.get("id"))
+        return None
+    return vals
+
+
+def h_pay_term(vals, rec, later):
+    """Terms ki lines (Odoo 20 ke naye format mein) usi create mein; early discount header par"""
+    if idmap.get("account.payment.term", rec["id"]):
+        vals.pop("line_ids", None)
+        return vals                                   # pehle migrate ho chuka - lines dobara nahi
+    sfl = src.fields("account.payment.term.line") or {}
+    want = [f for f in ("value", "value_amount", "days", "months", "end_month", "days_after",
+                        "discount_days", "discount_percentage", "sequence") if f in sfl]
+    lines = src.call("account.payment.term.line", "read", rec.get("line_ids") or [], fields=want, context=CTX)
+    lines.sort(key=lambda l: (l.get("sequence", 0), l["id"]))
+    pct_total = sum((l.get("value_amount") or 0.0) for l in lines if l["value"] == "percent")
+    cmds, disc, has_balance = [], None, False
+    for l in lines:
+        v, amt = l["value"], l.get("value_amount") or 0.0
+        if v == "balance":
+            has_balance = True
+            v, amt = "percent", round(100.0 - pct_total, 6)     # balance = baqi (sab percent lines ke baad)
+            if amt <= 0:
+                log.warning("payment term '%s': balance line 0%% - hata di", rec.get("name"))
+                continue
+        offset = (l.get("days") or 0) + 30 * (l.get("months") or 0)
+        extra = l.get("days_after") or 0
+        if l.get("end_month"):
+            if offset == 0:
+                dt, nb = "days_after_end_of_month", extra
+            else:
+                dt, nb = "days_after_end_of_next_month", extra
+                if offset > 45:
+                    log.warning("payment term '%s': %s din + end of month Odoo20 mein exact nahi - check karo",
+                                rec.get("name"), offset)
+        else:
+            dt, nb = "days_after", offset
+        cmds.append([0, 0, {"value": v, "value_amount": amt, "delay_type": dt, "nb_days": nb}])
+        if l.get("discount_percentage"):
+            disc = (l.get("discount_days") or 0, l["discount_percentage"])
+    # Odoo 20: percent lines ka total 100 hona zaroori
+    total = sum(c[2]["value_amount"] for c in cmds if c[2]["value"] == "percent")
+    if cmds and abs(total - 100.0) > 0.0001:
+        if not has_balance and total < 100.0:
+            cmds.append([0, 0, {"value": "percent", "value_amount": round(100.0 - total, 6),
+                                "delay_type": "days_after", "nb_days": 0}])
+            log.warning("payment term '%s': percent total %.2f tha - baqi %.2f%% ki aakhri line add ki",
+                        rec.get("name"), total, 100.0 - total)
+        else:
+            log.warning("payment term '%s': percent total %.2f (100 nahi) - create fail ho sakta hai", rec.get("name"), total)
+    if cmds:
+        vals["line_ids"] = cmds
+    if disc and "early_discount" in (dst.fields("account.payment.term") or {}):
+        vals.update(early_discount=True, discount_days=disc[0], discount_percentage=disc[1])
+    return vals
+
+
+# ----------------------------------------------------------------- custom runner: fiscal position tax mapping
+def run_fp_tax(step):
+    sm = "account.fiscal.position.tax"
+    if src.fields(sm) is None:
+        log.warning("[%s] Odoo16 mein nahi", sm)
+        return
+    ids = src.call(sm, "search", [], context=CTX)
+    log.info("== %s -> account.tax.original_tax_ids/fiscal_position_ids : %d lines", sm, len(ids))
+    n = 0
+    for r in src.call(sm, "read", ids, fields=["position_id", "tax_src_id", "tax_dest_id"], context=CTX):
+        pos = resolve("account.fiscal.position", m2o_id(r["position_id"]))
+        ts = resolve("account.tax", m2o_id(r["tax_src_id"]))
+        td = resolve("account.tax", m2o_id(r["tax_dest_id"])) if r.get("tax_dest_id") else None
+        if not (pos and ts and td):
+            log.warning("fiscal tax line %s skip (pos=%s src=%s dest=%s) - dest empty ya map nahi", r["id"], pos, ts, td)
+            continue
+        if not DRY:
+            try:
+                dst.call("account.tax", "write", [td],
+                         {"original_tax_ids": [[4, ts]], "fiscal_position_ids": [[4, pos]]}, context=CTX)
+                n += 1
+            except Exception as e:
+                log.error("fiscal tax line %s fail: %s", r["id"], str(e)[:250])
+    log.info("== fiscal tax mapping done: %d", n)
+
+
+# ----------------------------------------------------------------- STEPS (dependency order)
+# model | key | domain | skip | rename | extra_read | hook | post | finder | create | dst_model
+# no_update: existing dst record par ye fields overwrite na karo | experimental: sirf --only se chale
+SYS_LOGINS = ["__system__", "default", "public", "portaltemplate"]
+STEPS = [
+    dict(model="res.currency", key=["name"]),
+    dict(model="res.currency.rate", key=["currency_id", "name", "company_id"]),
+    dict(model="res.bank", key=["name", "bic"]),                       # Odoo20 mein nahi mila -> inspect
+    dict(model="account.account", key=["code"], extra_read=["deprecated", "company_id"], hook=h_account),
+    dict(model="account.tax.group", key=["name"]),
+    dict(model="account.tax", key=["name", "type_tax_use", "company_id"], rename={"description": "invoice_label"}),
+    dict(model="account.journal", key=["code", "company_id"]),
+    dict(model="account.fiscal.position", key=["name", "company_id"]),
+    dict(model="account.fiscal.position.tax", runner=run_fp_tax),
+    dict(model="account.fiscal.position.account"),
+    dict(model="account.payment.term", key=["name", "company_id"], hook=h_pay_term, experimental=True,
+         extra_read=["line_ids"], no_update=["line_ids", "early_discount", "discount_days", "discount_percentage"]),
+    dict(model="uom.uom", key=["name"], domain=[("uom_type", "=", "reference")],
+         extra_read=["uom_type", "category_id", "factor_inv"], hook=h_uom,
+         no_update=["relative_uom_id", "relative_factor"]),
+    dict(model="uom.uom", key=["name"], domain=[("uom_type", "!=", "reference")],
+         extra_read=["uom_type", "category_id", "factor_inv"], hook=h_uom,
+         no_update=["relative_uom_id", "relative_factor"]),
+    dict(model="product.category", key=["complete_name"]),
+    dict(model="pos.category", key=["name"]),
+    dict(model="product.attribute", key=["name"]),
+    dict(model="product.attribute.value", key=["name", "attribute_id"]),
+    # ---- users / HR
+    dict(model="res.users", key=["login"], domain=[("login", "not in", SYS_LOGINS)], skip=["partner_id"],
+         extra_read=["partner_id"], post=post_user, no_update=["group_ids", "groups_id", "active"]),
+    dict(model="hr.department", key=["name", "company_id"]),
+    dict(model="hr.job", key=["name", "company_id"]),
+    dict(model="resource.calendar", key=["name", "company_id"], post=post_calendar),
+    dict(model="resource.calendar.attendance", domain=[("display_type", "=", False), ("calendar_id", "!=", False)],
+         hook=h_attendance, extra_read=["week_type"]),
+    dict(model="hr.work.location", key=["name", "company_id"]),
+    dict(model="hr.employee.category", key=["name"]),
+    dict(model="hr.departure.reason", key=["name"]),
+    dict(model="hr.employee", key=["name", "company_id"], finder=find_employee, hook=h_employee,
+         skip=["work_contact_id", "resource_id"], extra_read=["work_contact_id", "bank_account_id", "user_id"], post=post_employee),
+    dict(model="hr.contract", dst_model="hr.version", finder=find_version, hook=h_contract, experimental=True,
+         extra_read=["date_start", "employee_id", "create_date", "state"]),
+    # ---- partners
+    dict(model="res.country.state", key=["country_id", "code"]),     # Oman wagairah ke custom states (partners ka state_id)
+    dict(model="res.partner.category", key=["name"]),
+    dict(model="res.partner.industry", key=["name"]),
+    dict(model="res.partner", hook=h_partner, extra_read=["mobile", "x_studio_mobile", "x_studio_tax_id", "company_registry"]),
+    dict(model="res.partner.bank", key=["acc_number", "partner_id"], hook=h_bank_account, experimental=True,
+         extra_read=["bank_id"]),
+    # ---- products
+    dict(model="product.template", key=["name", "default_code"], hook=h_product_tmpl, batch=20,
+         extra_read=["detailed_type", "sale_delay", "pos_categ_id", "priority", "expense_policy", "uom_po_id", "uom_id"]),
+    dict(model="product.template.attribute.line", key=["product_tmpl_id", "attribute_id"],
+         inline_m2m=["value_ids"]),   # Odoo 20: line create ke waqt hi kam az kam aik value zaroori
+    dict(model="product.product", finder=find_variant, hook=h_variant, batch=20,
+         skip=["lst_price", "product_template_variant_value_ids", "product_template_attribute_value_ids"],
+         extra_read=["product_template_variant_value_ids", "product_template_attribute_value_ids"]),
+    dict(model="product.supplierinfo"),
+    dict(model="product.pricelist", key=["name", "company_id"]),
+    dict(model="product.pricelist.item", hook=h_pricelist_item, experimental=True,
+         extra_read=["compute_price", "percent_price", "active"]),
+    # ---- stock
+    dict(model="stock.warehouse", key=["code", "company_id"]),
+    dict(model="stock.location", key=["complete_name", "company_id"]),
+    dict(model="stock.route", key=["name"]),
+    dict(model="stock.rule", key=["name", "route_id", "picking_type_id"]),
+    dict(model="stock.picking.type", key=["name", "warehouse_id"]),
+    # ---- POS
+    dict(model="pos.payment.method", key=["name", "company_id", "journal_id"], hook=h_pos_payment, experimental=True,
+         extra_read=["is_cash_count", "journal_id"]),
+    dict(model="pos.config", hook=h_pos_config, experimental=True,
+         inline_m2m=["available_pricelist_ids", "payment_method_ids"]),
+    # ---- Payroll
+    dict(model="hr.work.entry.type", key=["code"]),
+    dict(model="hr.salary.rule.category", key=["code"]),
+    dict(model="hr.payroll.structure.type", key=["name"]),
+    dict(model="hr.payroll.structure", key=["name", "code"]),
+    dict(model="hr.salary.rule", hook=h_salary_rule, finder=find_salary_rule, experimental=True, keep_existing=True,
+         extra_read=["struct_id", "category_id", "condition_select", "condition_range", "condition_range_min",
+                     "condition_range_max", "appears_on_payslip", "code"]),
+    dict(model="hr.rule.parameter", key=["code"]),
+    dict(model="hr.rule.parameter.value"),
+    dict(model="stock.warehouse.orderpoint", hook=h_orderpoint, experimental=True),
+    # ---- Websites (sab experimental: sirf --only ya ./run_migration.sh 11 se)
+    dict(model="website", key=["name"], pre=seed_websites, post=post_website, experimental=True,
+         skip=["theme_id", "menu_id"]),
+    dict(model="ir.attachment", experimental=True, batch=5, skip_mapped=True, hook=h_attachment,
+         extra_read=["datas"],
+         skip=["store_fname", "db_datas", "checksum", "file_size", "index_content", "raw", "url"],
+         domain=[("public", "=", True), ("res_field", "=", False), ("type", "=", "binary"),
+                 ("res_model", "in", [False, "ir.ui.view", "website", "website.page", "blog.post", "blog.blog"])]),
+    dict(model="website.page", key=["url", "website_id"], hook=h_page, post=post_page, experimental=True,
+         skip=["view_id"], extra_read=["view_id", "url", "website_id"]),
+    dict(model="website.menu", key=["name", "url", "website_id"], finder=find_root_menu, hook=h_menu,
+         experimental=True, extra_read=["parent_id", "website_id"], translate=["name"]),
+    dict(model="website.rewrite", experimental=True, skip=["route_id"]),
+    dict(model="blog.blog", key=["name"], experimental=True, translate=["name", "subtitle"]),
+    dict(model="blog.tag.category", key=["name"], experimental=True),
+    dict(model="blog.tag", key=["name"], experimental=True, translate=["name"]),
+    dict(model="blog.post", hook=h_blog_post, experimental=True, translate=["name", "subtitle", "content"]),
+    dict(model="product.public.category", experimental=True, translate=["name"]),
+    dict(model="product.ribbon", experimental=True),
+]
+
+# compare ke liye extra (src_model, dst_model) jo STEPS mein seedha nahi
+EXTRA_COMPARE = [("hr.contract", "hr.version"), ("account.tax.repartition.line", "account.tax.repartition.line"),
+                 ("hr.payslip.input.type", "hr.salary.rule"), ("hr.leave.type", "hr.work.entry.type"),
+                 ("res.bank", "res.bank"), ("product.packaging", "product.uom")]
+
+
+# ----------------------------------------------------------------- engine
+def flush_pending(final=False):
+    left = []
+    for dm, did, f, t, rel, sv in PENDING:
+        try:
+            if t == "many2one":
+                r_ = resolve(rel, sv)
+                if r_:
+                    if not DRY:
+                        dst.call(dm, "write", [did], {f: r_}, context=CTX)
+                else:
+                    left.append((dm, did, f, t, rel, sv))
+            else:
+                ids = [x for x in (resolve(rel, i) for i in sv) if x]
+                if ids and not DRY:
+                    try:
+                        dst.call(dm, "write", [did], {f: [[6, 0, ids]]}, context=CTX)
+                    except RuntimeError as e:
+                        if "inaccessible" not in str(e):
+                            raise
+                        bad = []             # kuch records link nahi ho sakte (domain) - baqi aik aik karke
+                        for i in ids:
+                            try:
+                                dst.call(dm, "write", [did], {f: [[4, i]]}, context=CTX)
+                            except RuntimeError:
+                                bad.append(i)
+                        log.warning("%s#%s.%s: %d record link nahi ho sake (Odoo 20 domain): %s", dm, did, f, len(bad), bad[:5])
+                if len(ids) < len(sv):
+                    left.append((dm, did, f, t, rel, sv))   # poori list rakho (partial overwrite na ho)
+        except Exception as e:
+            log.error("pending write fail %s#%s.%s: %s", dm, did, f, str(e)[:200])
+    PENDING[:] = left
+    if final and left:
+        with open("unresolved.csv", "w", newline="") as fh:
+            w = csv.writer(fh)
+            w.writerow(["dst_model", "dst_id", "field", "type", "src_relation", "unresolved_src_ids"])
+            for dm, did, f, t, rel, sv in left:
+                miss = [sv] if t == "many2one" else [i for i in sv if not resolve(rel, i)]
+                w.writerow([dm, did, f, t, rel, miss])
+        log.warning("%d relations unresolved -> unresolved.csv", len(left))
+
+
+def run_step(step):
+    if step.get("runner"):
+        return step["runner"](step)
+    sm0 = step["model"]
+    sm = src_model(sm0)
+    if sm is None:
+        log.warning("[%s] Odoo16 mein model nahi - skip", sm0)
+        return
+    dm = step.get("dst_model") or dst_model(sm)
+    if not dm or dst.fields(dm) is None:
+        log.warning("[%s] Odoo20 mein model NAHI (%s) - manual handling chahiye. Error: %s",
+                    sm, dm or sm, dst.err.get(sm, ""))
+        return
+    sf, df = src.fields(sm), dst.fields(dm)
+    if step.get("pre"):
+        step["pre"]()
+    ren = step.get("rename", {})
+    skip = GLOBAL_SKIP | set(step.get("skip", []))
+    keys = [k for k in step.get("key", []) if k in sf and dname(k, df, ren) in df]
+    plan = {}
+    ms, md = model_meta(src, sm), model_meta(dst, dm)
+    for f, s in sf.items():
+        if f in skip or f.startswith(("message_", "activity_", "website_message")):
+            continue
+        if s["type"] == "one2many":
+            continue
+        if not (s.get("store") or s.get("company_dependent")):
+            # non-stored lekin writable related field (jaise res.users ka name/email, partner se inherited)
+            if not (f in ms["related"] and not s.get("readonly")):
+                continue
+        n = dname(f, df, ren)
+        d = df.get(n)
+        if not d or d["type"] != s["type"]:
+            continue
+        if d.get("readonly") and (n in md["computed"] or n in md["related"]):
+            continue          # sach mein computed field - skip. (readonly=True par plain stored field likhna theek hai)
+        plan[f] = n
+    rf = set(plan) | set(keys) | {x for x in step.get("extra_read", []) if x in sf}
+    domain = DOMAIN_OVERRIDE if DOMAIN_OVERRIDE is not None else step.get("domain", [])
+    ids = src.call(sm, "search", domain, order="id", context=CTX)
+    if step.get("skip_mapped"):
+        ids = [i for i in ids if not idmap.get(sm, i)]
+    used = set(idmap.d.get(sm, {}).values())
+    bs = step.get("batch", BATCH)
+    log.info("== %s -> %s : %d records, %d fields", sm, dm, len(ids), len(plan))
+    ok = err = 0
+    xm = xmlid_map(sm)
+    no_upd = set(step.get("no_update", []))
+    for i in range(0, len(ids), bs):
+        chunk = ids[i:i + bs]
+        try:
+            recs = src.call(sm, "read", chunk, fields=sorted(rf), context=CTX)
+        except Exception as e:                       # poora batch fail: aik aik karke (script ruke nahi)
+            log.warning("[%s] batch read fail (%s) - aik aik karke parh raha hoon", sm, str(e)[:120])
+            recs = []
+            for one in chunk:
+                try:
+                    recs += src.call(sm, "read", [one], fields=sorted(rf), context=CTX)
+                except Exception as e2:
+                    err += 1
+                    log.error("[%s] src id %s fail: read nahi hua: %s", sm, one, str(e2)[:200])
+        if i and (i // bs) % 10 == 0:
+            idmap.save()
+            log.info("[%s] progress: %d/%d  (ok=%d err=%d)", sm, i, len(ids), ok, err)
+        for rec in recs:
+            try:
+                vals, later = {}, []
+                for f, n in plan.items():
+                    v, s, d = rec.get(f), sf[f], df[n]
+                    t = s["type"]
+                    if t == "many2one":
+                        if not v:
+                            continue
+                        rel = s["relation"]
+                        if canon(rel) != canon(d["relation"]):
+                            continue
+                        r_ = resolve(rel, v[0])
+                        if r_:
+                            vals[n] = r_
+                        else:
+                            later.append((n, t, rel, v[0]))
+                    elif t == "many2many":
+                        if v:
+                            later.append((n, t, s["relation"], v))
+                    elif t == "selection":
+                        allowed = [x[0] for x in (d.get("selection") or [])]
+                        if v and (not allowed or v in allowed):
+                            vals[n] = v
+                        elif v:
+                            log.debug("[%s] selection %s=%s dst mein nahi", sm, f, v)
+                    else:
+                        if v is False and t != "boolean":
+                            continue
+                        vals[n] = v
+                inl = set(step.get("inline_m2m", []))
+                if inl:   # kuch constraints ke liye m2m create ke waqt hi chahiye (jaise POS pricelists)
+                    keep = []
+                    for x in later:
+                        n_, t_, rel_, sv_ = x
+                        if n_ in inl and t_ == "many2many":
+                            ids_ = [y for y in (resolve(rel_, i) for i in sv_) if y]
+                            if ids_:
+                                vals[n_] = [[6, 0, ids_]]
+                            if len(ids_) < len(sv_):
+                                keep.append(x)
+                        else:
+                            keep.append(x)
+                    later = keep
+                if step.get("hook"):
+                    vals = step["hook"](vals, rec, later)
+                    if vals is None:
+                        continue
+                # existing record dhoondo
+                did = idmap.get(sm, rec["id"])
+                found_existing = False
+                if not did:
+                    did = xm.get(rec["id"])
+                    found_existing = bool(did)
+                if not did and step.get("finder"):
+                    did = step["finder"](rec)
+                    found_existing = bool(did)
+                if not did and keys:
+                    dom = []
+                    for k in keys:
+                        v = rec.get(k)
+                        if isinstance(v, list):
+                            v = resolve(sf[k]["relation"], v[0])
+                            if not v:
+                                dom = None
+                                break
+                        dom.append((dname(k, df, ren), "=", v))
+                    if dom:
+                        f1 = dst.call(dm, "search", dom, limit=1, context=CTX)
+                        did = f1[0] if f1 else None
+                        if did and did in used:
+                            log.warning("[%s] src id %s ka key pehle se kisi aur record ne le rakha (duplicate naam) "
+                                        "- naya record banega, merge nahi", sm, rec["id"])
+                            did = None
+                        found_existing = bool(did)
+                if DRY:
+                    ok += 1
+                    continue
+                if did and found_existing and step.get("keep_existing"):
+                    idmap.set(sm, rec["id"], did)       # Odoo 20 ka apna record - overwrite nahi
+                    used.add(did)
+                    if did not in idmap.protected(dm):
+                        idmap.protected(dm).append(did)
+                    log.info("[%s] src %s Odoo 20 ke maujooda record se mapped, update nahi kiya", sm, rec["id"])
+                    ok += 1
+                    continue
+                if did:
+                    if found_existing and did not in idmap.protected(dm):
+                        idmap.protected(dm).append(did)
+                    if did in idmap.protected(dm):
+                        for k in list(vals):
+                            if k in no_upd:
+                                vals.pop(k)
+                        later = [x for x in later if x[0] not in no_upd]
+                    if vals:
+                        safe_call(dm, did, vals)
+                elif step.get("create", True):
+                    miss = [(x[0], x[2], x[3]) for x in later if df.get(x[0], {}).get("required")]
+                    if miss:
+                        raise ValueError("required relation %s resolve nahi hui (field, src model, src id) - pehle "
+                                         "uska parent model migrate karo (create skip kiya)" % miss)
+                    did = safe_call(dm, None, vals)
+                else:
+                    log.warning("[%s] src id %s dst mein nahi mila", sm, rec["id"])
+                    continue
+                idmap.set(sm, rec["id"], did)
+                used.add(did)
+                if step.get("post"):
+                    step["post"](rec, did)
+                if LANGS and step.get("translate"):
+                    translate_record(sm, dm, rec["id"], did, step["translate"])
+                for n, t, rel, sv in later:
+                    PENDING.append((dm, did, n, t, rel, sv))
+                ok += 1
+            except Exception as e:
+                err += 1
+                log.error("[%s] src id %s fail: %s", sm, rec.get("id"), str(e)[:300])
+    flush_pending()
+    idmap.save()
+    log.info("== %s done: ok=%d err=%d", sm, ok, err)
+
+
+def seed_companies():
+    for r in src.call("res.company", "search_read", [], fields=["name"], context=CTX):
+        f = dst.call("res.company", "search", [("name", "=", r["name"])], limit=1, context=CTX)
+        if f:
+            idmap.set("res.company", r["id"], f[0])
+    s, d = src.call("res.company", "search", [], context=CTX), dst.call("res.company", "search", [], context=CTX)
+    if len(s) == 1 and len(d) == 1 and not idmap.get("res.company", s[0]):
+        idmap.set("res.company", s[0], d[0])
+    log.info("company map: %s", idmap.d.get("res.company"))
+
+
+# ----------------------------------------------------------------- compare / inspect
+def _diff_rows(rows, m, dmod):
+    sm, dm = src_model(m), dst_model(dmod)
+    if sm is None:
+        rows.append((m, "", "", "MODEL_MISSING_IN_ODOO16 " + src.err.get(m, "")))
+        return
+    if dm is None:
+        rows.append((m, "", "", "MODEL_MISSING_IN_ODOO20 " + dst.err.get(dmod, "")))
+        return
+    sf, df = src.fields(sm), dst.fields(dm)
+    label = m if sm == dm else "%s->%s" % (sm, dm)
+    for f in sorted(set(sf) | set(df)):
+        a, b = sf.get(f), df.get(f)
+        if f.startswith(("message_", "activity_", "website_message")):
+            continue
+        if a and not b:
+            if a.get("store"):
+                rows.append((label, f, a["type"], "REMOVED_IN_20 (" + a["string"] + ")"))
+        elif b and not a:
+            if b.get("store"):
+                rows.append((label, f, b["type"], "NEW_IN_20" + (" REQUIRED" if b.get("required") else "")))
+        elif a["type"] != b["type"]:
+            rows.append((label, f, a["type"] + "->" + b["type"], "TYPE_CHANGED"))
+        elif a["type"] == "selection":
+            sa = {x[0] for x in (a.get("selection") or [])}
+            sb = {x[0] for x in (b.get("selection") or [])}
+            if sa - sb:
+                rows.append((label, f, "selection", "VALUES_REMOVED: " + ",".join(sorted(map(str, sa - sb)))))
+
+
+def cmd_compare():
+    rows, seen = [], set()
+    for st in STEPS:
+        m = st["model"]
+        if m in seen or st.get("runner"):
+            continue
+        seen.add(m)
+        _diff_rows(rows, m, st.get("dst_model") or m)
+    for sm, dm in EXTRA_COMPARE:
+        _diff_rows(rows, sm, dm)
+    with open("field_diff.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["model", "field", "type", "status"])
+        w.writerows(rows)
+    print("field_diff.csv ban gayi: %d rows" % len(rows))
+
+
+def cmd_inspect(models):
+    out = []
+    for m in models:
+        for side, conn in (("ODOO20", dst), ("ODOO16", src)):
+            f = conn.fields(m)
+            out.append("\n===== %s  %s =====" % (side, m))
+            if f is None:
+                out.append("   MODEL NAHI MILA: " + conn.err.get(m, ""))
+                continue
+            for n in sorted(f, key=lambda x: (not f[x].get("required"), x)):
+                d = f[n]
+                if n.startswith(("message_", "activity_", "website_")) or not d.get("store"):
+                    continue
+                sel = ""
+                if d["type"] == "selection" and d.get("selection"):
+                    sel = " [" + ",".join(str(x[0]) for x in d["selection"][:25]) + "]"
+                out.append("  %s%s | %s%s | %s%s" % (
+                    "*" if d.get("required") else " ", n, d["type"],
+                    (" -> " + d["relation"]) if d.get("relation") else "", d.get("string", ""), sel))
+    open("inspect.txt", "w", encoding="utf-8").write("\n".join(out))
+    print("inspect.txt ban gayi")
+
+
+# ----------------------------------------------------------------- scan: Odoo 16 mein kaun sa data hai
+SCAN_GROUPS = {
+    "Sales": ["sale.order", "sale.order.line"],
+    "Purchase": ["purchase.order", "purchase.order.line", "purchase.requisition"],
+    "Accounting": ["account.move", "account.move.line", "account.payment", "account.bank.statement",
+                   "account.bank.statement.line", "account.partial.reconcile", "account.full.reconcile",
+                   "account.analytic.line", "account.analytic.account", "account.asset", "account.budget.post"],
+    "Stock": ["stock.picking", "stock.move", "stock.move.line", "stock.quant", "stock.lot",
+              "stock.valuation.layer", "stock.scrap", "stock.warehouse.orderpoint", "stock.inventory"],
+    "POS": ["pos.session", "pos.order", "pos.order.line", "pos.payment"],
+    "HR/Payroll": ["hr.payslip", "hr.payslip.line", "hr.payslip.run", "hr.leave", "hr.leave.allocation",
+                   "hr.attendance", "hr.expense", "hr.expense.sheet", "hr.contract", "hr.applicant"],
+    "CRM/Project/Other": ["crm.lead", "project.project", "project.task", "mrp.production", "mrp.bom",
+                          "helpdesk.ticket", "fleet.vehicle", "maintenance.request"],
+    "Mail/Files": ["mail.message", "mail.activity", "mail.followers", "ir.attachment"],
+}
+SCAN_BREAKDOWN = [
+    ("account.move", ["move_type", "state"]), ("account.move", ["date:year"]),
+    ("account.payment", ["payment_type", "state"]), ("account.bank.statement", ["state"]),
+    ("sale.order", ["state"]), ("sale.order", ["date_order:year"]),
+    ("purchase.order", ["state"]), ("purchase.order", ["date_order:year"]),
+    ("stock.picking", ["picking_type_code", "state"]), ("stock.picking", ["scheduled_date:year"]),
+    ("pos.order", ["state"]), ("pos.session", ["state"]),
+    ("hr.payslip", ["state"]), ("hr.leave", ["state"]), ("crm.lead", ["type"]),
+]
+
+
+def cmd_scan():
+    ctx = {"active_test": False}
+    models = src.call("ir.model", "search_read", [("transient", "=", False)],
+                      fields=["model", "name", "modules"], context=ctx)
+    log.info("%d models ginte hain (1-2 minute lag sakte hain)...", len(models))
+    counts = {}
+    for m in models:
+        try:
+            counts[m["model"]] = src.call(m["model"], "search_count", [], context=ctx)
+        except Exception:
+            counts[m["model"]] = None
+    info = {m["model"]: m for m in models}
+    out = ["ODOO 16 DATA SCAN", ""]
+    seen = set()
+    for grp, lst in SCAN_GROUPS.items():
+        out.append("== %s ==" % grp)
+        for mm in lst:
+            c = counts.get(mm)
+            out.append("   %-32s %s" % (mm, "model nahi" if c is None and mm not in counts else c))
+            seen.add(mm)
+        out.append("")
+    out.append("== Doosre models jin mein data hai (zyada se kam, top 80, ir./base. wale chhor kar) ==")
+    rest = sorted([(c, m) for m, c in counts.items()
+                   if c and m not in seen and not m.startswith(("ir.", "base.", "bus.", "base_", "res.config", "web_"))],
+                  reverse=True)
+    for c, m in rest[:80]:
+        out.append("   %-40s %-8s %s" % (m, c, (info[m].get("modules") or "")[:40]))
+    out.append("")
+    out.append("== Breakdown ==")
+    for model, gb in SCAN_BREAKDOWN:
+        if not counts.get(model):
+            continue
+        try:
+            rows = src.call(model, "read_group", [], [g.split(":")[0] for g in gb], gb, lazy=False, context=ctx)
+            out.append("-- %s by %s" % (model, ", ".join(gb)))
+            for r in rows:
+                key = " | ".join(str(r.get(g.split(":")[0]) if ":" not in g else r.get(g)) for g in gb)
+                out.append("      %-60s %s" % (key[:60], r.get("__count", r.get("%s_count" % gb[0].split(":")[0]))))
+        except Exception as e:
+            out.append("-- %s by %s : fail (%s)" % (model, gb, str(e)[:80]))
+    with open("scan_report.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["model", "name", "modules", "count"])
+        for m, c in sorted(counts.items(), key=lambda x: -(x[1] or 0)):
+            if c:
+                w.writerow([m, info[m].get("name"), info[m].get("modules"), c])
+    open("scan_report.txt", "w", encoding="utf-8").write("\n".join(out))
+    print("\n".join(out[:70]))
+    print("\nPoori report: scan_report.txt aur scan_report.csv")
+
+
+def cmd_opening(cutover):
+    """Odoo 16 se opening balances / open items ka REPORT (sirf parhta hai, kuch likhta nahi)"""
+    ctx = {"active_test": False}
+    out = ["OPENING DATA REPORT (Odoo 16) - cutover: %s" % cutover, ""]
+    af = src.fields("account.account") or {}
+    has_type = "account_type" in af
+    accs = {a["id"]: a for a in src.call("account.account", "search_read", [],
+                                         fields=["code", "name"] + (["account_type"] if has_type else []), context=ctx)}
+    valuation = set()
+    for c in src.call("product.category", "search_read", [], fields=["property_stock_valuation_account_id"], context=ctx):
+        v = c.get("property_stock_valuation_account_id")
+        if v:
+            valuation.add(v[0])
+    # ---- 1. trial balance
+    rows = src.call("account.move.line", "read_group",
+                    [("parent_state", "=", "posted"), ("date", "<=", cutover)],
+                    ["account_id", "debit:sum", "credit:sum", "balance:sum"], ["account_id"], lazy=False, context=ctx)
+    tot = 0.0
+    with open("opening_trial_balance.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["code", "name", "account_type", "debit", "credit", "balance", "stock_valuation_account"])
+        for r in sorted(rows, key=lambda r: accs.get(r["account_id"][0], {}).get("code", "")):
+            a = accs.get(r["account_id"][0], {})
+            bal = round(r.get("balance") or 0.0, 2)
+            tot += bal
+            w.writerow([a.get("code"), a.get("name"), a.get("account_type"), round(r.get("debit") or 0, 2),
+                        round(r.get("credit") or 0, 2), bal, "Y" if r["account_id"][0] in valuation else ""])
+    out.append("1) Trial balance: %d accounts, total balance %.2f (0 hona chahiye) -> opening_trial_balance.csv"
+               % (len(rows), tot))
+    out.append("   Stock valuation accounts (opening entry se alag rakhne hain): %s" %
+               ", ".join(accs[a]["code"] for a in valuation if a in accs))
+    # ---- 2. partner balances (receivable/payable)
+    dom = [("parent_state", "=", "posted"), ("date", "<=", cutover)]
+    dom.append(("account_id.account_type", "in", ["asset_receivable", "liability_payable"]) if has_type
+               else ("account_id.user_type_id.type", "in", ["receivable", "payable"]))
+    rows = src.call("account.move.line", "read_group", dom, ["account_id", "partner_id", "balance:sum"],
+                    ["account_id", "partner_id"], lazy=False, context=ctx)
+    nz = [r for r in rows if abs(r.get("balance") or 0) > 0.005]
+    with open("opening_partner_balances.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["account_code", "partner_id", "partner", "balance"])
+        for r in nz:
+            w.writerow([accs.get(r["account_id"][0], {}).get("code"), r["partner_id"][0] if r.get("partner_id") else "",
+                        r["partner_id"][1] if r.get("partner_id") else "(no partner)", round(r["balance"], 2)])
+    out.append("2) Partner balances (receivable/payable, non-zero): %d lines -> opening_partner_balances.csv" % len(nz))
+    # ---- 3. open invoices (abhi ki halat)
+    try:
+        rows = src.call("account.move", "read_group",
+                        [("state", "=", "posted"), ("move_type", "in", ["out_invoice", "in_invoice", "out_refund", "in_refund"]),
+                         ("payment_state", "in", ["not_paid", "partial"])],
+                        ["move_type", "amount_residual:sum"], ["move_type"], lazy=False, context=ctx)
+        out.append("3) Open invoices/bills (abhi tak unpaid/partial):")
+        for r in rows:
+            out.append("      %-14s %6d   residual %.2f" % (r["move_type"], r["__count"], r.get("amount_residual") or 0))
+    except Exception as e:
+        out.append("3) open invoices: fail (%s)" % str(e)[:100])
+    # ---- 4. open orders
+    def cnt(model, dom_):
+        try:
+            return src.call(model, "search_count", dom_, context=ctx)
+        except Exception as e:
+            return "fail (%s)" % str(e)[:60]
+    out.append("4) Adhoore orders:")
+    out.append("      sale.order draft/sent                           : %s" % cnt("sale.order", [("state", "in", ["draft", "sent"])]))
+    out.append("      sale.order confirmed, invoice baqi              : %s" % cnt("sale.order", [("state", "=", "sale"), ("invoice_status", "=", "to invoice")]))
+    out.append("      sale.order confirmed, delivery baqi             : %s" % cnt("sale.order", [("state", "=", "sale"), ("picking_ids.state", "not in", ["done", "cancel"]), ("picking_ids", "!=", False)]))
+    out.append("      purchase.order draft/sent                       : %s" % cnt("purchase.order", [("state", "in", ["draft", "sent", "to approve"])]))
+    out.append("      purchase.order confirmed, receipt baqi          : %s" % cnt("purchase.order", [("state", "=", "purchase"), ("picking_ids.state", "not in", ["done", "cancel"]), ("picking_ids", "!=", False)]))
+    out.append("      purchase.order confirmed, bill baqi             : %s" % cnt("purchase.order", [("state", "=", "purchase"), ("invoice_status", "=", "to invoice")]))
+    out.append("      stock.picking adhoori (draft/waiting/assigned)  : %s" % cnt("stock.picking", [("state", "in", ["draft", "waiting", "confirmed", "assigned"])]))
+    # ---- 5. stock
+    try:
+        rows = src.call("stock.quant", "read_group", [("location_id.usage", "=", "internal")],
+                        ["quantity:sum"], ["location_id"], lazy=False, context=ctx)
+        out.append("5) Stock quants (internal locations): %d locations, %d quant lines" %
+                   (len(rows), cnt("stock.quant", [("location_id.usage", "=", "internal")])))
+    except Exception as e:
+        out.append("5) stock quants: fail (%s)" % str(e)[:80])
+    # ---- 6. cutover se pehle band karne wali cheezein
+    out.append("6) Cutover se PEHLE Odoo 16 mein khatam karne wali cheezein:")
+    out.append("      POS sessions khuli/closing_control             : %s" % cnt("pos.session", [("state", "in", ["opened", "closing_control"])]))
+    out.append("      Draft journal entries/invoices                 : %s" % cnt("account.move", [("state", "=", "draft"), ("date", "<=", cutover)]))
+    out.append("      Unreconciled bank statement lines              : %s" % cnt("account.bank.statement.line", [("is_reconciled", "=", False)]))
+    open("opening_report.txt", "w", encoding="utf-8").write("\n".join(out))
+    print("\n".join(out))
+    print("\nFiles: opening_report.txt, opening_trial_balance.csv, opening_partner_balances.csv")
+
+
+def cmd_report(models):
+    """Kaun se source records Odoo 20 mein nahi pahunche + un ki wajah (migration.log se)"""
+    import re, collections
+    pat = re.compile(r"ERROR \[(?P<m>[^\]]+)\] src id (?P<id>\d+) fail: (?P<msg>.*)")
+    last = {}
+    if os.path.exists("migration.log"):
+        for line in open("migration.log", encoding="utf-8", errors="replace"):
+            mm = pat.search(line)
+            if mm:
+                last[(mm["m"], int(mm["id"]))] = mm["msg"].strip()
+    for name in models:
+        sm = src_model(name)
+        if not sm:
+            print("%s: Odoo16 mein nahi" % name)
+            continue
+        step = next((st for st in STEPS if st["model"] == name), {})
+        domain = DOMAIN_OVERRIDE if DOMAIN_OVERRIDE is not None else step.get("domain", [])
+        ids = src.call(sm, "search", domain, order="id", context={"active_test": False})
+        mapped = {int(k) for k in idmap.d.get(sm, {})}
+        missing = [i for i in ids if i not in mapped]
+        dm = step.get("dst_model") or dst_model(sm)
+        dcount = dst.call(dm, "search_count", [], context={"active_test": False}) if dm else "?"
+        print("\n== %s: source %d | mapped %d | NAHI AYE %d | Odoo20 mein total records %s" %
+              (name, len(ids), len(ids) - len(missing), len(missing), dcount))
+        if not missing:
+            continue
+        names = {}
+        for j in range(0, len(missing), 200):
+            for r in src.call(sm, "read", missing[j:j + 200], fields=["display_name"], context={"active_test": False}):
+                names[r["id"]] = r["display_name"]
+        why = collections.Counter(re.sub(r"\d+", "N", last.get((sm, i), "(log mein error nahi - skip hua ya chala hi nahi)"))[:140]
+                                  for i in missing)
+        for msg, c in why.most_common(8):
+            print("   %5d  %s" % (c, msg))
+        fn = "missing_%s.csv" % name.replace(".", "_")
+        with open(fn, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["src_id", "name", "last_error"])
+            for i in missing:
+                w.writerow([i, names.get(i), last.get((sm, i), "")])
+        print("   -> %s" % fn)
+
+
+def cmd_verify(models, names_file=None):
+    """Har source record ke liye jaanch: kya mapped hai, kya dst mein sach mein maujood hai (archived/naam)"""
+    import re, collections
+
+    def norm(x):
+        return re.sub(r"\s+", " ", (x or "").strip()).lower()
+    wanted = None
+    if names_file:
+        names = []
+        if names_file.lower().endswith((".xlsx", ".xlsm")):
+            try:
+                import openpyxl
+            except ImportError:
+                raise SystemExit("xlsx ke liye: pip install openpyxl --break-system-packages  (ya file CSV/TXT mein save karo)")
+            ws = openpyxl.load_workbook(names_file, data_only=True).active
+            names = [str(r[0]) for r in ws.iter_rows(min_row=1, values_only=True) if r and r[0] is not None]
+        else:
+            names = [l.strip().strip('"') for l in open(names_file, encoding="utf-8-sig") if l.strip()]
+        wanted = {norm(n) for n in names}
+        wanted.discard(norm("Name-16"))
+        print("names file: %d naam" % len(wanted))
+    ctx = {"active_test": False}
+    for name in models:
+        sm = src_model(name)
+        step = next((st for st in STEPS if st["model"] == name), {})
+        dm = step.get("dst_model") or (dst_model(sm) if sm else None)
+        if not sm or not dm:
+            print("%s: model nahi mila" % name)
+            continue
+        sf, df = src.fields(sm), dst.fields(dm)
+        sname = "name" if "name" in sf else "display_name"
+        dname_ = "name" if "name" in df else "display_name"
+        sact, dact = "active" in sf, "active" in df
+        domain = DOMAIN_OVERRIDE if DOMAIN_OVERRIDE is not None else step.get("domain", [])
+        ids = src.call(sm, "search", domain, order="id", context=ctx)
+        srcrecs = []
+        for j in range(0, len(ids), 500):
+            srcrecs += src.call(sm, "read", ids[j:j + 500], fields=[sname] + (["active"] if sact else []), context=ctx)
+        mp = {int(k): v for k, v in idmap.d.get(sm, {}).items()}
+        dids = sorted(set(mp.values()))
+        drows = {}
+        for j in range(0, len(dids), 500):
+            for r in dst.call(dm, "search_read", [("id", "in", dids[j:j + 500])],
+                              fields=[dname_] + (["active"] if dact else []), context=ctx):
+                drows[r["id"]] = r
+        users = collections.Counter(mp.values())
+        rows, cnt = [], collections.Counter()
+        for r in srcrecs:
+            sid, sn = r["id"], r.get(sname)
+            did = mp.get(sid)
+            d = drows.get(did) if did else None
+            if not did:
+                st = "NOT_MAPPED (migrate hi nahi hua)"
+            elif not d:
+                st = "MAPPED_BUT_DST_RECORD_MISSING (idmap mein hai, Odoo 20 mein nahi)"
+            elif users[did] > 1:
+                st = "SHARED_DST (kai source records aik hi dst record par - merge)"
+            elif sact and dact and r.get("active") and not d.get("active"):
+                st = "ARCHIVED_IN_DST (source mein active, dst mein archived)"
+            elif norm(sn) != norm(d.get(dname_)):
+                st = "NAME_DIFFERS"
+            else:
+                st = "OK"
+            cnt[st] += 1
+            rows.append((sid, sn, r.get("active") if sact else "", did or "", d.get(dname_) if d else "",
+                         d.get("active") if d else "", st))
+        print("\n== %s: source %d" % (name, len(srcrecs)))
+        for st, c in cnt.most_common():
+            print("   %6d  %s" % (c, st))
+        out = [x for x in rows if (norm(x[1]) in wanted if wanted is not None else x[6] != "OK")]
+        fn = "verify_%s.csv" % name.replace(".", "_")
+        with open(fn, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["src_id", "src_name", "src_active", "dst_id", "dst_name", "dst_active", "status", "dst_ids_same_name"])
+            for x in out:
+                same = ""
+                if wanted is not None and x[6] != "OK":
+                    try:
+                        same = dst.call(dm, "search", [(dname_, "=", x[1])], context=ctx)
+                    except Exception:
+                        same = "?"
+                w.writerow(list(x) + [same])
+        if wanted is not None:
+            found = {norm(x[1]) for x in out}
+            nf = [n for n in wanted if n not in found]
+            print("   names file ke %d naam source mein mile, %d nahi mile (naam ka farq?)" % (len(found), len(nf)))
+            for st, c in collections.Counter(x[6] for x in out).most_common():
+                print("      %5d  %s" % (c, st))
+            for n in nf[:15]:
+                print("      source mein nahi mila:", n)
+        print("   -> %s (%d rows)" % (fn, len(out)))
+
+
+def cmd_unmerge(models):
+    """Jin source records ne aik hi dst record share kar rakha hai (purani merge ki ghalti) unhe alag karo:
+    aik 'malik' rakho, baqi ka idmap hata do - dobara migrate par wo naye records banenge."""
+    import re, collections, shutil
+
+    def norm(x):
+        return re.sub(r"\s+", " ", (x or "").strip()).lower()
+    ctx = {"active_test": False}
+    for name in models:
+        sm = src_model(name)
+        step = next((st for st in STEPS if st["model"] == name), {})
+        dm = step.get("dst_model") or (dst_model(sm) if sm else None)
+        if not sm or not dm:
+            print("%s: model nahi mila" % name)
+            continue
+        by = collections.defaultdict(list)
+        for k, v in idmap.d.get(sm, {}).items():
+            by[v].append(int(k))
+        groups = {d: sorted(ids) for d, ids in by.items() if len(ids) > 1}
+        if not groups:
+            print("%s: koi shared dst record nahi" % name)
+            continue
+        nf = "name" if "name" in (src.fields(sm) or {}) else "display_name"
+        df_ = "name" if "name" in (dst.fields(dm) or {}) else "display_name"
+        sn = {}
+        allsrc = sorted({i for ids in groups.values() for i in ids})
+        for j in range(0, len(allsrc), 500):
+            for r in src.call(sm, "read", allsrc[j:j + 500], fields=[nf], context=ctx):
+                sn[r["id"]] = r.get(nf)
+        drop = []
+        for d, ids in groups.items():
+            dn = dst.call(dm, "read", [d], fields=[df_], context=ctx)
+            dname_ = dn[0][df_] if dn else None
+            owner = next((i for i in ids if norm(sn.get(i)) == norm(dname_)), ids[0])
+            drop += [i for i in ids if i != owner]
+        print("%s: %d shared dst records, %d source records alag kiye jayenge (naye records banenge)" %
+              (name, len(groups), len(drop)))
+        for i in drop[:10]:
+            print("      src %s  %s" % (i, sn.get(i)))
+        if input("Likho 'yes' confirm karne ke liye: ").strip() != "yes":
+            continue
+        idmap.save()
+        shutil.copy(IDMAP_FILE, IDMAP_FILE + ".bak")
+        for i in drop:
+            idmap.d[sm].pop(str(i), None)
+        extra = 0
+        if name == "product.template":      # unke variants aur attribute lines ke mappings bhi
+            for child, fld in (("product.product", "product_tmpl_id"), ("product.template.attribute.line", "product_tmpl_id")):
+                if src_model(child):
+                    for j in range(0, len(drop), 200):
+                        for cid in src.call(child, "search", [(fld, "in", drop[j:j + 200])], context=ctx):
+                            if idmap.d.get(child, {}).pop(str(cid), None) is not None:
+                                extra += 1
+        idmap.save()
+        print("   %d mappings hata di (backup: %s.bak), %d variants/lines ke mappings bhi." % (len(drop), IDMAP_FILE, extra))
+
+
+def cmd_forget_missing(models):
+    """idmap mein jin records ki mapping hai lekin Odoo 20 mein wo record maujood nahi - mapping hata do,
+    phir migrate dobara chalane par wo naye banenge."""
+    import shutil
+    ctx = {"active_test": False}
+    for name in models:
+        sm = src_model(name)
+        step = next((st for st in STEPS if st["model"] == name), {})
+        dm = step.get("dst_model") or (dst_model(sm) if sm else None)
+        if not sm or not dm:
+            print("%s: model nahi mila" % name)
+            continue
+        mp = idmap.d.get(sm, {})
+        dids = sorted(set(mp.values()))
+        existing = set()
+        for j in range(0, len(dids), 500):
+            existing |= set(dst.call(dm, "search", [("id", "in", dids[j:j + 500])], context=ctx))
+        bad = [k for k, v in mp.items() if v not in existing]
+        print("%s: %d mappings ka dst record maujood nahi: src ids %s" % (name, len(bad), [int(b) for b in bad[:20]]))
+        if not bad or input("Likho 'yes' mapping hatane ke liye: ").strip() != "yes":
+            continue
+        idmap.save()
+        shutil.copy(IDMAP_FILE, IDMAP_FILE + ".bak")
+        for k in bad:
+            mp.pop(k, None)
+        idmap.save()
+        print("   %d mappings hata di (backup: %s.bak). Ab: migrate --only %s" % (len(bad), IDMAP_FILE, name))
+
+
+def cmd_purge(models):
+    """Script ke banaye hue dst records delete + idmap saaf (sirf jo script ne banaye, pehle se maujood nahi)"""
+    for m in models:
+        dm = dst_model(m)
+        if not dm:
+            print("dst mein model nahi:", m)
+            continue
+        prot = set(idmap.protected(dm))
+        items = {k: v for k, v in idmap.d.get(m, {}).items() if v not in prot}
+        targets = sorted(set(items.values()))
+        print("%s -> %s : %d dst records delete honge (%d protected bach jayenge)" % (m, dm, len(targets), len(prot)))
+        if input("Likho 'yes' confirm karne ke liye: ").strip() != "yes":
+            continue
+        for v in targets:
+            try:
+                dst.call(dm, "unlink", [v], context=CTX)
+            except Exception as e:
+                log.error("unlink %s#%s fail: %s", dm, v, str(e)[:200])
+        for k in items:
+            idmap.d[m].pop(k, None)
+        idmap.save()
+        print("done:", m)
+
+
+def main():
+    global src, dst, idmap, DRY
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cmd", choices=["compare", "migrate", "inspect", "list", "purge", "scan", "opening", "report", "verify", "unmerge", "forget-missing"])
+    ap.add_argument("models", nargs="*")
+    ap.add_argument("--only", help="comma separated src models")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--names-file", help="verify ke liye: naamon ki file (xlsx/csv/txt, pehla column)")
+    ap.add_argument("--cutover", help="opening report ke liye date, jaise 2026-09-30")
+    ap.add_argument("--domain", help="source domain override, jaise \"[('active','=',True)]\" (sirf aik model ke saath)")
+    a = ap.parse_args()
+    if a.cmd == "list":
+        for st in STEPS:
+            print(st["model"], "(experimental - sirf --only se)" if st.get("experimental") else "")
+        return
+    DRY = a.dry_run
+    global DOMAIN_OVERRIDE
+    if a.domain:
+        import ast
+        DOMAIN_OVERRIDE = ast.literal_eval(a.domain)
+    src, dst = Odoo(SRC), Odoo2(DST)
+    idmap = IdMap(IDMAP_FILE)
+    if a.cmd == "compare":
+        return cmd_compare()
+    if a.cmd == "inspect":
+        return cmd_inspect(a.models)
+    if a.cmd == "purge":
+        return cmd_purge(a.models)
+    if a.cmd == "report":
+        return cmd_report(a.models)
+    if a.cmd == "verify":
+        return cmd_verify(a.models, a.names_file)
+    if a.cmd == "unmerge":
+        return cmd_unmerge(a.models)
+    if a.cmd == "forget-missing":
+        return cmd_forget_missing(a.models)
+    if a.cmd == "scan":
+        return cmd_scan()
+    if a.cmd == "opening":
+        if not a.cutover:
+            raise SystemExit("--cutover YYYY-MM-DD dena zaroori hai")
+        return cmd_opening(a.cutover)
+    seed_companies()
+    only = set(a.only.split(",")) if a.only else None
+    for st in STEPS:
+        if only is None and st.get("experimental"):
+            continue
+        if only is not None and st["model"] not in only:
+            continue
+        run_step(st)
+    flush_pending(final=True)
+    idmap.save()
+    log.info("DONE. migration.log aur unresolved.csv check karo.")
+
+
+if __name__ == "__main__":
+    main()

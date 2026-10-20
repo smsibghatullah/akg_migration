@@ -1,0 +1,229 @@
+ODOO 16 DATA SCAN
+
+== Sales ==
+   sale.order                       9720
+   sale.order.line                  22835
+
+== Purchase ==
+   purchase.order                   1983
+   purchase.order.line              8076
+   purchase.requisition             model nahi
+
+== Accounting ==
+   account.move                     153105
+   account.move.line                443339
+   account.payment                  9810
+   account.bank.statement           0
+   account.bank.statement.line      18152
+   account.partial.reconcile        131421
+   account.full.reconcile           86238
+   account.analytic.line            5944
+   account.analytic.account         5
+   account.asset                    41
+   account.budget.post              1
+
+== Stock ==
+   stock.picking                    71782
+   stock.move                       157887
+   stock.move.line                  152863
+   stock.quant                      11372
+   stock.lot                        800
+   stock.valuation.layer            144860
+   stock.scrap                      0
+   stock.warehouse.orderpoint       317
+   stock.inventory                  model nahi
+
+== POS ==
+   pos.session                      3799
+   pos.order                        55562
+   pos.order.line                   94287
+   pos.payment                      56378
+
+== HR/Payroll ==
+   hr.payslip                       353
+   hr.payslip.line                  1389
+   hr.payslip.run                   28
+   hr.leave                         15
+   hr.leave.allocation              206
+   hr.attendance                    8262
+   hr.expense                       3
+   hr.expense.sheet                 3
+   hr.contract                      65
+   hr.applicant                     model nahi
+
+== CRM/Project/Other ==
+   crm.lead                         11
+   project.project                  model nahi
+   project.task                     model nahi
+   mrp.production                   0
+   mrp.bom                          4
+   helpdesk.ticket                  model nahi
+   fleet.vehicle                    3
+   maintenance.request              model nahi
+
+== Mail/Files ==
+   mail.message                     616626
+   mail.activity                    3039
+   mail.followers                   387687
+   ir.attachment                    38585
+
+== Doosre models jin mein data hai (zyada se kam, top 80, ir./base. wale chhor kar) ==
+   report.stock.quantity                    765486   stock
+   mail.tracking.value                      297531   mail
+   stock.report                             157353   stock_account_enterprise, stock_enterpri
+   account.invoice.report                   114646   account, sale
+   sale.report                              110552   pos_sale, pos_sale_margin, sale, sale_en
+   website.track                            96226    website, website_sale
+   report.pos.order                         94016    point_of_sale, pos_hr
+   hr.work.entry                            21748    hr_payroll, hr_work_entry, hr_work_entry
+   hr.work.entry.report                     20916    hr_payroll
+   res.partner                              17488    account, account_check_printing, account
+   website.visitor                          16695    website, website_crm, website_crm_sms, w
+   stock.valuation.adjustment.lines         14640    stock_landed_costs
+   mail.mail                                11440    mail
+   procurement.group                        8913     mrp, point_of_sale, product_expiry, sale
+   hr.attendance.report                     8262     hr_attendance
+   purchase.report                          8030     purchase, purchase_stock
+   vendor.delay.report                      7387     purchase_stock
+   mail.notification                        5827     mail, sms, snailmail
+   hr.attendance.overtime                   5021     hr_attendance
+   product.product                          4388     account, loyalty, mrp, mrp_account, mrp_
+   product.template                         4357     account, hr_expense, loyalty, mrp, mrp_a
+   product.supplierinfo                     3098     product, purchase, purchase_stock
+   purchase.bill.union                      2996     purchase
+   product.pricelist.item                   2238     product
+   calendar.attendee                        1464     appointment, calendar
+   calendar.event                           1461     appointment, appointment_crm, calendar, 
+   res.country.state                        1414     base
+   loyalty.card                             1341     loyalty, pos_loyalty, sale_loyalty, webs
+   stock.landed.cost.lines                  900      stock_landed_costs
+   purchase.request.line                    714      purchase_request
+   hr.contract.employee.report              665      hr_contract_reports
+   pos.config                               644      bi_pos_customer_ref, bi_pos_restrict_zer
+   survey.user_input.line                   566      survey
+   hr.payslip.worked_days                   381      hr_payroll, hr_payroll_attendance
+   hr.payroll.report                        361      hr_payroll
+   stock.location                           346      stock, stock_account, stock_barcode
+   hr.payslip.input                         343      hr_payroll
+   res.country                              250      base, bi_pos_customer_ref, website_payme
+   sale.rental.report                       217      sale_renting, sale_stock_renting
+   hr.leave.report                          207      hr_holidays
+   hr.leave.employee.type.report            207      hr_holidays
+   purchase.request.allocation              198      purchase_request
+   account.account.template                 196      account, l10n_multilang
+   account.account                          191      account, account_accountant, account_ass
+   pos.pack.operation.lot                   174      point_of_sale
+   purchase.request                         168      purchase_request
+   res.currency                             167      account, base, product, spreadsheet
+   account.payment.term.line                165      account
+   account.report.expression                149      account
+   stock.landed.cost                        142      mrp_landed_costs, stock_landed_costs
+   product.category                         140      account, product, stock, stock_account
+   fleet.vehicle.cost.report                135      fleet
+   appointment.question                     135      appointment
+   pos.category                             126      point_of_sale
+   account.tax.repartition.line.template    122      account
+   account.report.line                      121      account, account_reports
+   sale.order.coupon.points                 113      sale_loyalty
+   res.groups                               110      account, base, mail, web_studio
+   appointment.answer                       105      appointment
+   mail.channel.member                      101      mail
+   stock.rule                               100      mrp, mrp_account, point_of_sale, purchas
+   account.account.tag                      95       account, l10n_multilang
+   stock.picking.type                       91       mrp, point_of_sale, stock, stock_barcode
+   resource.calendar.attendance             89       hr_work_entry, resource
+   res.lang                                 85       base, website
+   account.report.column                    85       account
+   survey.question                          81       survey
+   stock.putaway.rule                       71       stock
+   sale.rental.schedule                     66       sale_renting, sale_stock_renting
+   fleet.vehicle.model.brand                66       fleet
+   appointment.answer.input                 64       appointment
+   res.users.log                            62       base
+   uom.uom                                  55       account_edi, point_of_sale, product, sto
+   mail.message.subtype                     53       hr_holidays, mail
+   account.payment.method.line              52       account, account_payment
+   mail.channel                             51       hr, mail, mail_bot, mail_mobile
+   fleet.vehicle.model                      48       fleet
+   stock.route                              45       sale_stock, stock
+   mail.template                            44       account_edi, account_edi_ubl_cii, custom
+   product.attribute.value                  43       product, sale
+
+== Breakdown ==
+-- account.move by move_type, state
+      entry | cancel                                               4
+      entry | draft                                                247
+      entry | posted                                               90365
+      in_invoice | cancel                                          2
+      in_invoice | posted                                          2920
+      in_refund | posted                                           52
+      out_invoice | cancel                                         3
+      out_invoice | posted                                         56470
+      out_refund | posted                                          3042
+-- account.move by date:year
+      2022                                                         1
+      2023                                                         26561
+      2024                                                         39490
+      2025                                                         50734
+      2026                                                         35989
+      2027                                                         123
+      2028                                                         76
+      2029                                                         57
+      2030                                                         48
+      2031                                                         25
+      2032                                                         1
+-- account.payment by payment_type, state
+      inbound | cancel                                             1
+      inbound | posted                                             7612
+      outbound | cancel                                            2
+      outbound | posted                                            2195
+-- sale.order by state
+      approved_by_ceo                                              1
+      cancel                                                       37
+      draft                                                        2090
+      reject                                                       3
+      sale                                                         7048
+      sales_approval                                               1
+      sent                                                         540
+-- sale.order by date_order:year
+      2023                                                         4678
+      2024                                                         1244
+      2025                                                         2192
+      2026                                                         1606
+-- purchase.order by state
+      cancel                                                       9
+      done                                                         1
+      draft                                                        54
+      purchase                                                     1902
+      sent                                                         16
+      to approve                                                   1
+-- purchase.order by date_order:year
+      2022                                                         1
+      2023                                                         710
+      2024                                                         709
+      2025                                                         336
+      2026                                                         227
+-- stock.picking by ['picking_type_code', 'state'] : fail (<Fault 2: "Field stock.picking.picking_type_code is not a stored field, only sto)
+-- stock.picking by scheduled_date:year
+      2022                                                         2
+      2023                                                         11086
+      2024                                                         19330
+      2025                                                         23870
+      2026                                                         17494
+-- pos.order by state
+      done                                                         34
+      invoiced                                                     55520
+      paid                                                         8
+-- pos.session by state
+      closed                                                       3181
+      closing_control                                              614
+      opened                                                       4
+-- hr.payslip by state
+      cancel                                                       12
+      paid                                                         331
+      verify                                                       10
+-- hr.leave by state
+      refuse                                                       2
+      validate                                                     13
+-- crm.lead by type
+      opportunity                                                  11

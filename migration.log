@@ -1,0 +1,329 @@
+2026-10-19 16:48:24,089 INFO company map: {'1': 1}
+2026-10-19 16:48:25,580 INFO == res.currency -> res.currency : 167 records, 9 fields
+2026-10-19 16:49:48,061 INFO == res.currency done: ok=167 err=0
+2026-10-19 16:49:49,321 INFO == res.currency.rate -> res.currency.rate : 41 records, 4 fields
+2026-10-19 16:50:05,119 INFO == res.currency.rate done: ok=41 err=0
+2026-10-19 16:50:07,039 INFO == account.account -> account.account : 191 records, 13 fields
+2026-10-19 16:52:03,086 INFO == account.account done: ok=191 err=0
+2026-10-19 16:52:04,368 INFO == account.tax.group -> account.tax.group : 5 records, 4 fields
+2026-10-19 16:52:17,992 INFO == account.tax.group done: ok=5 err=0
+2026-10-19 16:52:18,759 INFO == account.tax -> account.tax : 2 records, 18 fields
+2026-10-19 16:52:22,134 INFO == account.tax done: ok=2 err=0
+2026-10-19 16:52:24,361 INFO == account.journal -> account.journal : 30 records, 23 fields
+2026-10-19 16:52:42,603 INFO == account.journal done: ok=30 err=0
+2026-10-19 16:52:43,861 INFO == account.fiscal.position -> account.fiscal.position : 7 records, 13 fields
+2026-10-19 16:52:47,514 INFO == account.fiscal.position done: ok=7 err=0
+2026-10-19 16:52:47,871 INFO == account.fiscal.position.tax -> account.tax.original_tax_ids/fiscal_position_ids : 0 lines
+2026-10-19 16:52:48,043 INFO == fiscal tax mapping done: 0
+2026-10-19 16:52:49,369 INFO == account.fiscal.position.account -> account.fiscal.position.account : 0 records, 3 fields
+2026-10-19 16:52:49,849 INFO == account.fiscal.position.account done: ok=0 err=0
+2026-10-19 16:52:49,851 WARNING 205 relations unresolved -> unresolved.csv
+2026-10-19 16:52:49,858 INFO DONE. migration.log aur unresolved.csv check karo.
+2026-10-19 16:52:52,562 INFO company map: {'1': 1}
+2026-10-19 16:52:53,797 INFO == uom.uom -> uom.uom : 8 records, 4 fields
+2026-10-19 16:52:57,775 INFO == uom.uom done: ok=8 err=0
+2026-10-19 16:52:58,006 INFO == uom.uom -> uom.uom : 47 records, 4 fields
+2026-10-19 16:53:18,786 INFO == uom.uom done: ok=47 err=0
+2026-10-19 16:53:18,795 INFO DONE. migration.log aur unresolved.csv check karo.
+2026-10-19 22:18:29,342 INFO company map: {'1': 1}
+2026-10-19 22:18:31,019 INFO == res.country.state -> res.country.state : 1414 records, 3 fields
+2026-10-19 22:22:01,107 INFO [res.country.state] progress: 500/1414  (ok=500 err=0)
+2026-10-19 22:23:46,074 INFO company map: {'1': 1}
+2026-10-19 22:23:48,161 INFO == stock.warehouse -> stock.warehouse : 9 records, 27 fields
+2026-10-19 22:23:57,664 ERROR [stock.warehouse] src id 4 fail: required relation [('view_location_id', 'stock.location', 31), ('lot_stock_id', 'stock.location', 32)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:23:58,098 ERROR [stock.warehouse] src id 7 fail: required relation [('view_location_id', 'stock.location', 49), ('lot_stock_id', 'stock.location', 50)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:23:58,614 ERROR [stock.warehouse] src id 8 fail: required relation [('view_location_id', 'stock.location', 56), ('lot_stock_id', 'stock.location', 57)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:23:58,966 ERROR [stock.warehouse] src id 9 fail: required relation [('view_location_id', 'stock.location', 70), ('lot_stock_id', 'stock.location', 71)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:23:59,327 ERROR [stock.warehouse] src id 11 fail: required relation [('view_location_id', 'stock.location', 86), ('lot_stock_id', 'stock.location', 87)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:23:59,620 ERROR [stock.warehouse] src id 12 fail: required relation [('view_location_id', 'stock.location', 104), ('lot_stock_id', 'stock.location', 105)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:24:00,039 ERROR [stock.warehouse] src id 13 fail: required relation [('view_location_id', 'stock.location', 112), ('lot_stock_id', 'stock.location', 113)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:24:00,505 ERROR [stock.warehouse] src id 16 fail: required relation [('view_location_id', 'stock.location', 143), ('lot_stock_id', 'stock.location', 144)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:24:00,558 INFO == stock.warehouse done: ok=1 err=8
+2026-10-19 22:24:01,762 INFO == stock.location -> stock.location : 346 records, 14 fields
+2026-10-19 22:24:11,212 ERROR [stock.location] src id 4 fail: HTTP 422 stock.location/write: Uh-oh! You’ve got some company inconsistencies here:
+- “Partners/Vendors” belongs to company “” while “Parent Location” (location_id: 'Partners') belongs to another company.
+To avoid a mess, no company crossover is allowed!
+2026-10-19 22:24:11,620 ERROR [stock.location] src id 5 fail: HTTP 422 stock.location/write: Uh-oh! You’ve got some company inconsistencies here:
+- “Partners/Customers” belongs to company “” while “Parent Location” (location_id: 'Partners') belongs to another company.
+To avoid a mess, no company crossover is allowed!
+2026-10-19 22:29:17,468 INFO == stock.location done: ok=344 err=2
+2026-10-19 22:29:18,142 INFO == stock.route -> stock.route : 45 records, 13 fields
+2026-10-19 22:30:41,715 INFO == stock.route done: ok=45 err=0
+2026-10-19 22:30:42,584 INFO == stock.rule -> stock.rule : 100 records, 16 fields
+2026-10-19 22:30:48,531 ERROR [stock.rule] src id 7 fail: required relation [('picking_type_id', 'stock.picking.type', 8)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,532 ERROR [stock.rule] src id 8 fail: required relation [('picking_type_id', 'stock.picking.type', 10)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,532 ERROR [stock.rule] src id 9 fail: required relation [('picking_type_id', 'stock.picking.type', 13)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,533 ERROR [stock.rule] src id 10 fail: required relation [('picking_type_id', 'stock.picking.type', 10)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,534 ERROR [stock.rule] src id 11 fail: required relation [('picking_type_id', 'stock.picking.type', 10)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,534 ERROR [stock.rule] src id 12 fail: required relation [('picking_type_id', 'stock.picking.type', 9)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,535 ERROR [stock.rule] src id 13 fail: required relation [('picking_type_id', 'stock.picking.type', 17)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,536 ERROR [stock.rule] src id 14 fail: required relation [('picking_type_id', 'stock.picking.type', 20)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,536 ERROR [stock.rule] src id 15 fail: required relation [('picking_type_id', 'stock.picking.type', 17)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,537 ERROR [stock.rule] src id 16 fail: required relation [('picking_type_id', 'stock.picking.type', 17)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:48,537 ERROR [stock.rule] src id 17 fail: required relation [('picking_type_id', 'stock.picking.type', 16)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,313 ERROR [stock.rule] src id 20 fail: required relation [('picking_type_id', 'stock.picking.type', 16)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,313 ERROR [stock.rule] src id 21 fail: required relation [('picking_type_id', 'stock.picking.type', 24)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,313 ERROR [stock.rule] src id 22 fail: required relation [('picking_type_id', 'stock.picking.type', 27)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,314 ERROR [stock.rule] src id 23 fail: required relation [('picking_type_id', 'stock.picking.type', 24)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,314 ERROR [stock.rule] src id 24 fail: required relation [('picking_type_id', 'stock.picking.type', 24)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,314 ERROR [stock.rule] src id 25 fail: required relation [('picking_type_id', 'stock.picking.type', 23)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:51,632 WARNING [stock.rule] src id 26 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 22:30:52,014 ERROR [stock.rule] src id 27 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,015 ERROR [stock.rule] src id 28 fail: required relation [('picking_type_id', 'stock.picking.type', 23)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,015 ERROR [stock.rule] src id 29 fail: required relation [('picking_type_id', 'stock.picking.type', 32)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,016 ERROR [stock.rule] src id 30 fail: required relation [('picking_type_id', 'stock.picking.type', 32)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,016 ERROR [stock.rule] src id 31 fail: required relation [('picking_type_id', 'stock.picking.type', 30)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,016 ERROR [stock.rule] src id 32 fail: required relation [('picking_type_id', 'stock.picking.type', 31)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,017 ERROR [stock.rule] src id 33 fail: required relation [('picking_type_id', 'stock.picking.type', 35)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,017 ERROR [stock.rule] src id 34 fail: required relation [('picking_type_id', 'stock.picking.type', 35)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,017 ERROR [stock.rule] src id 35 fail: required relation [('picking_type_id', 'stock.picking.type', 33)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,018 ERROR [stock.rule] src id 36 fail: required relation [('picking_type_id', 'stock.picking.type', 34)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,018 ERROR [stock.rule] src id 37 fail: required relation [('picking_type_id', 'stock.picking.type', 38)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,018 ERROR [stock.rule] src id 38 fail: required relation [('picking_type_id', 'stock.picking.type', 38)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,019 ERROR [stock.rule] src id 39 fail: required relation [('picking_type_id', 'stock.picking.type', 36)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,019 ERROR [stock.rule] src id 40 fail: required relation [('picking_type_id', 'stock.picking.type', 37)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,019 ERROR [stock.rule] src id 41 fail: required relation [('picking_type_id', 'stock.picking.type', 41)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,020 ERROR [stock.rule] src id 42 fail: required relation [('picking_type_id', 'stock.picking.type', 41)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,020 ERROR [stock.rule] src id 43 fail: required relation [('picking_type_id', 'stock.picking.type', 39)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,021 ERROR [stock.rule] src id 44 fail: required relation [('picking_type_id', 'stock.picking.type', 40)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,021 ERROR [stock.rule] src id 45 fail: required relation [('picking_type_id', 'stock.picking.type', 43)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,021 ERROR [stock.rule] src id 46 fail: required relation [('picking_type_id', 'stock.picking.type', 46)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,022 ERROR [stock.rule] src id 47 fail: required relation [('picking_type_id', 'stock.picking.type', 43)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,022 ERROR [stock.rule] src id 48 fail: required relation [('picking_type_id', 'stock.picking.type', 43)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,023 ERROR [stock.rule] src id 49 fail: required relation [('picking_type_id', 'stock.picking.type', 50)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:52,023 ERROR [stock.rule] src id 50 fail: required relation [('picking_type_id', 'stock.picking.type', 50)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,360 ERROR [stock.rule] src id 51 fail: required relation [('picking_type_id', 'stock.picking.type', 48)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 52 fail: required relation [('picking_type_id', 'stock.picking.type', 49)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 53 fail: required relation [('picking_type_id', 'stock.picking.type', 42)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 54 fail: required relation [('picking_type_id', 'stock.picking.type', 53)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 55 fail: required relation [('picking_type_id', 'stock.picking.type', 56)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 56 fail: required relation [('picking_type_id', 'stock.picking.type', 53)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 57 fail: required relation [('picking_type_id', 'stock.picking.type', 53)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 58 fail: required relation [('picking_type_id', 'stock.picking.type', 60)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,361 ERROR [stock.rule] src id 59 fail: required relation [('picking_type_id', 'stock.picking.type', 60)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 60 fail: required relation [('picking_type_id', 'stock.picking.type', 58)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 61 fail: required relation [('picking_type_id', 'stock.picking.type', 59)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 62 fail: required relation [('picking_type_id', 'stock.picking.type', 52)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 63 fail: required relation [('picking_type_id', 'stock.picking.type', 63)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 64 fail: required relation [('picking_type_id', 'stock.picking.type', 66)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 65 fail: required relation [('picking_type_id', 'stock.picking.type', 63)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 66 fail: required relation [('picking_type_id', 'stock.picking.type', 63)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,362 ERROR [stock.rule] src id 67 fail: required relation [('picking_type_id', 'stock.picking.type', 70)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 68 fail: required relation [('picking_type_id', 'stock.picking.type', 70)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 69 fail: required relation [('picking_type_id', 'stock.picking.type', 68)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 70 fail: required relation [('picking_type_id', 'stock.picking.type', 69)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 71 fail: required relation [('picking_type_id', 'stock.picking.type', 62)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 72 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 73 fail: required relation [('picking_type_id', 'stock.picking.type', 76)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,363 ERROR [stock.rule] src id 74 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 75 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 76 fail: required relation [('picking_type_id', 'stock.picking.type', 80)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 77 fail: required relation [('picking_type_id', 'stock.picking.type', 80)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 78 fail: required relation [('picking_type_id', 'stock.picking.type', 78)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 79 fail: required relation [('picking_type_id', 'stock.picking.type', 79)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 80 fail: required relation [('picking_type_id', 'stock.picking.type', 72)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,364 ERROR [stock.rule] src id 81 fail: required relation [('picking_type_id', 'stock.picking.type', 76)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 82 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 83 fail: required relation [('picking_type_id', 'stock.picking.type', 23)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 84 fail: required relation [('picking_type_id', 'stock.picking.type', 76)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 86 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 87 fail: required relation [('picking_type_id', 'stock.picking.type', 52)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 88 fail: required relation [('picking_type_id', 'stock.picking.type', 76)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,365 ERROR [stock.rule] src id 89 fail: required relation [('picking_type_id', 'stock.picking.type', 42)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 90 fail: required relation [('picking_type_id', 'stock.picking.type', 83)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 91 fail: required relation [('picking_type_id', 'stock.picking.type', 86)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 92 fail: required relation [('picking_type_id', 'stock.picking.type', 83)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 93 fail: required relation [('picking_type_id', 'stock.picking.type', 83)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 94 fail: required relation [('picking_type_id', 'stock.picking.type', 90)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 95 fail: required relation [('picking_type_id', 'stock.picking.type', 90)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 96 fail: required relation [('picking_type_id', 'stock.picking.type', 88)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,366 ERROR [stock.rule] src id 97 fail: required relation [('picking_type_id', 'stock.picking.type', 89)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,367 ERROR [stock.rule] src id 98 fail: required relation [('picking_type_id', 'stock.picking.type', 82)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,367 ERROR [stock.rule] src id 99 fail: required relation [('picking_type_id', 'stock.picking.type', 73)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,367 ERROR [stock.rule] src id 100 fail: required relation [('picking_type_id', 'stock.picking.type', 82)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:53,367 ERROR [stock.rule] src id 101 fail: required relation [('picking_type_id', 'stock.picking.type', 76)] resolve nahi hui (field, src model, src id) - pehle uska parent model migrate karo (create skip kiya)
+2026-10-19 22:30:54,754 INFO == stock.rule done: ok=9 err=91
+2026-10-19 22:30:55,812 INFO == stock.picking.type -> stock.picking.type : 91 records, 29 fields
+2026-10-19 22:31:49,840 INFO == stock.picking.type done: ok=91 err=0
+2026-10-19 22:31:50,303 WARNING 542 relations unresolved -> unresolved.csv
+2026-10-19 22:31:50,370 INFO DONE. migration.log aur unresolved.csv check karo.
+2026-10-19 22:33:52,450 INFO company map: {'1': 1}
+2026-10-19 22:33:54,496 INFO == stock.warehouse -> stock.warehouse : 9 records, 27 fields
+2026-10-19 22:34:16,574 INFO == stock.warehouse done: ok=9 err=0
+2026-10-19 22:34:18,363 INFO == stock.location -> stock.location : 346 records, 14 fields
+2026-10-19 22:34:22,389 ERROR [stock.location] src id 4 fail: HTTP 422 stock.location/write: Uh-oh! You’ve got some company inconsistencies here:
+- “Partners/Vendors” belongs to company “” while “Parent Location” (location_id: 'Partners') belongs to another company.
+To avoid a mess, no company crossover is allowed!
+2026-10-19 22:34:22,772 ERROR [stock.location] src id 5 fail: HTTP 422 stock.location/write: Uh-oh! You’ve got some company inconsistencies here:
+- “Partners/Customers” belongs to company “” while “Parent Location” (location_id: 'Partners') belongs to another company.
+To avoid a mess, no company crossover is allowed!
+2026-10-19 22:37:07,166 INFO == stock.location done: ok=344 err=2
+2026-10-19 22:37:08,767 INFO == stock.route -> stock.route : 45 records, 13 fields
+2026-10-19 22:38:09,621 INFO == stock.route done: ok=45 err=0
+2026-10-19 22:38:11,753 INFO == stock.picking.type -> stock.picking.type : 91 records, 29 fields
+2026-10-19 22:38:54,938 INFO == stock.picking.type done: ok=91 err=0
+2026-10-19 22:38:55,669 INFO == stock.rule -> stock.rule : 100 records, 16 fields
+2026-10-19 22:40:35,128 INFO == stock.rule done: ok=100 err=0
+2026-10-19 22:40:35,768 WARNING 103 relations unresolved -> unresolved.csv
+2026-10-19 22:40:35,842 INFO DONE. migration.log aur unresolved.csv check karo.
+2026-10-19 22:55:05,552 INFO company map: {'1': 1}
+2026-10-19 22:55:07,163 INFO == uom.uom -> uom.uom : 8 records, 4 fields
+2026-10-19 22:55:13,369 INFO == uom.uom done: ok=8 err=0
+2026-10-19 22:55:13,573 INFO == uom.uom -> uom.uom : 47 records, 4 fields
+2026-10-19 22:55:34,638 INFO == uom.uom done: ok=47 err=0
+2026-10-19 22:55:36,087 INFO == product.category -> product.category : 139 records, 12 fields
+2026-10-19 22:56:48,391 WARNING stock.route dst id 16 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,392 WARNING stock.route dst id 9 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,392 WARNING stock.route dst id 15 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,393 WARNING stock.route dst id 2 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,393 WARNING stock.route dst id 3 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,394 WARNING stock.route dst id 8 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,397 WARNING stock.route dst id 24 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,398 WARNING stock.route dst id 25 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-19 22:56:48,485 INFO == product.category done: ok=139 err=0
+2026-10-19 22:56:49,926 INFO == pos.category -> pos.category : 126 records, 3 fields
+2026-10-19 22:57:45,222 INFO == pos.category done: ok=126 err=0
+2026-10-19 22:57:46,625 INFO == product.attribute -> product.attribute : 2 records, 5 fields
+2026-10-19 22:57:58,656 INFO == product.attribute done: ok=2 err=0
+2026-10-19 22:58:00,082 INFO == product.attribute.value -> product.attribute.value : 43 records, 7 fields
+2026-10-19 22:58:22,000 INFO == product.attribute.value done: ok=43 err=0
+2026-10-19 22:58:22,813 WARNING [product.public.category] Odoo20 mein model NAHI (product.public.category) - manual handling chahiye. Error: HTTP 404 product.public.category/fields_get: the model 'product.public.category' does not exist
+2026-10-19 22:58:23,325 WARNING [product.ribbon] Odoo20 mein model NAHI (product.ribbon) - manual handling chahiye. Error: HTTP 404 product.ribbon/fields_get: the model 'product.ribbon' does not exist
+2026-10-19 22:58:23,742 WARNING 62 relations unresolved -> unresolved.csv
+2026-10-19 22:58:33,351 INFO == product.template -> product.template : 4396 records, 47 fields
+2026-10-19 23:02:19,713 INFO [product.template] progress: 200/4396  (ok=200 err=0)
+2026-10-19 23:06:03,578 INFO [product.template] progress: 400/4396  (ok=400 err=0)
+2026-10-19 23:06:06,831 WARNING [product.template] src id 1549 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:09:42,912 INFO [product.template] progress: 600/4396  (ok=600 err=0)
+2026-10-19 23:12:45,758 WARNING [product.template] src id 24779 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:08,491 WARNING [product.template] src id 24796 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:29,524 INFO [product.template] progress: 800/4396  (ok=800 err=0)
+2026-10-19 23:13:30,195 WARNING [product.template] src id 24814 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:31,290 WARNING [product.template] src id 24815 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:38,997 WARNING [product.template] src id 24821 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:50,363 WARNING [product.template] src id 24832 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:57,408 WARNING [product.template] src id 24837 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:13:58,346 WARNING [product.template] src id 24838 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:14:40,356 WARNING [product.template] src id 24873 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:14:42,295 WARNING [product.template] src id 24874 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:14:43,407 WARNING [product.template] src id 24875 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:14:57,646 WARNING [product.template] src id 24888 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:14:58,720 WARNING [product.template] src id 24889 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:15:17,629 WARNING [product.template] src id 24899 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:15:18,656 WARNING [product.template] src id 24900 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:29,968 INFO [product.template] progress: 1000/4396  (ok=1000 err=0)
+2026-10-19 23:17:32,403 WARNING [product.template] src id 25016 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:33,373 WARNING [product.template] src id 25017 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:34,228 WARNING [product.template] src id 25018 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:35,152 WARNING [product.template] src id 25020 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:35,994 WARNING [product.template] src id 25021 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:39,670 WARNING [product.template] src id 25025 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:17:40,694 WARNING [product.template] src id 25026 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:04,430 WARNING [product.template] src id 25048 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:13,857 WARNING [product.template] src id 25054 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:17,017 WARNING [product.template] src id 25055 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:19,084 WARNING [product.template] src id 25057 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:20,065 WARNING [product.template] src id 25058 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:20,931 WARNING [product.template] src id 25059 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:21,951 WARNING [product.template] src id 25060 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:24,931 WARNING [product.template] src id 25063 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:25,837 WARNING [product.template] src id 25064 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:29,127 WARNING [product.template] src id 25067 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:54,290 WARNING [product.template] src id 25093 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:55,345 WARNING [product.template] src id 25094 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:56,662 WARNING [product.template] src id 25095 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:18:57,686 WARNING [product.template] src id 25096 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:19:27,250 WARNING [product.template] src id 25121 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:19:28,040 WARNING [product.template] src id 25122 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:19:28,822 WARNING [product.template] src id 25123 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:19:39,775 WARNING [product.template] src id 25135 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:19:40,799 WARNING [product.template] src id 25136 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:20:13,990 WARNING [product.template] src id 25164 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:20:14,940 WARNING [product.template] src id 25165 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:20:16,117 WARNING [product.template] src id 25166 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:20:18,719 WARNING [product.template] src id 25167 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:21:12,878 INFO [product.template] progress: 1200/4396  (ok=1200 err=0)
+2026-10-19 23:21:27,216 WARNING [product.template] src id 25232 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:29,676 WARNING [product.template] src id 25287 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:30,694 WARNING [product.template] src id 25288 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:49,845 WARNING [product.template] src id 25305 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:50,686 WARNING [product.template] src id 25306 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:55,390 WARNING [product.template] src id 25311 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:56,414 WARNING [product.template] src id 25312 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:57,325 WARNING [product.template] src id 25313 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:22:58,350 WARNING [product.template] src id 25314 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:23:06,748 WARNING [product.template] src id 25321 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:23:07,766 WARNING [product.template] src id 25322 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:23:46,174 WARNING [product.template] src id 25359 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:23:48,012 WARNING [product.template] src id 25361 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:23:49,037 WARNING [product.template] src id 25362 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:23:58,064 WARNING [product.template] src id 25371 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:07,374 WARNING [product.template] src id 25378 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:11,155 WARNING [product.template] src id 25381 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:12,180 WARNING [product.template] src id 25382 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:13,026 WARNING [product.template] src id 25383 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:21,182 WARNING [product.template] src id 25389 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:22,118 WARNING [product.template] src id 25390 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:23,213 WARNING [product.template] src id 25391 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:25,516 WARNING [product.template] src id 25393 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:26,412 WARNING [product.template] src id 25394 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:43,316 WARNING [product.template] src id 25409 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:24:51,482 INFO [product.template] progress: 1400/4396  (ok=1400 err=0)
+2026-10-19 23:25:25,087 WARNING [product.template] src id 25449 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:28:31,828 INFO [product.template] progress: 1600/4396  (ok=1600 err=0)
+2026-10-19 23:32:03,483 INFO [product.template] progress: 1800/4396  (ok=1800 err=0)
+2026-10-19 23:35:51,127 INFO [product.template] progress: 2000/4396  (ok=2000 err=0)
+2026-10-19 23:39:43,983 INFO [product.template] progress: 2200/4396  (ok=2200 err=0)
+2026-10-19 23:42:51,573 INFO [product.template] progress: 2400/4396  (ok=2400 err=0)
+2026-10-19 23:46:05,261 INFO [product.template] progress: 2600/4396  (ok=2600 err=0)
+2026-10-19 23:49:37,922 INFO [product.template] progress: 2800/4396  (ok=2800 err=0)
+2026-10-19 23:51:11,775 WARNING [product.template] src id 26915 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:52:54,961 INFO [product.template] progress: 3000/4396  (ok=3000 err=0)
+2026-10-19 23:56:16,913 INFO [product.template] progress: 3200/4396  (ok=3200 err=0)
+2026-10-19 23:57:22,013 WARNING [product.template] src id 27288 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-19 23:59:22,403 INFO [product.template] progress: 3400/4396  (ok=3400 err=0)
+2026-10-20 00:02:54,147 INFO [product.template] progress: 3600/4396  (ok=3600 err=0)
+2026-10-20 00:03:21,384 WARNING [product.template] src id 31242 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:03:41,906 WARNING [product.template] src id 31264 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:06:20,304 INFO [product.template] progress: 3800/4396  (ok=3800 err=0)
+2026-10-20 00:08:18,942 WARNING [product.template] src id 31533 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:08:29,180 WARNING [product.template] src id 31544 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:09:38,502 INFO [product.template] progress: 4000/4396  (ok=4000 err=0)
+2026-10-20 00:11:50,197 WARNING [product.template] src id 31745 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:11:51,227 WARNING [product.template] src id 31746 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:11:52,251 WARNING [product.template] src id 31747 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:12:43,146 WARNING [product.template] src id 31799 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 00:12:58,227 INFO [product.template] progress: 4200/4396  (ok=4200 err=0)
+2026-10-20 00:14:00,416 WARNING [product.template] src id 31884 ka key pehle se kisi aur record ne le rakha (duplicate naam) - naya record banega, merge nahi
+2026-10-20 09:43:12,075 INFO company map: {'1': 1}
+2026-10-20 09:43:13,487 INFO == uom.uom -> uom.uom : 8 records, 4 fields
+2026-10-20 09:43:17,437 INFO == uom.uom done: ok=8 err=0
+2026-10-20 09:43:17,582 INFO == uom.uom -> uom.uom : 47 records, 4 fields
+2026-10-20 09:43:36,793 INFO == uom.uom done: ok=47 err=0
+2026-10-20 09:43:38,276 INFO == product.category -> product.category : 139 records, 12 fields
+2026-10-20 09:44:48,414 WARNING stock.route dst id 16 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,415 WARNING stock.route dst id 9 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,416 WARNING stock.route dst id 15 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,417 WARNING stock.route dst id 2 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,417 WARNING stock.route dst id 3 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,419 WARNING stock.route dst id 8 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,420 WARNING stock.route dst id 24 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,421 WARNING stock.route dst id 25 'Applicable on Product' band hai - products par link NAHI hoga. Chahiye to Odoo 20 mein Inventory > Configuration > Routes mein ON karke templates stage dobara chalao.
+2026-10-20 09:44:48,610 INFO == product.category done: ok=139 err=0
+2026-10-20 09:44:49,950 INFO == pos.category -> pos.category : 126 records, 3 fields
+2026-10-20 09:45:55,634 INFO == pos.category done: ok=126 err=0
+2026-10-20 09:45:56,709 INFO == product.attribute -> product.attribute : 2 records, 5 fields
+2026-10-20 09:45:58,560 INFO == product.attribute done: ok=2 err=0
+2026-10-20 09:45:59,612 INFO == product.attribute.value -> product.attribute.value : 43 records, 7 fields
+2026-10-20 09:46:25,915 INFO == product.attribute.value done: ok=43 err=0
+2026-10-20 09:46:26,720 WARNING [product.public.category] Odoo20 mein model NAHI (product.public.category) - manual handling chahiye. Error: HTTP 404 product.public.category/fields_get: the model 'product.public.category' does not exist
+2026-10-20 09:46:27,178 WARNING [product.ribbon] Odoo20 mein model NAHI (product.ribbon) - manual handling chahiye. Error: HTTP 404 product.ribbon/fields_get: the model 'product.ribbon' does not exist
+2026-10-20 09:46:27,544 WARNING 61 relations unresolved -> unresolved.csv
+2026-10-20 09:46:34,381 INFO == product.template -> product.template : 4396 records, 47 fields
+2026-10-20 09:48:20,679 INFO [product.template] progress: 200/4396  (ok=200 err=0)
+2026-10-20 09:50:03,119 INFO [product.template] progress: 400/4396  (ok=400 err=0)
+2026-10-20 09:51:47,777 INFO [product.template] progress: 600/4396  (ok=600 err=0)
+2026-10-20 09:53:27,855 INFO [product.template] progress: 800/4396  (ok=800 err=0)
+2026-10-20 09:55:17,969 INFO [product.template] progress: 1000/4396  (ok=1000 err=0)
+2026-10-20 09:56:52,646 INFO [product.template] progress: 1200/4396  (ok=1200 err=0)
+2026-10-20 09:58:40,260 INFO [product.template] progress: 1400/4396  (ok=1400 err=0)

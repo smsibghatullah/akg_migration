@@ -1,0 +1,12 @@
+src_id,default_code,name,src_active,dst_id,dst_active,issues
+1,FOOD,Meals,False,5,False,PURCHASE_OK_MISMATCH
+2,TRANS & ACC,Travel & Accommodation,False,6,False,PURCHASE_OK_MISMATCH
+3,MIL,Mileage,False,7,False,PURCHASE_OK_MISMATCH
+4,GIFT,Gifts,False,8,False,PURCHASE_OK_MISMATCH
+5,COMM,Communication,False,9,False,PURCHASE_OK_MISMATCH
+7,TIPS,Tips,False,1,False,TYPE_MISMATCH
+27498,PTAA03,Proterminal Anodized Silver Aluminium PTAA03,False,3398,False,TYPE_MISMATCH
+31369,PTAA 08,Proterminal Anodized Silver Aluminium PTAA 08,False,3683,False,TYPE_MISMATCH
+31501,TCG 600,Caulking Gun TCG 600,False,3815,False,TYPE_MISMATCH
+31523,PRFNEO 125,PROFINAL NATURAL ALUMINIUM PRFNEO 125,False,3837,False,TYPE_MISMATCH
+31797,,Kerabond Plus Grey 25 KG Bag,False,4104,False,TYPE_MISMATCH

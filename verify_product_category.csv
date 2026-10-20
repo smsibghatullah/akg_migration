@@ -1,0 +1,2 @@
+src_id,src_name,src_active,dst_id,dst_name,dst_active,status,dst_ids_same_name
+180,AKG Hardware / Saleable / Mapei/Mapegrout T60 ME,,119,,,"MAPPED_BUT_DST_RECORD_MISSING (idmap mein hai, Odoo 20 mein nahi)",

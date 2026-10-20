@@ -1,0 +1,28 @@
+PRODUCTS VERIFY
+
+TEMPLATES   Odoo16 total 4357 (active 1427, archived 2930)
+            Odoo20 (mapped, distinct) 4357 (active 1427, archived 2930)
+   active + sale_ok           Odoo16  1384   Odoo20  1384
+   active + purchase_ok       Odoo16  1409   Odoo20  1409
+   active + available_in_pos  Odoo16  1349   Odoo20  1349
+   total active templates in Odoo20 (poora DB): 1432
+
+ISSUES (products_verify.csv):
+   PURCHASE_OK_MISMATCH     5
+   TYPE_MISMATCH            6
+
+VARIANTS    Odoo16 4388 | mapped 4388 | Odoo20 distinct 4388
+   BARCODE_MISSING          2
+
+product.supplierinfo           Odoo16  3098 | unmapped     0 | mapped-but-missing-in-dst 0
+product.pricelist              Odoo16     7 | unmapped     0 | mapped-but-missing-in-dst 0
+product.pricelist.item         Odoo16  2238 | unmapped  1308 | mapped-but-missing-in-dst 0
+product.category               Odoo16   140 | unmapped     0 | mapped-but-missing-in-dst 0
+pos.category                   Odoo16   126 | unmapped     0 | mapped-but-missing-in-dst 0
+product.attribute              Odoo16     2 | unmapped     0 | mapped-but-missing-in-dst 0
+product.attribute.value        Odoo16    43 | unmapped     0 | mapped-but-missing-in-dst 0
+stock.warehouse.orderpoint     Odoo16   317 | unmapped     0 | mapped-but-missing-in-dst 0
+mrp.bom                        Odoo16     4 | unmapped     0 | mapped-but-missing-in-dst 0
+stock.lot                      Odoo16   800 | unmapped     0 | mapped-but-missing-in-dst 0
+
+(unmapped = migrate nahi hua. pricelist.item mein archived rules jaan boojh kar skip hote hain - Odoo 20 mein 'active' nahi.)
