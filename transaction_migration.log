@@ -6372,3 +6372,5 @@ urllib.error.URLError: <urlopen error [Errno 111] Connection refused>
 2026-10-20 22:36:09,782 ERROR WARNINGS limit (25) paar - ruk raha hoon. transaction_migration_report.csv dekho.
 2026-10-20 22:36:09,796 INFO Report: transaction_migration_report.csv | Totals: {'OK': 354, 'WARN': 26}
 2026-10-20 22:38:25,830 INFO == sales (sale.order): source 10013 | pehle se migrate 438 | ab karna hai 9575
+2026-10-20 22:50:04,950 INFO == sales (sale.order): source 10013 | pehle se migrate 496 | ab karna hai 9517
+2026-10-20 22:50:12,298 WARNING sale.order#39006 -> 499: WARN amount_total src 1.10 dst 1.13
