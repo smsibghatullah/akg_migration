@@ -327,3 +327,5 @@ To avoid a mess, no company crossover is allowed!
 2026-10-20 09:55:17,969 INFO [product.template] progress: 1000/4396  (ok=1000 err=0)
 2026-10-20 09:56:52,646 INFO [product.template] progress: 1200/4396  (ok=1200 err=0)
 2026-10-20 09:58:40,260 INFO [product.template] progress: 1400/4396  (ok=1400 err=0)
+2026-10-20 10:00:13,781 INFO [product.template] progress: 1600/4396  (ok=1600 err=0)
+2026-10-20 10:01:44,845 INFO [product.template] progress: 1800/4396  (ok=1800 err=0)

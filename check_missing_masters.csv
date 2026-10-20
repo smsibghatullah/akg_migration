@@ -1,0 +1,367 @@
+model,src_id,name
+res.partner,29821,78629481
+res.partner,29850,90618870
+res.partner,29835,92880114
+res.partner,29879,92884880
+res.partner,29833,93573270
+res.partner,29854,96676406
+res.partner,29853,98838434
+res.partner,29801,Abdelaziz salim alabri 
+res.partner,29812,ABDULLAH AL JABRI
+res.partner,29811,ABDULLAH AL JABRI
+res.partner,29877,Abdullah allahori 
+res.partner,29819,ABDUL MALIK - 72255010
+res.partner,29841,AHMED - 99024509
+res.partner,29831,Ahmed Al Nabhani
+res.partner,29814,AHMED SALIM
+res.partner,29820,AL DAHAB CONSTRUCTION LLC
+res.partner,29832,ALHUSAIN AL HABSI
+res.partner,29822,ALI AL JABRI
+res.partner,29827,ALMOTASIM - 97445916
+res.partner,29804,Alsalt 
+res.partner,29849,AMJAD AL KHATRI
+res.partner,29817,AMOUR AL HAMJRI
+res.partner,29848,Badar
+res.partner,29828,BADER AL ABDALI
+res.partner,29805,Basil
+res.partner,29872,BASIL
+res.partner,29876,CASH
+res.partner,29830,CASH
+res.partner,29813,DAR AL MANARA
+res.partner,29807,HAMED
+res.partner,29826,HILAL
+res.partner,29816,HILMI AL MAWALI 
+res.partner,29855,IDRIS AL SHABLI
+res.partner,29856,Interior Design Studio
+res.partner,29844,Issa Al Habsi
+res.partner,29845,JW Marriott MUSCAT
+res.partner,29840,KAHLAN - 95845409
+res.partner,29809,MAHBOOB AHMED - 79393804
+res.partner,29838,MAHMOOD AL KHALBANI
+res.partner,29815,Mahmoud albelushi  
+res.partner,29837,MAZIN
+res.partner,29839,MOHAMMED - 99668890
+res.partner,29852,Mohammed abdelkarim
+res.partner,29842,mohammed alghaithi
+res.partner,29825,Mr Khalid | 90119020
+res.partner,29808,Mr RIAD - 92888086
+res.partner,29818,Mr WALEED ALKHATRI -91794016
+res.partner,29878,Mr Yahya Abdullah | 99666747
+res.partner,29810,Mr Yaqhdan | 99125611
+res.partner,29802,Naser Abdullah
+res.partner,29843,RABIE AL MAJAN TRADING
+res.partner,29851,RASHID - 95533536
+res.partner,29836,Salim ali 
+res.partner,29847,SAUD
+res.partner,29829,SHOHAG BUSINESS LLC - 98986316
+res.partner,29806,Sultan alsaiedi
+res.partner,29803,Talib
+res.partner,29846,Tazeem integrated trad spc
+res.partner,29834,WALEED
+res.partner,29823,YAQOUB - 98999997
+res.partner,29824,ZAHID - 97990540
+res.users,3,Default User Template
+product.template,31884,Caulking Gun TCG 600
+product.template,31922,PRIMER 3296 JERRYCAN 5KG
+product.product,1226,Brida Tile Level Quick (B-100 UN)
+product.product,17307,Brida Tile Level Quick (B-100 UN)
+product.product,19822,KERAPOXY N.142 FUST. 5 KG
+product.product,1300,Diamant ND 200 230V 50 Hz
+product.product,17608,Diamant ND 200 230V 50 Hz
+product.product,1368,Fixed Shaft W/Bearing Set TC-125 V2 (51808)
+product.product,17735,Fixed Shaft W/Bearing Set TC-125 V2 (51808)
+product.product,1298,Diamant DX-250-1400 Plus
+product.product,17607,Diamant DX-250-1400 Plus
+product.product,1173,Block Cutter  B-13
+product.product,17175,Block Cutter  B-13
+product.product,19597,Discount
+product.product,1397,DMC238
+product.product,1412,DMC238
+product.product,23437,Procover Anodized Silver Aluminium PCRAA 209
+product.product,23438,Procover Anodized Silver Aluminium PCRAA 209
+product.product,19565,Projollyeco Coloured Vinyl Resign Silver 12.5mm-PJE 125-12
+product.product,19574,Projollyeco Coloured Vinyl Resign Silver 12.5mm-PJE 125-12
+product.product,23775,PROFINAL NATURAL ALUMINIUM PRFNEO 125
+product.product,24002,PROFINAL NATURAL ALUMINIUM PRFNEO 125
+product.product,19784,Proterminal Anodized Silver Aluminium PTAA03
+product.product,24003,Proterminal Anodized Silver Aluminium PTAA03
+product.product,23621,Proterminal Anodized Silver Aluminium PTAA 08
+product.product,24004,Proterminal Anodized Silver Aluminium PTAA 08
+product.product,23753,Caulking Gun TCG 600
+product.product,24141,Caulking Gun TCG 600
+product.product,7,Tips
+product.product,19201,Tips
+product.product,1159,Accesario Para Zacalos DV/DC/DS/DX
+product.product,17065,Accesario Para Zacalos DV/DC/DS/DX
+product.product,1161,Adjustment Pin Tz Guide (16248)
+product.product,17082,Adjustment Pin Tz Guide (16248)
+product.product,1163,Aluminium Table Ds/Dx 400mm (54669)
+product.product,17100,Aluminium Table Ds/Dx 400mm (54669)
+product.product,1162,Aluminium Table DS/Dx 600mm (54670)
+product.product,17101,Aluminium Table DS/Dx 600mm (54670)
+product.product,1164,Angle Ribbed Insert  30x40x28 (55390)
+product.product,17107,Angle Ribbed Insert  30x40x28 (55390)
+product.product,1165,Arm Lateral TI/Tx (12081)
+product.product,17118,Arm Lateral TI/Tx (12081)
+product.product,1166,Aspiration and Extraction
+product.product,17123,Aspiration and Extraction
+product.product,1167,Assembly Handle Star Max
+product.product,17124,Assembly Handle Star Max
+product.product,1169,Bearing 6000 10x26x8 2RS1
+product.product,17160,Bearing 6000 10x26x8 2RS1
+product.product,1168,Bearing  626 6-19-6
+product.product,17159,Bearing  626 6-19-6
+product.product,1171,Bearing 698 2RS
+product.product,17161,Bearing 698 2RS
+product.product,1172,Blade Water Protector  200 M15
+product.product,17174,Blade Water Protector  200 M15
+product.product,1174,Brake Knob Tz
+product.product,17185,Brake Knob Tz
+product.product,1175,Brake Stopper Tz
+product.product,17186,Brake Stopper Tz
+product.product,1176,Breaker Feet Star MAx
+product.product,17302,Breaker Feet Star MAx
+product.product,1177,Breaker Set Tz
+product.product,17303,Breaker Set Tz
+product.product,1178,Breaker Shaft Din  1473 5x32
+product.product,17304,Breaker Shaft Din  1473 5x32
+product.product,1225,Brida 3-12mm 0.5mm Delta Level Sys U-200
+product.product,17306,Brida 3-12mm 0.5mm Delta Level Sys U-200
+product.product,1180,Brusher Hodler Rubi Mix -9N
+product.product,17312,Brusher Hodler Rubi Mix -9N
+product.product,1179,Brush Holder Cover Rubimix-9N
+product.product,17311,Brush Holder Cover Rubimix-9N
+product.product,1182,Cable Plug 3x1 2.8M 230V UK
+product.product,17334,Cable Plug 3x1 2.8M 230V UK
+product.product,1183,Cable With Plug 230/50
+product.product,17340,Cable With Plug 230/50
+product.product,1184,Cam Lever M6x42 Black
+product.product,17341,Cam Lever M6x42 Black
+product.product,1185,Capacitor 12MF 450V 50/60HZ
+product.product,17343,Capacitor 12MF 450V 50/60HZ
+product.product,1186,Capacitor 25MF 450V 50HZ
+product.product,17344,Capacitor 25MF 450V 50HZ
+product.product,1187,Capacitor 30MF 450v 50HZ
+product.product,17345,Capacitor 30MF 450v 50HZ
+product.product,1188,Capacitor 45MF 450V
+product.product,17346,Capacitor 45MF 450V
+product.product,1189,Carbide Saw
+product.product,17349,Carbide Saw
+product.product,1214,Carbide Scoring Wheel 13/16 (18mm)
+product.product,17350,Carbide Scoring Wheel 13/16 (18mm)
+product.product,1191,Carbon Brush 230V Rmix-9-BL (2Un)
+product.product,17353,Carbon Brush 230V Rmix-9-BL (2Un)
+product.product,1195,Ceramic Block -N For Diamonds Blades
+product.product,17379,Ceramic Block -N For Diamonds Blades
+product.product,1258,"CEV SUPERPRO 180 ""7"""
+product.product,17381,"CEV SUPERPRO 180 ""7"""
+product.product,1261,"CEV SUPERPRO 300 ""12"""
+product.product,17382,"CEV SUPERPRO 300 ""12"""
+product.product,1181,"CJ.EJE, Polea Y Rodamientos Dx-250 Plus"
+product.product,17407,"CJ.EJE, Polea Y Rodamientos Dx-250 Plus"
+product.product,1197,Clamp Bracket Tz Table V2
+product.product,17408,Clamp Bracket Tz Table V2
+product.product,1199,Clamp TZ Table 16257
+product.product,17409,Clamp TZ Table 16257
+product.product,1200,Clip CL8
+product.product,17421,Clip CL8
+product.product,1201,Clip Floating Base TI
+product.product,17422,Clip Floating Base TI
+product.product,1215,Compression Spring  15x16  1.5
+product.product,17450,Compression Spring  15x16  1.5
+product.product,1216,Compression Spring 35.2 x 13
+product.product,17451,Compression Spring 35.2 x 13
+product.product,1217,Compression Spring 8.4x16.2x0.8
+product.product,17452,Compression Spring 8.4x16.2x0.8
+product.product,1218,Contera 50x25 Inclinacion 5
+product.product,17453,Contera 50x25 Inclinacion 5
+product.product,1202,Cord  Guard Rmix-9-N
+product.product,17518,Cord  Guard Rmix-9-N
+product.product,1328,"Cubo Basura N"" 6 S/ Tapa BK"
+product.product,17573,"Cubo Basura N"" 6 S/ Tapa BK"
+product.product,1363,DC250
+product.product,17591,DC250
+product.product,1233,"Delta Clip 1/32"" (1mm) 3-12mm 400 Unit"
+product.product,17592,"Delta Clip 1/32"" (1mm) 3-12mm 400 Unit"
+product.product,1240,Delta Leveling Strip 1.5mm B-200
+product.product,17597,Delta Leveling Strip 1.5mm B-200
+product.product,1241,Delta Leveling System 1.5mm  Kit
+product.product,17598,Delta Leveling System 1.5mm  Kit
+product.product,1242,Delta Leveling System 2mm Kit
+product.product,17599,Delta Leveling System 2mm Kit
+product.product,1243,Delta Leveling System Wedge 400pcs
+product.product,17600,Delta Leveling System Wedge 400pcs
+product.product,8,Discount
+product.product,1354,Double Section Pad
+product.product,17645,Double Section Pad
+product.product,9,Down Payment (POS)
+product.product,17647,Down Payment (POS)
+product.product,1364,DR 350
+product.product,17648,DR 350
+product.product,1291,Dry Gress Hole Saw Cutter Set
+product.product,17667,Dry Gress Hole Saw Cutter Set
+product.product,1414,Drywall Lift Rolling Panel Lift Hoist Jack Lifter tool hoist lifting machine
+product.product,17668,Drywall Lift Rolling Panel Lift Hoist Jack Lifter tool hoist lifting machine
+product.product,1204,DU-200 BL Sprate Water Pump 230V 50HZ
+product.product,17669,DU-200 BL Sprate Water Pump 230V 50HZ
+product.product,1365,Eccentric Housing Tz Brake
+product.product,17676,Eccentric Housing Tz Brake
+product.product,1339,ECC Shaft  With Bearing DU-200 Evo
+product.product,17675,ECC Shaft  With Bearing DU-200 Evo
+product.product,1272,"ECD 115 2 In 1 Super Pro 4 1/2"""
+product.product,17677,"ECD 115 2 In 1 Super Pro 4 1/2"""
+product.product,1340,Electronic Speed 230V Regul Rmix-9-BL
+product.product,17680,Electronic Speed 230V Regul Rmix-9-BL
+product.product,1366,"External Plate  13x25 , 6x68"
+product.product,17695,"External Plate  13x25 , 6x68"
+product.product,17738,Flexcel Sheet 25mm
+product.product,23785,Flexcel Sheet 25mm
+product.product,24054,Kerabond Plus Grey 25 KG Bag
+product.product,24056,Kerabond Plus Grey 25 KG Bag
+product.product,23724,PLASTIMUL DPC 20Ltr
+product.product,23796,PLASTIMUL DPC 20Ltr
+product.product,23444,Transport to Ad Dakhiliyah
+product.product,23445,Transport to Ad Dakhiliyah
+product.product,23446,Transport to Ad Dakhiliyah
+product.product,23447,Transport to Ad Dakhiliyah
+product.product,23448,Transport to Ad Dakhiliyah
+product.product,23449,Transport to Ad Dakhiliyah
+product.product,23450,Transport to Ad Dakhiliyah
+product.product,23451,Transport to Ad Dakhiliyah
+product.product,23875,Transport to Ad Dakhiliyah
+product.product,23876,Transport to Ad Dakhiliyah
+product.product,23877,Transport to Ad Dakhiliyah
+product.product,23878,Transport to Ad Dakhiliyah
+product.product,23461,Transport to Ad Dhahirah
+product.product,23462,Transport to Ad Dhahirah
+product.product,23463,Transport to Ad Dhahirah
+product.product,23467,Transport to Al Batinah North
+product.product,23468,Transport to Al Batinah North
+product.product,23469,Transport to Al Batinah North
+product.product,23470,Transport to Al Batinah North
+product.product,23471,Transport to Al Batinah North
+product.product,23477,Transport to Al Batinah South
+product.product,23478,Transport to Al Batinah South
+product.product,23479,Transport to Al Batinah South
+product.product,23480,Transport to Al Batinah South
+product.product,23481,Transport to Al Batinah South
+product.product,23482,Transport to Al Batinah South
+product.product,23879,Transport to Al Batinah South
+product.product,23489,Transport to Ash Sharqiyah North
+product.product,23490,Transport to Ash Sharqiyah North
+product.product,23491,Transport to Ash Sharqiyah North
+product.product,23492,Transport to Ash Sharqiyah North
+product.product,23497,Transport to Ash Sharqiyah South
+product.product,23498,Transport to Ash Sharqiyah South
+product.product,23501,Transport to Muscat
+product.product,23502,Transport to Muscat
+product.product,23503,Transport to Muscat
+product.product,23504,Transport to Muscat
+product.product,23505,Transport to Muscat
+product.product,19249,"Upvc  Socket 6"" Soil M/N"
+product.product,19332,"Upvc Socket 6"" Soil M/N"
+product.pricelist,5,Project Oman 2023 Discount
+product.pricelist,3,Project Oman 2023 Discount
+account.analytic.account,2,Ghubra
+account.analytic.account,1,Internal
+account.analytic.account,3,Mabela
+account.analytic.account,5,Nizwa
+account.analytic.account,4,Sohar
+account.payment.method.line,6,Manual
+account.payment.method.line,7,Manual
+account.payment.method.line,8,Checks
+account.payment.method.line,9,Manual
+account.payment.method.line,10,Manual
+account.payment.method.line,11,Checks
+account.payment.method.line,15,Manual
+account.payment.method.line,16,Manual
+account.payment.method.line,17,Checks
+account.payment.method.line,18,Manual
+account.payment.method.line,19,Manual
+account.payment.method.line,20,Checks
+account.payment.method.line,21,Manual
+account.payment.method.line,22,Manual
+account.payment.method.line,23,Manual
+account.payment.method.line,24,Manual
+account.payment.method.line,25,Checks
+account.payment.method.line,26,Manual
+account.payment.method.line,27,Manual
+account.payment.method.line,28,Checks
+account.payment.method.line,30,Manual
+account.payment.method.line,31,Manual
+account.payment.method.line,32,Manual
+account.payment.method.line,33,Manual
+account.payment.method.line,34,Manual
+account.payment.method.line,35,Manual
+account.payment.method.line,36,Manual
+account.payment.method.line,37,Manual
+account.payment.method.line,38,Manual
+account.payment.method.line,39,Manual
+account.payment.method.line,40,Manual
+account.payment.method.line,41,Manual
+account.payment.method.line,42,Checks
+account.payment.method.line,43,Manual
+account.payment.method.line,44,Manual
+account.payment.method.line,45,Checks
+account.payment.method.line,46,Manual
+account.payment.method.line,47,Manual
+account.payment.method.line,48,Checks
+account.payment.method.line,49,Manual
+account.payment.method.line,50,Manual
+account.payment.method.line,51,Checks
+account.payment.method.line,55,Manual
+account.payment.method.line,56,Manual
+account.payment.method.line,57,Manual
+account.payment.method.line,58,Manual
+account.payment.method.line,62,Manual
+account.payment.method.line,63,Manual
+account.payment.method.line,64,Checks
+account.payment.method.line,65,Manual
+account.payment.method.line,66,Manual
+account.payment.method.line,67,Checks
+crm.team,4,eBay
+utm.source,1,Search engine
+utm.source,2,Lead Recall
+utm.source,5,Twitter
+utm.source,10,Welcome Bot (Chatbot Script created on 2023-05-21)
+utm.medium,5,Banner
+utm.medium,7,Facebook
+utm.medium,10,Google Adwords
+utm.medium,8,LinkedIn
+utm.medium,9,Television
+utm.medium,6,Twitter
+hr.work.entry.type,2,Generic Time Off
+hr.work.entry.type,3,Compensatory Time Off
+hr.payroll.structure,3,Gratuity - End of the service (1-3 Yrs).
+hr.payroll.structure,4,Gratuity - End of the service (4+ Yrs)
+hr.salary.rule.category,1,Basic
+hr.salary.rule.category,2,Allowance
+hr.salary.rule,1,Basic Salary
+hr.salary.rule,9,Basic Salary
+hr.salary.rule,97,Basic Salary
+hr.salary.rule,42,Gratuity (1-3 yrs)
+hr.salary.rule,51,Gratuity (4+ Yrs.)
+hr.salary.rule,95,1/2 Salary Bonus
+hr.salary.rule,96,Net Bonus
+hr.salary.rule,2,Gross
+hr.salary.rule,10,Gross
+hr.salary.rule,98,Gross
+hr.salary.rule,4,Attachment of Salary
+hr.salary.rule,5,Assignment of Salary
+hr.salary.rule,6,Child Support
+hr.salary.rule,12,Attachment of Salary
+hr.salary.rule,13,Assignment of Salary
+hr.salary.rule,14,Child Support
+hr.salary.rule,100,Attachment of Salary
+hr.salary.rule,101,Assignment of Salary
+hr.salary.rule,102,Child Support
+hr.salary.rule,3,Deduction
+hr.salary.rule,11,Deduction
+hr.salary.rule,55,Overtime
+hr.salary.rule,99,Deduction
+hr.salary.rule,7,Reimbursement
+hr.salary.rule,15,Reimbursement
+hr.salary.rule,103,Reimbursement
+hr.salary.rule,8,Net Salary
+hr.salary.rule,16,Net Salary
+hr.salary.rule,104,Net Salary

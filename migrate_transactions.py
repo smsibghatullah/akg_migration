@@ -1,0 +1,1144 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Odoo 16 -> Odoo 20  TRANSACTION migration  (run_transactions.sh ke saath)
+
+  python3 migrate_transactions.py list
+  python3 migrate_transactions.py check [--fix]            # masters ka gap report / auto-mapping
+  python3 migrate_transactions.py run --steps core --limit 5          # test: har step ke 5 documents
+  python3 migrate_transactions.py run --steps core --workers 4
+  python3 migrate_transactions.py run --steps moves --date-from 2025-01-01 --workers 4
+  python3 migrate_transactions.py run --steps sales --dry-run         # kuch likhe baghair
+  python3 migrate_transactions.py verify
+
+Documents (header + lines) EK SAATH create hote hain (accounting ke liye zaroori), phir state set hoti hai.
+Pehle se migrate hue documents dobara nahi bante (txmap.sqlite3 + idmap.json). PEHLE STAGING PAR CHALAO.
+
+FIX (v2): lines ka parent link (order_id / move_id / slip_id / request_id) ab line vals se nikal diya gaya hai,
+          kyunke parent usi create call mein ban raha hota hai aur Odoo khud [0,0,vals] se link laga deta hai.
+"""
+import os, sys, json, csv, re, time, argparse, logging, sqlite3, threading, collections
+import xmlrpc.client, urllib.request, urllib.error
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+# ======================= CONFIG =======================
+SRC = dict(url="https://odoo.akghardware.com", db="AKG_Hardware",
+           user=os.getenv("SRC_USER", "babar@akghardware.com"),
+           password=os.getenv("SRC_PASSWORD", "Babar123456"))
+DST = dict(url="http://38.242.193.145:8050", db="AKG_HARDWARE",
+           api_key=os.getenv("DST_API_KEY", "2d946e0915bbe4e761f0d7523af8191cf3863404"))
+# Optional: isi folder mein local_config.py (SRC, DST dicts) ho to wo upar wali values badal deti hai.
+try:
+    from local_config import SRC, DST  # noqa
+except ImportError:
+    pass
+# ======================================================
+
+MASTER_IDMAP = "idmap.json"          # master script ka map (padha jata hai; check --fix is mein likhta hai)
+TX_DB = "txmap.sqlite3"              # transactions ka map (bada, is liye sqlite)
+BATCH = 20
+CTX = {"active_test": False, "tracking_disable": True, "mail_create_nosubscribe": True,
+       "mail_create_nolog": True, "mail_notrack": True}
+CTX_MOVE = dict(CTX, check_move_validity=False, skip_invoice_sync=True, skip_account_move_synchronization=True)
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s",
+                    handlers=[logging.StreamHandler(), logging.FileHandler("transaction_migration.log", encoding="utf-8")])
+log = logging.getLogger("tx")
+
+SKIP_FIELDS = {"id", "create_uid", "create_date", "write_uid", "write_date", "display_name", "__last_update",
+               "parent_path", "access_token", "message_ids", "message_follower_ids", "message_partner_ids",
+               "activity_ids", "website_message_ids", "matched_debit_ids", "matched_credit_ids",
+               "full_reconcile_id", "message_main_attachment_id", "state", "password"}
+TEXT = ("char", "text", "html")
+NUM = ("integer", "float", "monetary")
+
+
+def m2o_id(v):
+    return v[0] if isinstance(v, (list, tuple)) else v
+
+
+def norm(x):
+    return re.sub(r"\s+", " ", x.strip()).lower() if isinstance(x, str) else x
+
+
+# ----------------------------------------------------------------- connections
+class Src:
+    def __init__(self):
+        self.tl, self._f, self._lock, self.err = threading.local(), {}, threading.Lock(), {}
+        common = xmlrpc.client.ServerProxy(SRC["url"].rstrip("/") + "/xmlrpc/2/common", allow_none=True)
+        self.uid = common.authenticate(SRC["db"], SRC["user"], SRC["password"], {})
+        if not self.uid:
+            raise RuntimeError("Odoo 16 login fail")
+
+    @property
+    def proxy(self):
+        p = getattr(self.tl, "p", None)
+        if p is None:
+            p = xmlrpc.client.ServerProxy(SRC["url"].rstrip("/") + "/xmlrpc/2/object", allow_none=True)
+            self.tl.p = p
+        return p
+
+    def call(self, model, method, *args, **kw):
+        for attempt in range(4):
+            try:
+                return self.proxy.execute_kw(SRC["db"], self.uid, SRC["password"], model, method, list(args), kw)
+            except (OSError, xmlrpc.client.ProtocolError) as e:
+                if attempt == 3:
+                    raise
+                time.sleep(2 * (attempt + 1))
+                self.tl.p = None
+
+    def fields(self, model):
+        with self._lock:
+            if model not in self._f:
+                try:
+                    self._f[model] = self.call(model, "fields_get", attributes=[
+                        "type", "relation", "store", "readonly", "required", "selection", "string", "company_dependent"])
+                except Exception as e:
+                    self._f[model] = None
+                    self.err[model] = str(e)[:150]
+            return self._f[model]
+
+
+class Dst:
+    POS = {"search": ["domain"], "search_read": ["domain"], "search_count": ["domain"], "read": ["ids"],
+           "write": ["ids", "vals"], "create": ["vals_list"], "unlink": ["ids"]}
+    RETRY = ("serialize", "deadlock", "could not obtain lock", "concurrent update")
+
+    def __init__(self):
+        self._f, self._lock, self.err = {}, threading.Lock(), {}
+        self.call("res.users", "context_get")
+
+    def call(self, model, method, *args, **kw):
+        body = dict(kw)
+        for n, v in zip(self.POS.get(method, []), args):
+            body[n] = [v] if n == "vals_list" else v
+        data = json.dumps(body).encode()
+        for attempt in range(5):
+            req = urllib.request.Request(
+                "%s/json/2/%s/%s" % (DST["url"].rstrip("/"), model, method), data=data, method="POST",
+                headers={"Authorization": "bearer " + DST["api_key"], "X-Odoo-Database": DST["db"],
+                         "Content-Type": "application/json", "User-Agent": "akg-tx"})
+            try:
+                with urllib.request.urlopen(req, timeout=600) as r:
+                    raw = r.read().decode()
+                res = json.loads(raw) if raw else None
+                if method == "create" and isinstance(res, list):
+                    return res[0]
+                return res
+            except urllib.error.HTTPError as e:
+                txt = e.read().decode("utf-8", "replace")
+                msg = txt
+                try:
+                    msg = json.loads(txt).get("message", txt)
+                except Exception:
+                    pass
+                if attempt < 4 and any(k in str(msg).lower() for k in self.RETRY):
+                    time.sleep(1.5 * (attempt + 1))
+                    continue
+                raise RuntimeError("HTTP %s %s/%s: %s" % (e.code, model, method, str(msg)[:500]))
+            except (urllib.error.URLError, TimeoutError, ConnectionError):
+                if attempt == 4:
+                    raise
+                time.sleep(2 * (attempt + 1))
+
+    def fields(self, model):
+        with self._lock:
+            if model not in self._f:
+                try:
+                    self._f[model] = self.call(model, "fields_get", attributes=[
+                        "type", "relation", "store", "readonly", "required", "selection", "string", "company_dependent"])
+                except Exception as e:
+                    self._f[model] = None
+                    self.err[model] = str(e)[:150]
+            return self._f[model]
+
+
+src = dst = None
+
+
+# ----------------------------------------------------------------- id map (sqlite + master idmap.json)
+class IdMap:
+    def __init__(self):
+        self.master = json.load(open(MASTER_IDMAP, encoding="utf-8")) if os.path.exists(MASTER_IDMAP) else {}
+        self.lock = threading.RLock()
+        self.db = sqlite3.connect(TX_DB, check_same_thread=False)
+        self.db.execute("create table if not exists m(model text, src integer, dst integer, primary key(model, src))")
+        self.n = 0
+
+    def get(self, model, sid):
+        with self.lock:
+            r = self.db.execute("select dst from m where model=? and src=?", (model, int(sid))).fetchone()
+        if r:
+            return r[0]
+        v = self.master.get(model, {}).get(str(sid))
+        return int(v) if v else None
+
+    def set(self, model, sid, did):
+        with self.lock:
+            self.db.execute("insert or replace into m values(?,?,?)", (model, int(sid), int(did)))
+            self.n += 1
+            if self.n % 100 == 0:
+                self.db.commit()
+
+    def done_src_ids(self, model):
+        with self.lock:
+            s = {r[0] for r in self.db.execute("select src from m where model=?", (model,))}
+        return s | {int(k) for k in self.master.get(model, {})}
+
+    def dst_ids(self, model):
+        with self.lock:
+            s = {r[0] for r in self.db.execute("select dst from m where model=?", (model,))}
+        return s | {int(v) for v in self.master.get(model, {}).values()}
+
+    def drop(self, model, sid):
+        with self.lock:
+            self.db.execute("delete from m where model=? and src=?", (model, int(sid)))
+        self.master.get(model, {}).pop(str(sid), None)
+
+    def drop_dst(self, model, did):
+        with self.lock:
+            self.db.execute("delete from m where model=? and dst=?", (model, int(did)))
+
+    def tx_src_ids(self, model):
+        """sirf transaction map (sqlite) ke documents - master idmap.json wale nahi"""
+        with self.lock:
+            return [(r[0], r[1]) for r in self.db.execute("select src, dst from m where model=? order by src", (model,))]
+
+    def commit(self):
+        with self.lock:
+            self.db.commit()
+
+    def save_master(self):
+        """check --fix: master idmap.json mein likhta hai (master script bhi dekh sake)"""
+        with self.lock:
+            tmp = Path(MASTER_IDMAP + ".tmp")
+            tmp.write_text(json.dumps(self.master), encoding="utf-8")
+            tmp.replace(MASTER_IDMAP)
+
+    def set_master(self, model, sid, did):
+        with self.lock:
+            self.master.setdefault(model, {})[str(sid)] = int(did)
+
+
+MAP = None
+_xml = {}
+_xml_lock = threading.Lock()
+
+
+def xmlid_map(rel):
+    with _xml_lock:
+        if rel in _xml:
+            return _xml[rel]
+        out = {}
+        try:
+            if dst.fields(rel) is not None and src.fields(rel) is not None:
+                s = src.call("ir.model.data", "search_read", [("model", "=", rel)], fields=["module", "name", "res_id"])
+                d = dst.call("ir.model.data", "search_read", [("model", "=", rel)], fields=["module", "name", "res_id"])
+                dm = {(r["module"], r["name"]): r["res_id"] for r in d}
+                out = {r["res_id"]: dm[(r["module"], r["name"])] for r in s if (r["module"], r["name"]) in dm}
+        except Exception as e:
+            log.warning("xmlid map %s fail: %s", rel, str(e)[:100])
+        _xml[rel] = out
+        return out
+
+
+def resolve(rel, sid):
+    if not sid:
+        return None
+    v = MAP.get(rel, sid)
+    if v:
+        return v
+    v = xmlid_map(rel).get(sid)
+    if v:
+        MAP.set(rel, sid, v)
+    return v
+
+
+_meta = {}
+_meta_lock = threading.Lock()
+
+
+def model_meta(conn, model):
+    key = (id(conn), model)
+    with _meta_lock:
+        if key not in _meta:
+            try:
+                rows = conn.call("ir.model.fields", "search_read", [("model", "=", model)],
+                                 fields=["name", "compute", "related"])
+            except Exception:
+                rows = []
+            _meta[key] = {"computed": {r["name"] for r in rows if r.get("compute")},
+                          "related": {r["name"] for r in rows if r.get("related")}}
+        return _meta[key]
+
+
+# ----------------------------------------------------------------- field plan / conversion
+def compatible(st, dt):
+    return st == dt or (st in TEXT and dt in TEXT) or (st in NUM and dt in NUM)
+
+
+def build_plan(smodel, dmodel, skip=()):
+    sf, df = src.fields(smodel), dst.fields(dmodel)
+    ms, md = model_meta(src, smodel), model_meta(dst, dmodel)
+    plan = {}
+    for f, s in sf.items():
+        if f in SKIP_FIELDS or f in skip or f.startswith(("message_", "activity_", "website_message")):
+            continue
+        if s["type"] in ("one2many", "binary"):
+            continue
+        if not (s.get("store") or s.get("company_dependent")):
+            if not (f in ms["related"] and not s.get("readonly")):
+                continue
+        d = df.get(f)
+        if not d or not compatible(s["type"], d["type"]):
+            continue
+        if d.get("readonly") and (f in md["computed"] or f in md["related"]):
+            continue
+        rel = s.get("relation")
+        if s["type"] in ("many2one", "many2many") and rel and d.get("relation") and rel != d["relation"]:
+            continue
+        plan[f] = (f, s["type"], d["type"], rel)
+    return plan
+
+
+STATS = collections.Counter()      # (model, field) -> kitni baar drop hua
+MISSING = collections.Counter()    # (relation, src_id) -> kitne documents ruke
+_stat_lock = threading.Lock()
+
+
+def convert(rec, plan, dfields, strict, label):
+    vals, unresolved = {}, []
+    for f, (n, st, dt, rel) in plan.items():
+        v = rec.get(f)
+        if st == "many2one":
+            if not v:
+                continue
+            old = m2o_id(v)
+            new = resolve(rel, old)
+            if new:
+                vals[n] = new
+            elif n in strict or dfields[n].get("required"):
+                unresolved.append((n, rel, old))
+            else:
+                with _stat_lock:
+                    STATS[(label, n)] += 1
+        elif st == "many2many":
+            if not v:
+                continue
+            new = [x for x in (resolve(rel, i) for i in v) if x]
+            if len(new) < len(v):
+                if n in strict:
+                    unresolved += [(n, rel, i) for i in v if not resolve(rel, i)]
+                else:
+                    with _stat_lock:
+                        STATS[(label, n)] += 1
+            if new:
+                vals[n] = [[6, 0, new]]
+        elif st == "selection":
+            allowed = [x[0] for x in (dfields[n].get("selection") or [])]
+            if v and (not allowed or v in allowed):
+                vals[n] = v
+            elif v:
+                with _stat_lock:
+                    STATS[(label, "%s=%s" % (n, v))] += 1
+        elif f == "analytic_distribution":
+            if isinstance(v, dict) and v:
+                new = {}
+                for key, pct in v.items():
+                    ids = [resolve("account.analytic.account", int(x)) for x in str(key).split(",")]
+                    if all(ids):
+                        new[",".join(str(i) for i in ids)] = pct
+                if new:
+                    vals[n] = new
+                if len(new) < len(v):
+                    with _stat_lock:
+                        STATS[(label, "analytic_distribution")] += 1
+        else:
+            if v is None or (v is False and st != "boolean"):
+                continue
+            vals[n] = v
+    return vals, unresolved
+
+
+# ----------------------------------------------------------------- state / hooks
+def _allowed(model, field):
+    return [x[0] for x in (dst.fields(model)[field].get("selection") or [])]
+
+
+def state_sale(did, rec):
+    s, df = rec.get("state"), dst.fields("sale.order")
+    vals = {}
+    if s == "done":
+        vals["state"] = "sale"
+        if "locked" in df:
+            vals["locked"] = True
+    elif s in _allowed("sale.order", "state"):
+        vals["state"] = s
+    else:
+        vals["state"] = "cancel" if s in ("reject", "cancel") else "sale"
+    if vals["state"] != "draft":
+        dst.call("sale.order", "write", [did], vals, context=CTX)
+    return vals["state"]
+
+
+def state_purchase(did, rec):
+    s, df = rec.get("state"), dst.fields("purchase.order")
+    vals = {}
+    if s == "done":
+        vals["state"] = "purchase"
+        if "locked" in df:
+            vals["locked"] = True
+    elif s in _allowed("purchase.order", "state"):
+        vals["state"] = s
+    else:
+        vals["state"] = "cancel" if s == "cancel" else "purchase"
+    if vals["state"] != "draft":
+        dst.call("purchase.order", "write", [did], vals, context=CTX)
+    return vals["state"]
+
+
+def state_move(did, rec):
+    s = rec.get("state")
+    if s == "draft":
+        return "draft"
+    vals = {"state": s}
+    if s == "posted" and "posted_before" in dst.fields("account.move"):
+        vals["posted_before"] = True
+    try:
+        dst.call("account.move", "write", [did], vals, context=CTX_MOVE)
+    except RuntimeError as e:             # direct write na chale to official action
+        log.warning("move state write fail (%s) - action se koshish", str(e)[:120])
+        dst.call("account.move", "action_post" if s == "posted" else "button_cancel", ids=[did], context=CTX_MOVE)
+    return s
+
+
+def state_generic_write(model):
+    def f(did, rec):
+        s = rec.get("state")
+        if s and s in _allowed(model, "state") and s != "draft":
+            dst.call(model, "write", [did], {"state": s}, context=CTX)
+        return s
+    return f
+
+
+_acc_type = {}
+
+
+def _load_acc_types():
+    if not _acc_type:
+        sf = src.fields("account.account") or {}
+        if "account_type" in sf:
+            for a in src.call("account.account", "search_read", [], fields=["account_type"], context={"active_test": False}):
+                _acc_type[a["id"]] = a["account_type"]
+        else:
+            _acc_type[0] = None
+
+
+def hook_move_line(lv, lrec, move_rec):
+    """16 mein product/tax/payment-term lines ka display_type khali; 20 mein explicit chahiye"""
+    _load_acc_types()
+    dt = lrec.get("display_type")
+    allowed = _allowed("account.move.line", "display_type") if "display_type" in dst.fields("account.move.line") else []
+    if dt in ("line_section", "line_note"):
+        val = dt
+    elif lrec.get("tax_line_id"):
+        val = "tax"
+    elif move_rec.get("move_type") != "entry" and _acc_type.get(m2o_id(lrec.get("account_id"))) in (
+            "asset_receivable", "liability_payable"):
+        val = "payment_term"
+    else:
+        val = "product"
+    if val in allowed:
+        lv["display_type"] = val
+    return lv
+
+
+def hook_leave_state(vals, rec):
+    return vals
+
+
+# ----------------------------------------------------------------- specs
+def _open_sale():
+    return ["|", ("state", "in", ["draft", "sent"]), "&", ("state", "=", "sale"),
+            ("invoice_status", "in", ["to invoice", "upselling"])]
+
+
+def _open_purchase():
+    return ["|", ("state", "in", ["draft", "sent", "to approve"]), "&", ("state", "=", "purchase"),
+            ("invoice_status", "=", "to invoice")]
+
+
+SPECS = collections.OrderedDict([
+    ("crm", dict(model="crm.lead", date=("create_date", True), strict=["partner_id"], desc="CRM leads/opportunities")),
+    ("sales", dict(model="sale.order", date=("date_order", True), strict=["partner_id", "company_id"],
+                   lines=dict(model="sale.order.line", fk="order_id", o2m="order_line",
+                              strict=["product_id", "product_uom", "tax_id"], force_empty=["tax_id"]),
+                   state=state_sale, map_lines=True, compare=["amount_total"], open_domain=_open_sale,
+                   desc="Sale orders + lines")),
+    ("purchases", dict(model="purchase.order", date=("date_order", True), strict=["partner_id", "company_id"],
+                       lines=dict(model="purchase.order.line", fk="order_id", o2m="order_line",
+                                  strict=["product_id", "product_uom", "taxes_id"], force_empty=["taxes_id"]),
+                       state=state_purchase, map_lines=True, compare=["amount_total"], open_domain=_open_purchase,
+                       desc="Purchase orders + lines")),
+    ("moves", dict(model="account.move", date=("date", False), ctx=CTX_MOVE,
+                   strict=["journal_id", "partner_id", "company_id", "currency_id"],
+                   lines=dict(model="account.move.line", fk="move_id", o2m="line_ids",
+                              strict=["account_id", "partner_id", "product_id", "tax_ids", "tax_line_id", "currency_id"],
+                              hook=hook_move_line, force_empty=["tax_ids"],
+                              skip=["payment_id", "statement_line_id", "statement_id"]),
+                   skip=["payment_id", "statement_line_id", "stock_move_id"], extra_read=["move_type"],
+                   state=state_move, map_lines=True, compare=["amount_total"], batch=15,
+                   desc="Invoices, bills, journal entries (lines ke saath, exact copy)")),
+    ("payments", dict(model="account.payment", date=("date", False), ctx=CTX_MOVE, via_move=True,
+                      strict=["partner_id", "journal_id"], desc="Payments (existing migrated move se link)")),
+    ("statement_lines", dict(model="account.bank.statement.line", date=("date", False), ctx=CTX_MOVE, via_move=True,
+                             strict=["journal_id"], desc="Bank statement lines (existing move se link)")),
+    ("attendance", dict(model="hr.attendance", date=("check_in", True), strict=["employee_id"], desc="Attendance")),
+    ("allocations", dict(model="hr.leave.allocation", date=("date_from", False), strict=["employee_id", "holiday_status_id"],
+                         state=state_generic_write("hr.leave.allocation"), desc="Leave allocations")),
+    ("leaves", dict(model="hr.leave", date=("date_from", True), strict=["employee_id", "holiday_status_id"],
+                    state=state_generic_write("hr.leave"), desc="Leaves")),
+    ("reconcile", dict(runner="reconcile", desc="Reconciliation (partial + full) - moves ke baad")),
+])
+CORE = ["crm", "sales", "purchases", "moves", "reconcile", "payments", "statement_lines", "attendance",
+        "allocations", "leaves"]
+NOT_INCLUDED = {
+    "stock history (pickings/moves/valuation)": "validate karne par quants aur accounting entries dobara bante hain (double counting). "
+                                               "Sirf current quantity opening ke taur par daalo.",
+    "POS sessions/orders/payments": "close hone par entries + stock banate hain; 55k orders. Accounting entries 'moves' mein aa jati hain.",
+    "payslips (hr.payslip)": "Odoo 20 mein hr.version/rules ke saath compute hote hain - alag, tested step chahiye.",
+    "expenses, approvals, rental, projects": "data chhota ya models Odoo 20 mein nahi; zaroorat ho to alag.",
+}
+
+RESULTS, _res_lock = [], threading.Lock()
+WARNS = [0]
+STOP = threading.Event()
+
+
+def add_result(step, model, sid, result, detail=""):
+    with _res_lock:
+        RESULTS.append((step, model, sid, result, detail))
+        if result.startswith("WARN"):
+            WARNS[0] += 1
+
+
+# ----------------------------------------------------------------- document migration
+def date_domain(a, field, is_dt):
+    d = []
+    if a.date_from:
+        d.append((field, ">=", a.date_from + (" 00:00:00" if is_dt else "")))
+    if a.date_to:
+        d.append((field, "<=", a.date_to + (" 23:59:59" if is_dt else "")))
+    return d
+
+
+def run_step(name, a):
+    spec = SPECS[name]
+    if spec.get("runner") == "reconcile":
+        return run_reconcile(a)
+    model = spec["model"]
+    if src.fields(model) is None:
+        log.warning("[%s] Odoo16 mein model nahi: %s", name, model)
+        add_result(name, model, "", "SKIP", "source model nahi")
+        return
+    if dst.fields(model) is None:
+        log.warning("[%s] Odoo20 mein model nahi/module install nahi: %s (%s)", name, model, dst.err.get(model, ""))
+        add_result(name, model, "", "SKIP", "destination model nahi")
+        return
+    hdr_plan = build_plan(model, model, skip=spec.get("skip", ()))
+    dfields = dst.fields(model)
+    lspec = spec.get("lines")
+    line_plan = ldf = None
+    if lspec:
+        if src.fields(lspec["model"]) is None or dst.fields(lspec["model"]) is None:
+            log.warning("[%s] lines model nahi mila: %s", name, lspec["model"])
+            return
+        # FIX: parent link (order_id / move_id / slip_id / request_id) lines ke vals mein nahi jana chahiye.
+        # Parent isi create call mein ban raha hai, Odoo [0,0,vals] se khud link laga deta hai.
+        line_plan = build_plan(lspec["model"], lspec["model"],
+                               skip=tuple(lspec.get("skip", ())) + (lspec["fk"],))
+        ldf = dst.fields(lspec["model"])
+    domain = []
+    if spec.get("date") and (a.date_from or a.date_to):
+        domain += date_domain(a, *spec["date"])
+    if a.open_only and spec.get("open_domain"):
+        domain += spec["open_domain"]()
+    ids = src.call(model, "search", domain, order="id", context=CTX)
+    done = MAP.done_src_ids(model)
+    todo = [i for i in ids if i not in done]
+    if a.limit:
+        todo = todo[:a.limit]
+    log.info("== %s (%s): source %d | pehle se migrate %d | ab karna hai %d%s", name, model, len(ids),
+             len(ids) - len(todo) if not a.limit else len(done & set(ids)), len(todo), "  [DRY-RUN]" if a.dry_run else "")
+    if not todo:
+        return
+    bs = spec.get("batch", BATCH)
+    batches = [todo[i:i + bs] for i in range(0, len(todo), bs)]
+    workers = max(1, a.workers)
+    counter = [0]
+    t0 = time.time()
+
+    def task(batch):
+        if STOP.is_set():
+            return
+        try:
+            process_batch(name, spec, model, batch, hdr_plan, dfields, line_plan, ldf, a)
+        except Exception as e:
+            log.error("[%s] batch fail: %s", name, str(e)[:300])
+            for sid in batch:
+                add_result(name, model, sid, "ERROR", "batch: " + str(e)[:300])
+        with _res_lock:
+            counter[0] += len(batch)
+            if counter[0] % 200 < len(batch):
+                log.info("[%s] progress %d/%d (%.0fs) warnings=%d", name, counter[0], len(todo), time.time() - t0, WARNS[0])
+        if a.max_warn and WARNS[0] >= a.max_warn:
+            STOP.set()
+            log.error("WARNINGS limit (%d) paar - ruk raha hoon. transaction_migration_report.csv dekho.", a.max_warn)
+
+    if workers == 1:
+        for b in batches:
+            task(b)
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            list(ex.map(task, batches))
+    MAP.commit()
+
+
+def process_batch(name, spec, model, batch, hdr_plan, dfields, line_plan, ldf, a):
+    extra = list(spec.get("extra_read", [])) + ["state"] + list(spec.get("compare", []))
+    sfields = src.fields(model)
+    rf = sorted({f for f in list(hdr_plan) + extra if f in sfields})
+    recs = src.call(model, "read", batch, fields=rf, context=CTX)
+    lspec = spec.get("lines")
+    lines_by = collections.defaultdict(list)
+    if lspec:
+        lf = src.fields(lspec["model"])
+        lrf = sorted({f for f in list(line_plan) + ["display_type", "tax_line_id", "account_id", lspec["fk"]] if f in lf})
+        lids = src.call(lspec["model"], "search", [(lspec["fk"], "in", batch)], order="id", context=CTX)
+        for j in range(0, len(lids), 500):
+            for lr in src.call(lspec["model"], "read", lids[j:j + 500], fields=lrf, context=CTX):
+                lines_by[m2o_id(lr[lspec["fk"]])].append(lr)
+    strict = set(spec.get("strict", []))
+    for rec in recs:
+        if STOP.is_set():
+            return
+        sid = rec["id"]
+        try:
+            migrate_one(name, spec, model, rec, lines_by.get(sid, []), hdr_plan, dfields, line_plan, ldf, strict, a)
+        except Exception as e:
+            log.error("[%s] %s#%s fail: %s", name, model, sid, str(e)[:300])
+            add_result(name, model, sid, "ERROR", str(e)[:400])
+
+
+def migrate_one(name, spec, model, rec, lines, hdr_plan, dfields, line_plan, ldf, strict, a):
+    sid = rec["id"]
+    if MAP.get(model, sid):
+        add_result(name, model, sid, "ALREADY", "")
+        return
+    vals, unresolved = convert(rec, hdr_plan, dfields, strict, model)
+    if spec.get("via_move"):
+        mv = resolve("account.move", m2o_id(rec.get("move_id")))
+        if not mv:
+            unresolved.append(("move_id", "account.move", m2o_id(rec.get("move_id"))))
+        else:
+            vals["move_id"] = mv
+    lspec = spec.get("lines")
+    cmds = []
+    if lspec:
+        lstrict = set(lspec.get("strict", []))
+        for lr in lines:
+            lv, un = convert(lr, line_plan, ldf, lstrict, lspec["model"])
+            # source line par tax nahi thi to khali list bhejo, warna Odoo 20 product ka default tax khud laga deta hai
+            for ff in lspec.get("force_empty", ()):
+                if ff in ldf and ff not in lv:
+                    lv[ff] = [[6, 0, []]]
+            if lspec.get("hook"):
+                lv = lspec["hook"](lv, lr, rec)
+            unresolved += un
+            cmds.append([0, 0, lv])
+        if cmds:
+            vals[lspec["o2m"]] = cmds
+    if unresolved:
+        for (_, rel, old) in unresolved:
+            with _stat_lock:
+                MISSING[(rel, old)] += 1
+        det = "master map nahi: " + ", ".join("%s: %s#%s" % u for u in unresolved[:6])
+        log.warning("Skip %s#%s: %s", model, sid, det)
+        add_result(name, model, sid, "SKIP", det)
+        return
+    if a.dry_run:
+        add_result(name, model, sid, "DRY_OK", "%d fields, %d lines" % (len(vals), len(cmds)))
+        return
+    ctx = spec.get("ctx", CTX)
+    did = dst.call(model, "create", vals, context=ctx)
+    MAP.set(model, sid, did)
+    notes = []
+    if spec.get("map_lines") and lspec:
+        dl = dst.call(lspec["model"], "search", [(lspec["fk"], "=", did)], order="id", context=CTX)
+        sl = [l["id"] for l in lines]
+        if len(dl) == len(sl):
+            for s_, d_ in zip(sl, dl):
+                MAP.set(lspec["model"], s_, d_)
+        else:
+            notes.append("WARN lines %d src vs %d dst" % (len(sl), len(dl)))
+    if spec.get("state"):
+        try:
+            spec["state"](did, rec)
+        except Exception as e:
+            notes.append("WARN state: " + str(e)[:200])
+    if spec.get("compare") or lspec:
+        rf = list(spec.get("compare", [])) + ["state"]
+        if lspec:
+            rf.append(lspec["o2m"])
+        rf = [f for f in rf if f in dfields]
+        d = dst.call(model, "read", [did], fields=rf, context=CTX)[0]
+        for f in spec.get("compare", []):
+            if f in d and f in rec and abs((d[f] or 0) - (rec[f] or 0)) > 0.011:
+                notes.append("WARN %s src %.2f dst %.2f" % (f, rec[f] or 0, d[f] or 0))
+        if lspec and lspec["o2m"] in d and len(d[lspec["o2m"]]) != len(lines):
+            notes.append("WARN lines count src %d dst %d" % (len(lines), len(d[lspec["o2m"]])))
+    if notes:
+        log.warning("%s#%s -> %s: %s", model, sid, did, "; ".join(notes))
+        add_result(name, model, sid, notes[0].split(" ")[0] if notes[0].startswith("WARN") else "WARN",
+                   "dst=%s; %s" % (did, "; ".join(notes)))
+    else:
+        add_result(name, model, sid, "OK", "dst=%s" % did)
+
+
+# ----------------------------------------------------------------- reconcile
+def run_reconcile(a):
+    sm = "account.partial.reconcile"
+    if src.fields(sm) is None or dst.fields(sm) is None:
+        log.warning("[reconcile] model nahi mila")
+        return
+    plan = build_plan(sm, sm, skip=("full_reconcile_id", "exchange_move_id"))
+    dfields = dst.fields(sm)
+    ids = src.call(sm, "search", [], order="id", context=CTX)
+    done = MAP.done_src_ids(sm)
+    todo = [i for i in ids if i not in done]
+    if a.limit:
+        todo = todo[:a.limit]
+    log.info("== reconcile partials: source %d | karna hai %d%s", len(ids), len(todo), "  [DRY-RUN]" if a.dry_run else "")
+    counter = [0]
+    t0 = time.time()
+
+    def task(batch):
+        if STOP.is_set():
+            return
+        rf = sorted({f for f in list(plan) + ["debit_move_id", "credit_move_id"] if f in src.fields(sm)})
+        for rec in src.call(sm, "read", batch, fields=rf, context=CTX):
+            sid = rec["id"]
+            try:
+                d, c = (resolve("account.move.line", m2o_id(rec[k])) for k in ("debit_move_id", "credit_move_id"))
+                if not (d and c):
+                    add_result("reconcile", sm, sid, "SKIP", "line map nahi: debit=%s credit=%s" % (d, c))
+                    continue
+                vals, _ = convert(rec, plan, dfields, set(), sm)
+                vals.update(debit_move_id=d, credit_move_id=c)
+                if a.dry_run:
+                    add_result("reconcile", sm, sid, "DRY_OK", "")
+                    continue
+                MAP.set(sm, sid, dst.call(sm, "create", vals, context=CTX_MOVE))
+                add_result("reconcile", sm, sid, "OK", "")
+            except Exception as e:
+                add_result("reconcile", sm, sid, "ERROR", str(e)[:300])
+        with _res_lock:
+            counter[0] += len(batch)
+            if counter[0] % 1000 < len(batch):
+                log.info("[reconcile] %d/%d (%.0fs)", counter[0], len(todo), time.time() - t0)
+
+    batches = [todo[i:i + 100] for i in range(0, len(todo), 100)]
+    w = max(1, min(a.workers, 2))
+    if w == 1:
+        for b in batches:
+            task(b)
+    else:
+        with ThreadPoolExecutor(max_workers=w) as ex:
+            list(ex.map(task, batches))
+    # full reconcile
+    fm = "account.full.reconcile"
+    if src.fields(fm) is None or dst.fields(fm) is None or a.dry_run:
+        return
+    fids = [i for i in src.call(fm, "search", [], order="id", context=CTX) if i not in MAP.done_src_ids(fm)]
+    if a.limit:
+        fids = fids[:a.limit]
+    log.info("== reconcile full: %d", len(fids))
+    for j in range(0, len(fids), 100):
+        for fr in src.call(fm, "read", fids[j:j + 100], fields=["partial_reconcile_ids", "reconciled_line_ids"], context=CTX):
+            try:
+                parts = [MAP.get(sm, i) for i in fr["partial_reconcile_ids"]]
+                lines_ = [MAP.get("account.move.line", i) for i in fr["reconciled_line_ids"]]
+                if not all(parts) or not all(lines_) or not parts:
+                    add_result("reconcile", fm, fr["id"], "SKIP", "partial/line map poora nahi")
+                    continue
+                MAP.set(fm, fr["id"], dst.call(fm, "create", {"partial_reconcile_ids": [[6, 0, parts]],
+                                                               "reconciled_line_ids": [[6, 0, lines_]]}, context=CTX_MOVE))
+                add_result("reconcile", fm, fr["id"], "OK", "")
+            except Exception as e:
+                add_result("reconcile", fm, fr["id"], "ERROR", str(e)[:300])
+    MAP.commit()
+
+
+# ----------------------------------------------------------------- check / fix (masters)
+KEYS = {
+    "res.company": [("name",)], "res.currency": [("name",)], "res.country": [("code",)],
+    "res.country.state": [("country_id", "code")], "res.partner.category": [("name",)],
+    "res.partner": [("ref",), ("vat", "name"), ("email", "name"), ("phone", "name"), ("name",)],
+    "res.users": [("login",)], "hr.employee": [("work_email", "name"), ("name",)],
+    "product.category": [("complete_name",)], "uom.uom": [("name",)],
+    "product.template": [("default_code", "name"), ("name",)],
+    "product.product": [("default_code",), ("barcode",), ("name",)],
+    "product.pricelist": [("name",)], "account.account": [("code",)], "account.journal": [("code",)],
+    "account.tax": [("name", "type_tax_use")], "account.payment.term": [("name",)],
+    "account.fiscal.position": [("name",)], "account.analytic.account": [("name",)],
+    "account.payment.method.line": [("journal_id", "payment_method_id", "name")],
+    "stock.warehouse": [("code",)], "stock.location": [("complete_name",)], "crm.stage": [("name",)],
+    "crm.team": [("name",)], "crm.lost.reason": [("name",)], "utm.source": [("name",)],
+    "utm.medium": [("name",)], "utm.campaign": [("name",)], "hr.leave.type": [("name",)],
+}
+DEPS = list(KEYS)
+
+
+def _keyvals(rec, key, sf, side):
+    out = []
+    for f in key:
+        v = rec.get(f)
+        if isinstance(v, (list, tuple)) or (sf.get(f, {}).get("type") == "many2one" and v):
+            vid = m2o_id(v)
+            v = resolve(sf[f]["relation"], vid) if side == "src" else vid
+        v = norm(v) if isinstance(v, str) else v
+        if v in (False, None, "", 0):
+            return None
+        out.append(v)
+    return tuple(out)
+
+
+def fix_model(model):
+    sf, df = src.fields(model), dst.fields(model)
+    keys = [k for k in KEYS.get(model, []) if all(f in sf and f in df for f in k)]
+    if not keys:
+        return 0
+    done = MAP.done_src_ids(model)
+    missing = [i for i in src.call(model, "search", [], context={"active_test": False}) if i not in done]
+    if not missing:
+        return 0
+    flds = sorted({f for k in keys for f in k})
+    drows, off = [], 0
+    while True:
+        part = dst.call(model, "search_read", [], fields=flds, limit=5000, offset=off, order="id",
+                        context={"active_test": False})
+        drows += part
+        if len(part) < 5000:
+            break
+        off += 5000
+    index = {k: collections.defaultdict(list) for k in keys}
+    for r in drows:
+        for k in keys:
+            kv = _keyvals(r, k, df, "dst")
+            if kv:
+                index[k][kv].append(r["id"])
+    claimed = MAP.dst_ids(model)
+    n = 0
+    for j in range(0, len(missing), 500):
+        for r in src.call(model, "read", missing[j:j + 500], fields=flds, context={"active_test": False}):
+            for k in keys:
+                kv = _keyvals(r, k, sf, "src")
+                if not kv:
+                    continue
+                cand = [i for i in index[k].get(kv, []) if i not in claimed]
+                if len(cand) == 1:
+                    MAP.set_master(model, r["id"], cand[0])
+                    claimed.add(cand[0])
+                    n += 1
+                    break
+    return n
+
+
+def fix_repartition():
+    """Tax repartition lines: 16 ki lines ko Odoo 20 ki lines se map karo + accounts/tags copy"""
+    sm = "account.tax.repartition.line"
+    if src.fields(sm) is None or dst.fields(sm) is None:
+        log.warning("repartition model nahi mila")
+        return 0
+    sf, df = src.fields(sm), dst.fields(sm)
+    new_style = "document_type" in df
+    tax_ids = [i for i in src.call("account.tax", "search", [], context={"active_test": False}) if resolve("account.tax", i)]
+    n = 0
+    for st in tax_ids:
+        dt_ = resolve("account.tax", st)
+        for doc in ("invoice", "refund"):
+            sdom = [("%s_tax_id" % doc, "=", st)] if "%s_tax_id" % doc in sf else [("tax_id", "=", st)]
+            srows = src.call(sm, "search_read", sdom, fields=[f for f in ("repartition_type", "factor_percent", "account_id",
+                             "tag_ids", "use_in_tax_closing", "sequence") if f in sf], order="sequence, id",
+                             context={"active_test": False})
+            ddom = [("tax_id", "=", dt_), ("document_type", "=", doc)] if new_style else [("%s_tax_id" % doc, "=", dt_)]
+            drows = dst.call(sm, "search_read", ddom, fields=[f for f in ("repartition_type", "factor_percent", "account_id",
+                             "tag_ids") if f in df], order="sequence, id", context={"active_test": False})
+            used = set()
+            for sr in srows:
+                match = next((d for d in drows if d["id"] not in used and d.get("repartition_type") == sr.get("repartition_type")
+                              and abs((d.get("factor_percent") or 0) - (sr.get("factor_percent") or 0)) < 0.001), None)
+                vals = {}
+                if sr.get("account_id"):
+                    a_ = resolve("account.account", m2o_id(sr["account_id"]))
+                    if a_:
+                        vals["account_id"] = a_
+                tags = [x for x in (resolve("account.account.tag", i) for i in sr.get("tag_ids", [])) if x]
+                if tags and "tag_ids" in df:
+                    vals["tag_ids"] = [[6, 0, tags]]
+                if match:
+                    used.add(match["id"])
+                    if vals:
+                        dst.call(sm, "write", [match["id"]], vals, context=CTX)
+                    MAP.set_master(sm, sr["id"], match["id"])
+                else:
+                    cv = dict(vals, repartition_type=sr.get("repartition_type"), factor_percent=sr.get("factor_percent"))
+                    if new_style:
+                        cv.update(tax_id=dt_, document_type=doc)
+                    else:
+                        cv["%s_tax_id" % doc] = dt_
+                    try:
+                        MAP.set_master(sm, sr["id"], dst.call(sm, "create", cv, context=CTX))
+                    except Exception as e:
+                        log.warning("repartition create fail tax %s: %s", st, str(e)[:150])
+                        continue
+                n += 1
+    return n
+
+
+def cmd_check(a):
+    rows = []
+    print("\n%-30s %8s %8s %8s %s" % ("model", "source", "mapped", "missing", "note"))
+    for model in DEPS:
+        if src.fields(model) is None or dst.fields(model) is None:
+            print("%-30s  (model nahi: %s)" % (model, "source" if src.fields(model) is None else "destination"))
+            continue
+        fixed = fix_model(model) if a.fix else 0
+        ids = src.call(model, "search", [], context={"active_test": False})
+        done = MAP.done_src_ids(model)
+        missing = [i for i in ids if i not in done]
+        # mapped lekin dst mein maujood nahi
+        dids = sorted(MAP.dst_ids(model))
+        existing = set()
+        for j in range(0, len(dids), 1000):
+            existing |= set(dst.call(model, "search", [("id", "in", dids[j:j + 1000])], context={"active_test": False}))
+        ghost = len(set(dids) - existing)
+        note = ("fix se %d map hue; " % fixed if a.fix else "") + ("%d mapped dst mein nahi" % ghost if ghost else "")
+        print("%-30s %8d %8d %8d %s" % (model, len(ids), len(ids) - len(missing), len(missing), note))
+        if missing:
+            nf = "name" if "name" in src.fields(model) else "display_name"
+            for r in src.call(model, "read", missing[:200], fields=[nf], context={"active_test": False}):
+                rows.append((model, r["id"], r.get(nf)))
+        if a.fix and ghost:
+            gh = set(dids) - existing
+            for k, v in list(MAP.master.get(model, {}).items()):
+                if int(v) in gh:
+                    MAP.master[model].pop(k, None)
+    if a.fix:
+        n = fix_repartition()
+        print("\ntax repartition lines map/sync: %d" % n)
+        MAP.save_master()
+        print("idmap.json update ho gayi (backup ke liye pehle copy rakho). Ab dobara `check` chalao.")
+    with open("check_missing_masters.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["model", "src_id", "name"])
+        w.writerows(rows)
+    print("\nBaqi missing masters (pehle 200 har model ke): check_missing_masters.csv")
+    print("Agar missing hain to pehle master script se migrate karo (jaise res.partner / product / hr.employee).")
+    MAP.commit()
+
+
+# ----------------------------------------------------------------- verify
+def _sum_read(conn, model, ids, fields):
+    tot, per = collections.Counter(), {}
+    for j in range(0, len(ids), 500):
+        for r in conn.call(model, "read", ids[j:j + 500], fields=fields, context=CTX):
+            per[r["id"]] = r
+            for f in fields:
+                if isinstance(r.get(f), (int, float)):
+                    tot[f] += r[f]
+    return tot, per
+
+
+def cmd_verify(a):
+    rows = []
+    print("\n%-28s %9s %9s %9s" % ("model", "source", "mapped", "dst total"))
+    for model in ["crm.lead", "sale.order", "purchase.order", "account.move", "account.partial.reconcile",
+                  "account.full.reconcile", "account.payment", "account.bank.statement.line", "hr.attendance",
+                  "hr.leave.allocation", "hr.leave"]:
+        if src.fields(model) is None or dst.fields(model) is None:
+            continue
+        s = src.call(model, "search_count", [], context={"active_test": False})
+        m = len(MAP.done_src_ids(model))
+        d = dst.call(model, "search_count", [], context={"active_test": False})
+        print("%-28s %9d %9d %9d" % (model, s, m, d))
+        rows.append((model, "count", s, m, d))
+    for model, fld in (("sale.order", "amount_total"), ("purchase.order", "amount_total"), ("account.move", "amount_total")):
+        if src.fields(model) is None or dst.fields(model) is None:
+            continue
+        pairs = []
+        for sid in sorted(MAP.done_src_ids(model)):
+            did = MAP.get(model, sid)
+            if did:
+                pairs.append((sid, did))
+        if not pairs:
+            continue
+        sids, dids = [p[0] for p in pairs], [p[1] for p in pairs]
+        st, sper = _sum_read(src, model, sids, [fld])
+        dt, dper = _sum_read(dst, model, dids, [fld])
+        bad = [(s_, d_, sper[s_][fld], dper.get(d_, {}).get(fld)) for s_, d_ in pairs
+               if s_ in sper and abs((sper[s_][fld] or 0) - ((dper.get(d_, {}).get(fld)) or 0)) > 0.011]
+        print("\n%s %s: source total %.2f | dst total %.2f | farq wale documents: %d" % (model, fld, st[fld], dt[fld], len(bad)))
+        for b in bad[:10]:
+            print("    src#%s dst#%s  %s vs %s" % b)
+        for b in bad:
+            rows.append((model, "amount_mismatch", b[0], b[1], "%s vs %s" % (b[2], b[3])))
+    # trial balance
+    if not a.skip_tb and src.fields("account.move.line") and dst.fields("account.move.line"):
+        print("\nTrial balance (posted lines) account ke hisaab se...")
+        sdom = [("parent_state", "=", "posted")]
+        srows = src.call("account.move.line", "read_group", sdom, ["account_id", "debit:sum", "credit:sum"],
+                         ["account_id"], lazy=False, context=CTX)
+        sb = {r["account_id"][0]: (r.get("debit") or 0, r.get("credit") or 0) for r in srows if r.get("account_id")}
+        db_, off = collections.defaultdict(lambda: [0.0, 0.0]), 0
+        while True:
+            part = dst.call("account.move.line", "search_read", [("parent_state", "=", "posted")],
+                            fields=["account_id", "debit", "credit"], limit=5000, offset=off, order="id", context=CTX)
+            for r in part:
+                k = m2o_id(r["account_id"])
+                db_[k][0] += r.get("debit") or 0
+                db_[k][1] += r.get("credit") or 0
+            if len(part) < 5000:
+                break
+            off += 5000
+        diffs = []
+        for s_acc, (dbt, crd) in sb.items():
+            d_acc = resolve("account.account", s_acc)
+            dd = db_.get(d_acc, [0.0, 0.0])
+            if abs(dbt - dd[0]) > 0.02 or abs(crd - dd[1]) > 0.02:
+                diffs.append((s_acc, d_acc, dbt, dd[0], crd, dd[1]))
+        print("accounts jin mein farq hai: %d / %d (migrate hue data tak ka farq hona normal hai, poora migrate ke baad 0)" % (len(diffs), len(sb)))
+        for d in diffs[:15]:
+            print("    src acc %s dst acc %s  debit %.2f vs %.2f | credit %.2f vs %.2f" % d)
+        for d in diffs:
+            rows.append(("trial_balance", "diff", d[0], d[1], "debit %.2f/%.2f credit %.2f/%.2f" % (d[2], d[3], d[4], d[5])))
+    with open("verify_report.csv", "w", newline="", encoding="utf-8") as fh:
+        csv.writer(fh).writerows([("model", "check", "a", "b", "c")] + rows)
+    print("\nverify_report.csv")
+
+
+# ----------------------------------------------------------------- rollback (galat migrate hue documents hatao)
+def cmd_rollback(a):
+    """python3 migrate_transactions.py rollback --steps sales [--limit N]
+    Sirf wo documents delete hote hain jo is script ne banaye (txmap.sqlite3 mein). Master idmap ko haath nahi lagata."""
+    for name in [s.strip() for s in a.steps.split(",") if s.strip()]:
+        spec = SPECS.get(name)
+        if not spec or not spec.get("model"):
+            log.warning("rollback: step '%s' supported nahi", name)
+            continue
+        model, lspec = spec["model"], spec.get("lines")
+        pairs = MAP.tx_src_ids(model)
+        if a.limit:
+            pairs = pairs[:a.limit]
+        log.info("== rollback %s: %d documents", model, len(pairs))
+        ok = fail = 0
+        for sid, did in pairs:
+            try:
+                exists = dst.call(model, "search", [("id", "=", did)], context={"active_test": False})
+                if exists:
+                    if lspec:
+                        for lid in dst.call(lspec["model"], "search", [(lspec["fk"], "=", did)], context=CTX):
+                            MAP.drop_dst(lspec["model"], lid)
+                    if "state" in dst.fields(model) and "draft" in _allowed(model, "state"):
+                        dst.call(model, "write", [did], {"state": "draft"}, context=CTX_MOVE)
+                    dst.call(model, "unlink", [did], context=CTX_MOVE)
+                MAP.drop(model, sid)
+                ok += 1
+            except Exception as e:
+                fail += 1
+                log.error("rollback %s#%s (dst %s) fail: %s", model, sid, did, str(e)[:250])
+        MAP.commit()
+        log.info("rollback %s: %d hataye, %d fail", model, ok, fail)
+
+
+# ----------------------------------------------------------------- main
+def write_reports(a):
+    with open(a.report, "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["step", "model", "source_id", "result", "details"])
+        w.writerows(RESULTS)
+    if MISSING:
+        with open("missing_masters.csv", "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["relation", "src_id", "documents_ruke"])
+            for (rel, sid), c in MISSING.most_common():
+                w.writerow([rel, sid, c])
+    if STATS:
+        with open("dropped_fields.csv", "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["model", "field", "count"])
+            for (m, f), c in STATS.most_common():
+                w.writerow([m, f, c])
+    tot = collections.Counter(r[3] for r in RESULTS)
+    log.info("Report: %s | Totals: %s", a.report, dict(tot))
+    if MISSING:
+        log.info("Ruke hue documents ki wajah (missing masters): missing_masters.csv (%d alag records)", len(MISSING))
+
+
+def main():
+    global src, dst, MAP
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cmd", choices=["list", "check", "run", "verify", "rollback"])
+    ap.add_argument("--steps", default="core")
+    ap.add_argument("--fix", action="store_true")
+    ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--workers", type=int, default=1)
+    ap.add_argument("--date-from")
+    ap.add_argument("--date-to")
+    ap.add_argument("--open-only", action="store_true", help="sirf adhoore sale/purchase orders")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--max-warn", type=int, default=25, help="itni WARN par ruk jao (0 = na roko)")
+    ap.add_argument("--skip-tb", action="store_true")
+    ap.add_argument("--report", default="transaction_migration_report.csv")
+    a = ap.parse_args()
+    if a.cmd == "list":
+        print("Steps (tarteeb):")
+        for k, s in SPECS.items():
+            print("  %-16s %-6s %s" % (k, "core" if k in CORE else "", s.get("desc", "")))
+        print("\nShamil NAHI (wajah ke saath):")
+        for k, v in NOT_INCLUDED.items():
+            print("  - %s: %s" % (k, v))
+        return
+    src, dst = Src(), Dst()
+    MAP = IdMap()
+    try:
+        if a.cmd == "check":
+            return cmd_check(a)
+        if a.cmd == "verify":
+            return cmd_verify(a)
+        if a.cmd == "rollback":
+            return cmd_rollback(a)
+        steps = CORE if a.steps == "core" else [s.strip() for s in a.steps.split(",") if s.strip()]
+        for s in steps:
+            if s not in SPECS:
+                raise SystemExit("Unknown step '%s'. `list` dekho." % s)
+        for s in steps:
+            if STOP.is_set():
+                break
+            run_step(s, a)
+        write_reports(a)
+    finally:
+        MAP.commit()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        MAP and MAP.commit()
+        sys.exit("Stopped by user (map save ho chuka).")
+    except Exception as exc:
+        log.exception("Migration stopped")
+        sys.exit(str(exc))

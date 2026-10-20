@@ -1,0 +1,12 @@
+model,source_id,result,details
+crm.lead,1,DRY_RUN,36 fields; existing map=None
+crm.lead,2,DRY_RUN,36 fields; existing map=None
+crm.lead,3,DRY_RUN,36 fields; existing map=None
+crm.lead,7,DRY_RUN,35 fields; existing map=None
+crm.lead,13,DRY_RUN,36 fields; existing map=None
+crm.lead,14,DRY_RUN,35 fields; existing map=None
+crm.lead,15,DRY_RUN,35 fields; existing map=None
+crm.lead,17,DRY_RUN,35 fields; existing map=None
+crm.lead,18,DRY_RUN,35 fields; existing map=None
+crm.lead,19,DRY_RUN,35 fields; existing map=None
+crm.lead,20,DRY_RUN,35 fields; existing map=None
