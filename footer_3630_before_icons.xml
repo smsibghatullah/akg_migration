@@ -1,0 +1,83 @@
+<data inherit_id="website.layout" name="Default" active="True">
+    <xpath expr="//div[@id='footer']" position="replace">
+        <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+            <section class="s_text_block pb0 pt0" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+                <div class="container">
+                    <div class="row">
+                        <div class="pb24 o_colored_level pt8 col-lg-4" style="">
+                            <h5 class="mb-3">Useful Links</h5><span style="font-size: 12px;">
+                            </span><ul class="list-unstyled"><span style="font-size: 12px;">
+                                </span><li><a href="/web#menu_id=364&amp;action_id=590" data-bs-original-title="" title=""><span style="font-size: 12px;">Point of Sale</span></a><br/></li><span style="font-size: 12px;">
+                                </span><li><a href="/web#menu_id=611&amp;action_id=874" data-bs-original-title="" title=""><span style="font-size: 12px;">Purchase Requests</span></a><br/></li><span style="font-size: 12px;">
+                                </span><li><a href="/web#menu_id=143&amp;action_id=217" data-bs-original-title="" title=""><span style="font-size: 12px;">My Attendance</span></a><br/></li><span style="font-size: 12px;">
+                                </span><li><a href="/web#menu_id=152&amp;action_id=234" data-bs-original-title="" title=""><span style="font-size: 12px;">My Leave Requests</span></a><br/></li><span style="font-size: 12px;">
+                                </span><li><a href="/web#menu_id=299&amp;action_id=497" data-bs-original-title="" title=""><span style="font-size: 12px;">My Expense Requests</span></a><br/></li><span style="font-size: 12px;">
+                                
+                                </span><li><a href="/web#menu_id=630&amp;action_id=898" data-bs-original-title="" title=""><span style="font-size: 12px;">My Approvals</span></a><br/></li>
+                            </ul>
+                        </div>
+                        <div id="connect" class="o_colored_level pb0 pt8 col-lg-4">
+                            <h5 class="mb-3"><br/></h5>
+                            <ul class="list-unstyled"><span style="font-size: 14px;">
+                                </span><li/>
+                            <li/><span style="font-size: 14px;">
+                                </span><li/>
+                                </ul>
+                            <div class="s_social_media o_not_editable text-center" data-snippet="s_social_media" data-name="Social Media">
+                                <h5 class="s_social_media_title d-block">Follow us</h5>
+<a href="https://www.facebook.com/akg.hardware/" class="s_social_media_facebook" target="_blank">
+                                    <i class="fa fa-facebook rounded-circle shadow-sm"/>
+                                </a>
+<a href="https://twitter.com/Al_KhaleelGroup" class="s_social_media_twitter" target="_blank">
+                                    <i class="fa fa-twitter rounded-circle shadow-sm"/>
+                                </a>
+<a href="https://om.linkedin.com/company/akg-hardware" class="s_social_media_linkedin" target="_blank">
+                                    <i class="fa fa-linkedin rounded-circle shadow-sm"/>
+                                </a>
+<a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=">
+                <i class="fa fa-whatsapp cy-icon rounded-circle shadow-sm"/>
+            </a>
+<a href="https://www.youtube.com/@alkhaleelgroup1832" class="s_social_media_youtube" target="_blank">
+                                    <i class="fa fa-youtube rounded-circle shadow-sm"/>
+                                </a>
+<a href="http://instagram.com/akg_hardware" class="s_social_media_instagram" target="_blank">
+                                    <i class="fa fa-instagram rounded-circle shadow-sm"/>
+                                </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=">
+                <i class="fa fa-whatsapp cy-icon rounded-circle shadow-sm"/>
+            </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=">
+                <i class="fa fa-whatsapp cy-icon rounded-circle shadow-sm"/>
+            </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=">
+                <i class="fa fa-whatsapp cy-icon"/>
+            </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=">
+                <i class="fa fa-whatsapp cy-icon"/>
+            </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa fa-whatsapp cy-icon"/>
+            </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=+96897926449">
+                <i class="fa fa-whatsapp cy-icon"/>
+            </a>
+</div><section class="s_map pb80 pt8" data-map-type="k" data-map-zoom="13" data-snippet="s_map" data-map-address="AKG Hardware ايه كيه جي للادوات والمعدات, Souk Al Ghubrah St, Muscat, Oman" data-name="Map">
+        <div class="map_container o_not_editable">
+            <div class="css_non_editable_mode_hidden">
+                <div class="missing_option_warning alert alert-info rounded-0 fade show d-none d-print-none o_default_snippet_text">
+                    An address must be specified for a map to be embedded
+               &amp;nbsp;</div>
+            </div>
+            
+            <iframe class="s_map_embedded o_not_editable" width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=AKG%20Hardware%20%D8%A7%D9%8A%D9%87%20%D9%83%D9%8A%D9%87%20%D8%AC%D9%8A%20%D9%84%D9%84%D8%A7%D8%AF%D9%88%D8%A7%D8%AA%20%D9%88%D8%A7%D9%84%D9%85%D8%B9%D8%AF%D8%A7%D8%AA%2C%20Souk%20Al%20Ghubrah%20St%2C%20Muscat%2C%20Oman&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"/><div class="s_map_color_filter"/>
+        </div>
+    </section>
+                        </div><div class="o_colored_level pt8 pb0 col-lg-4" style="">
+                            <h5 class="mb-3" style="text-align: justify;">About us</h5><p style="text-align: justify;"><span style="font-size: 14px;">AKG hardware was established in 1991 and is a 100% Omani company specializing in providing the best equipment for moving, cutting and installation of tiles, and many other construction tools.</span></p><p style="text-align: justify;"><span style="font-size: 14px;">Our goal is to provide the latest international equipment to the Omani market to improve the quality and efficiency of the construction industry and to develop a culture of using the most advanced tools.</span></p></div>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </xpath>
+</data>

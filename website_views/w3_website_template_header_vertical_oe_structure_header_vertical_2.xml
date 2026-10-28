@@ -1,0 +1,11 @@
+<data inherit_id="website.template_header_vertical" name="Template Header Vertical (oe_structure_header_vertical_2)">
+    <xpath expr="//*[hasclass('oe_structure')][@id='oe_structure_header_vertical_2']" position="replace">
+        <div class="oe_structure oe_structure_solo" id="oe_structure_header_vertical_2">
+            <section class="s_text_block" data-snippet="s_text_block" data-name="Text">
+                <div class="container">
+                    <small><i class="fa fa-1x fa-fw fa-phone me-2"/><a href="tel:+1 (650) 555-0111">+1 (650) 555-0111</a></small>
+                </div>
+            </section>
+        </div>
+    </xpath>
+</data>

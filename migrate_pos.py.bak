@@ -1,0 +1,369 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Odoo 16 -> Odoo 20 : POS sessions + POS orders (lines + payments)   (migrate_transactions.py ke saath, usi folder mein)
+
+  python3 migrate_pos.py gaps                      # source ke wo fields jo Odoo 20 mein nahi
+  python3 migrate_pos.py check [--fix]             # pos.config / payment method / category ka mapping (--fix naam se map karta hai)
+  python3 migrate_pos.py run --dry-run --limit 3   # kuch likhe baghair
+  python3 migrate_pos.py run --limit 3             # sirf pehle 3 sessions (test)
+  python3 migrate_pos.py run --workers 4           # poora (har POS config alag worker par)
+  python3 migrate_pos.py run --date-from 2025-01-01 --date-to 2025-12-31
+  python3 migrate_pos.py verify                    # counts + amount_total
+  python3 migrate_pos.py rollback --limit 3        # is script ke banaye hue orders/sessions hata do
+
+Kaise kaam karta hai (double counting se bachne ke liye):
+  * Har session banti hai, uske orders (lines + payments ke saath) EK create call mein banate hain.
+  * Orders ki state aur session ki state seedha WRITE se set hoti hai - session close / order paid ka official action NAHI chalta,
+    is liye stock pickings aur accounting entries dobara nahi bante.
+  * Session ki closing entry (move_id) aur invoice (account_move) migrate hui account.move se jurti hai (moves step pehle chalao).
+  * Pehle se migrate hue orders dobara nahi bante (txmap.sqlite3). PEHLE STAGING / BACKUP.
+
+Order: moves  ->  pos masters (check --fix)  ->  yeh script.
+"""
+import sys
+import csv
+import argparse
+import threading
+import collections
+from concurrent.futures import ThreadPoolExecutor
+
+import migrate_transactions as mt
+
+log = mt.log
+CTX = mt.CTX
+SESS, ORD, LINE, PAY = "pos.session", "pos.order", "pos.order.line", "pos.payment"
+POS_MASTERS = ["pos.config", "pos.payment.method", "pos.category"]
+mt.KEYS.update({"pos.config": [("name",)], "pos.payment.method": [("name",)], "pos.category": [("name",)]})
+
+SESS_STRICT = {"config_id", "user_id", "company_id"}
+ORD_STRICT = {"partner_id", "user_id", "company_id", "config_id"}
+LINE_STRICT = {"product_id", "tax_ids"}
+PAY_STRICT = {"payment_method_id"}
+
+_prog, _plock = [0, 0], threading.Lock()
+
+
+def allowed(model, field):
+    return [x[0] for x in (mt.dst.fields(model)[field].get("selection") or [])]
+
+
+def map_state(model, s, fallback):
+    return s if s in allowed(model, "state") else fallback
+
+
+def models_ok():
+    bad = False
+    for m in (SESS, ORD, LINE, PAY):
+        if mt.src.fields(m) is None:
+            print("Odoo 16 mein model nahi: %s" % m)
+            bad = True
+        if mt.dst.fields(m) is None:
+            print("Odoo 20 mein model nahi / POS module install nahi: %s (%s)" % (m, mt.dst.err.get(m, "")))
+            bad = True
+    return not bad
+
+
+def date_domain(a):
+    d = []
+    if a.date_from:
+        d.append(("start_at", ">=", a.date_from + " 00:00:00"))
+    if a.date_to:
+        d.append(("start_at", "<=", a.date_to + " 23:59:59"))
+    return d
+
+
+def read_chunks(model, ids, fields):
+    out = []
+    for j in range(0, len(ids), 500):
+        out += mt.src.call(model, "read", ids[j:j + 500], fields=fields, context=CTX)
+    return out
+
+
+# ----------------------------------------------------------------- orders of one session
+def migrate_orders(order_ids, dsid, ctxd, a):
+    for j in range(0, len(order_ids), 50):
+        if mt.STOP.is_set():
+            return
+        batch = order_ids[j:j + 50]
+        recs = mt.src.call(ORD, "read", batch, fields=ctxd["ord_f"], context=CTX)
+        lines_by, pays_by = collections.defaultdict(list), collections.defaultdict(list)
+        lids = mt.src.call(LINE, "search", [("order_id", "in", batch)], order="id", context=CTX)
+        for lr in read_chunks(LINE, lids, ctxd["line_f"]):
+            lines_by[mt.m2o_id(lr["order_id"])].append(lr)
+        pids = mt.src.call(PAY, "search", [("pos_order_id", "in", batch)], order="id", context=CTX)
+        for pr in read_chunks(PAY, pids, ctxd["pay_f"]):
+            pays_by[mt.m2o_id(pr["pos_order_id"])].append(pr)
+        for rec in recs:
+            if mt.STOP.is_set():
+                return
+            oid = rec["id"]
+            try:
+                migrate_one_order(rec, lines_by.get(oid, []), pays_by.get(oid, []), dsid, ctxd, a)
+            except Exception as e:
+                log.error("[pos] order#%s fail: %s", oid, str(e)[:300])
+                mt.add_result("pos", ORD, oid, "ERROR", str(e)[:400])
+            mt.MAP.commit()
+            with _plock:
+                _prog[0] += 1
+                if _prog[0] % 200 == 0:
+                    log.info("[pos] orders %d | warnings=%d", _prog[0], mt.WARNS[0])
+            if a.max_warn and mt.WARNS[0] >= a.max_warn:
+                mt.STOP.set()
+                log.error("WARNINGS limit (%d) paar - ruk raha hoon. report dekho.", a.max_warn)
+
+
+def migrate_one_order(rec, lines, pays, dsid, ctxd, a):
+    oid = rec["id"]
+    if mt.MAP.get(ORD, oid):
+        mt.add_result("pos", ORD, oid, "ALREADY", "")
+        return
+    vals, unresolved = mt.convert(rec, ctxd["ord_plan"], ctxd["odf"], ORD_STRICT, ORD)
+    if dsid:
+        vals["session_id"] = dsid
+    lcmds, pcmds = [], []
+    for lr in lines:
+        lv, un = mt.convert(lr, ctxd["line_plan"], ctxd["ldf"], LINE_STRICT, LINE)
+        for ff in ("tax_ids",):
+            if ff in ctxd["ldf"] and ff not in lv:
+                lv[ff] = [[6, 0, []]]
+        unresolved += un
+        lcmds.append([0, 0, lv])
+    for pr in pays:
+        pv, un = mt.convert(pr, ctxd["pay_plan"], ctxd["pdf"], PAY_STRICT, PAY)
+        unresolved += un
+        pcmds.append([0, 0, pv])
+    if lcmds:
+        vals["lines"] = lcmds
+    if pcmds:
+        vals["payment_ids"] = pcmds
+    if unresolved:
+        for (_, rel, old) in unresolved:
+            with mt._stat_lock:
+                mt.MISSING[(rel, old)] += 1
+        det = "master map nahi: " + ", ".join("%s: %s#%s" % u for u in unresolved[:6])
+        mt.add_result("pos", ORD, oid, "SKIP", det)
+        return
+    if a.dry_run:
+        mt.add_result("pos", ORD, oid, "DRY_OK", "%d lines, %d payments" % (len(lcmds), len(pcmds)))
+        return
+    did = mt.dst.call(ORD, "create", vals, context=CTX)
+    mt.MAP.set(ORD, oid, did)
+    notes = []
+    st = rec.get("state")
+    if st and st != "draft":
+        try:
+            mt.dst.call(ORD, "write", [did], {"state": map_state(ORD, st, "done")}, context=CTX)
+        except Exception as e:
+            notes.append("WARN state: " + str(e)[:200])
+    try:
+        d = mt.dst.call(ORD, "read", [did], fields=[f for f in ("amount_total", "state") if f in ctxd["odf"]], context=CTX)[0]
+        if "amount_total" in d and abs((d["amount_total"] or 0) - (rec.get("amount_total") or 0)) > 0.011:
+            notes.append("WARN amount_total src %.2f dst %.2f" % (rec.get("amount_total") or 0, d["amount_total"] or 0))
+    except Exception as e:
+        notes.append("WARN read: " + str(e)[:150])
+    if notes:
+        log.warning("pos.order#%s -> %s: %s", oid, did, "; ".join(notes))
+        mt.add_result("pos", ORD, oid, "WARN", "dst=%s; %s" % (did, "; ".join(notes)))
+    else:
+        mt.add_result("pos", ORD, oid, "OK", "dst=%s" % did)
+
+
+# ----------------------------------------------------------------- one session
+def process_session(sid, a, ctxd):
+    rec = ctxd["srecs"][sid]
+    order_ids = mt.src.call(ORD, "search", [("session_id", "=", sid)], order="id", context=CTX)
+    todo = [o for o in order_ids if o not in ctxd["done_orders"]]
+    dsid = mt.MAP.get(SESS, sid)
+    if dsid and not todo:
+        mt.add_result("pos", SESS, sid, "ALREADY", "")
+        return
+    vals, unresolved = mt.convert(rec, ctxd["sess_plan"], ctxd["sdf"], SESS_STRICT, SESS)
+    if unresolved:
+        for (_, rel, old) in unresolved:
+            with mt._stat_lock:
+                mt.MISSING[(rel, old)] += 1
+        det = "master map nahi: " + ", ".join("%s: %s#%s" % u for u in unresolved[:6])
+        log.warning("Skip pos.session#%s (%s): %s", sid, rec.get("name"), det)
+        mt.add_result("pos", SESS, sid, "SKIP", det + " | orders: %d" % len(todo))
+        return
+    if not dsid and not a.dry_run:
+        dsid = mt.dst.call(SESS, "create", vals, context=CTX)
+        mt.MAP.set(SESS, sid, dsid)
+        mt.MAP.commit()
+    if dsid and not a.dry_run:
+        mt.dst.call(SESS, "write", [dsid], {"state": "opened"}, context=CTX)   # orders ke liye khuli session
+    try:
+        migrate_orders(todo, dsid, ctxd, a)
+    finally:
+        if dsid and not a.dry_run:
+            fin = {"state": map_state(SESS, rec.get("state"), "closed"), "name": rec.get("name")}
+            for f in ("start_at", "stop_at"):
+                if rec.get(f):
+                    fin[f] = rec[f]
+            try:
+                mt.dst.call(SESS, "write", [dsid], fin, context=CTX)
+            except Exception as e:
+                mt.add_result("pos", SESS, sid, "WARN", "session final write: " + str(e)[:250])
+                log.warning("session#%s final write fail: %s", sid, str(e)[:200])
+    mt.add_result("pos", SESS, sid, "DRY_OK" if a.dry_run else "OK",
+                  "dst=%s | %d orders" % (dsid, len(todo)))
+    if not a.dry_run:
+        mt.MAP.commit()
+
+
+def cmd_run(a):
+    if not models_ok():
+        return
+    sess_plan = mt.build_plan(SESS, SESS)
+    ord_plan = mt.build_plan(ORD, ORD, skip=("session_id",))
+    line_plan = mt.build_plan(LINE, LINE, skip=("order_id", "session_id"))
+    pay_plan = mt.build_plan(PAY, PAY, skip=("pos_order_id", "session_id"))
+    sf, of, lf, pf = (mt.src.fields(m) for m in (SESS, ORD, LINE, PAY))
+    ctxd = dict(
+        sess_plan=sess_plan, ord_plan=ord_plan, line_plan=line_plan, pay_plan=pay_plan,
+        sdf=mt.dst.fields(SESS), odf=mt.dst.fields(ORD), ldf=mt.dst.fields(LINE), pdf=mt.dst.fields(PAY),
+        ord_f=sorted({f for f in list(ord_plan) + ["state", "amount_total", "session_id"] if f in of}),
+        line_f=sorted({f for f in list(line_plan) + ["order_id"] if f in lf}),
+        pay_f=sorted({f for f in list(pay_plan) + ["pos_order_id"] if f in pf}),
+        done_orders=mt.MAP.done_src_ids(ORD))
+    sids = mt.src.call(SESS, "search", date_domain(a), order="id", context=CTX)
+    if a.limit:
+        sids = sids[:a.limit]
+    sfl = sorted({f for f in list(sess_plan) + ["state", "name", "config_id", "start_at", "stop_at"] if f in sf})
+    ctxd["srecs"] = {r["id"]: r for r in read_chunks(SESS, sids, sfl)}
+    groups = collections.defaultdict(list)
+    for sid in sids:
+        groups[mt.m2o_id(ctxd["srecs"][sid].get("config_id"))].append(sid)
+    log.info("== pos: sessions %d | POS configs %d | pehle se migrate orders %d%s", len(sids), len(groups),
+             len(ctxd["done_orders"]), "  [DRY-RUN]" if a.dry_run else "")
+
+    def run_group(group):
+        for sid in group:
+            if mt.STOP.is_set():
+                return
+            try:
+                process_session(sid, a, ctxd)
+            except Exception as e:
+                log.error("[pos] session#%s fail: %s", sid, str(e)[:300])
+                mt.add_result("pos", SESS, sid, "ERROR", str(e)[:400])
+            log.info("[pos] session#%s done", sid)
+
+    work = list(groups.values())
+    if a.workers <= 1:
+        for g in work:
+            run_group(g)
+    else:
+        with ThreadPoolExecutor(max_workers=a.workers) as ex:
+            list(ex.map(run_group, work))
+    mt.MAP.commit()
+    mt.write_reports(a)
+
+
+# ----------------------------------------------------------------- check / gaps / verify / rollback
+def cmd_check(a):
+    print("\n%-22s %8s %8s %8s" % ("model", "source", "mapped", "missing"))
+    for model in POS_MASTERS:
+        if mt.src.fields(model) is None or mt.dst.fields(model) is None:
+            print("%-22s  (model nahi: %s)" % (model, "source" if mt.src.fields(model) is None else "destination"))
+            continue
+        fixed = mt.fix_model(model) if a.fix else 0
+        ids = mt.src.call(model, "search", [], context={"active_test": False})
+        done = mt.MAP.done_src_ids(model)
+        missing = [i for i in ids if i not in done]
+        print("%-22s %8d %8d %8d %s" % (model, len(ids), len(ids) - len(missing), len(missing),
+                                         ("(--fix se %d map hue)" % fixed) if a.fix else ""))
+        nf = "name" if "name" in mt.src.fields(model) else "display_name"
+        for r in mt.src.call(model, "read", missing[:20], fields=[nf], context={"active_test": False}):
+            print("      missing #%s %s" % (r["id"], r.get(nf)))
+    if a.fix:
+        mt.MAP.save_master()
+        print("\nidmap.json update ho gayi. Ab dobara `check` chalao.")
+    mt.MAP.commit()
+
+
+def cmd_gaps(a):
+    for m in (SESS, ORD, LINE, PAY):
+        sf, df = mt.src.fields(m), mt.dst.fields(m)
+        if sf is None or df is None:
+            print("%-18s model nahi (%s)" % (m, "source" if sf is None else "destination"))
+            continue
+        miss = sorted(f for f, s in sf.items() if f not in df and s.get("store") and s["type"] not in ("one2many", "binary")
+                      and f not in mt.SKIP_FIELDS and not f.startswith(("message_", "activity_", "website_message")))
+        print("%-18s dst mein nahi: %s" % (m, ", ".join(miss) or "-"))
+
+
+def cmd_verify(a):
+    print("\n%-14s %9s %9s %9s" % ("model", "source", "mapped", "dst total"))
+    for m in (SESS, ORD):
+        s = mt.src.call(m, "search_count", [], context=CTX)
+        d = mt.dst.call(m, "search_count", [], context=CTX)
+        print("%-14s %9d %9d %9d" % (m, s, len(mt.MAP.done_src_ids(m)), d))
+    pairs = [(s, mt.MAP.get(ORD, s)) for s in sorted(mt.MAP.done_src_ids(ORD)) if mt.MAP.get(ORD, s)]
+    if not pairs:
+        return
+    sper, dper = {}, {}
+    for j in range(0, len(pairs), 500):
+        ch = pairs[j:j + 500]
+        for r in mt.src.call(ORD, "read", [p[0] for p in ch], fields=["amount_total"], context=CTX):
+            sper[r["id"]] = r["amount_total"] or 0
+        for r in mt.dst.call(ORD, "read", [p[1] for p in ch], fields=["amount_total"], context=CTX):
+            dper[r["id"]] = r["amount_total"] or 0
+    bad = [(s, d, sper.get(s), dper.get(d)) for s, d in pairs if abs((sper.get(s) or 0) - (dper.get(d) or 0)) > 0.011]
+    print("\npos.order amount_total: source %.2f | dst %.2f | farq wale orders: %d" % (
+        sum(sper.values()), sum(dper.values()), len(bad)))
+    for b in bad[:10]:
+        print("    src#%s dst#%s  %s vs %s" % b)
+
+
+def cmd_rollback(a):
+    for model in (ORD, SESS):
+        pairs = mt.MAP.tx_src_ids(model)
+        if a.limit:
+            pairs = pairs[:a.limit]
+        ok = fail = 0
+        log.info("== rollback %s: %d", model, len(pairs))
+        for sid, did in pairs:
+            try:
+                if mt.dst.call(model, "search", [("id", "=", did)], context=CTX):
+                    if model == ORD:
+                        mt.dst.call(model, "write", [did], {"state": "draft"}, context=CTX)
+                    mt.dst.call(model, "unlink", [did], context=CTX)
+                mt.MAP.drop(model, sid)
+                ok += 1
+            except Exception as e:
+                fail += 1
+                log.error("rollback %s#%s (dst %s) fail: %s", model, sid, did, str(e)[:250])
+        mt.MAP.commit()
+        log.info("rollback %s: %d hataye, %d fail", model, ok, fail)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cmd", choices=["gaps", "check", "run", "verify", "rollback"])
+    ap.add_argument("--fix", action="store_true")
+    ap.add_argument("--limit", type=int, default=0, help="kitni sessions (run) / documents (rollback)")
+    ap.add_argument("--workers", type=int, default=1)
+    ap.add_argument("--date-from")
+    ap.add_argument("--date-to")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--max-warn", type=int, default=25)
+    ap.add_argument("--report", default="pos_migration_report.csv")
+    a = ap.parse_args()
+    mt.src, mt.dst, mt.MAP = mt.Src(), mt.Dst(), mt.IdMap()
+    try:
+        {"gaps": cmd_gaps, "check": cmd_check, "run": cmd_run, "verify": cmd_verify, "rollback": cmd_rollback}[a.cmd](a)
+    finally:
+        mt.MAP.commit()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        if mt.MAP:
+            mt.MAP.commit()
+        sys.exit("Stopped by user (map save ho chuka).")
+    except Exception as exc:
+        log.exception("POS migration stopped")
+        sys.exit(str(exc))

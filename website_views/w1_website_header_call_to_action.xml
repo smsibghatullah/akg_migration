@@ -1,0 +1,7 @@
+<data inherit_id="website.placeholder_header_call_to_action" name="Header Call to Action" active="True">
+    <xpath expr="." position="inside">
+        <div t-attf-class="oe_structure oe_structure_solo #{_div_classes}" class="oe_structure oe_structure_solo ms-lg-4">
+            
+        </div>
+    </xpath>
+</data>

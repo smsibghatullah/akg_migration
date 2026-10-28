@@ -1,0 +1,762 @@
+2026-10-21 15:03:47,473 INFO == moves (account.move): source 159322 | pehle se migrate 46991 | ab karna hai 112331
+2026-10-21 15:05:34,207 INFO [moves] progress 210/112331 (107s) warnings=0
+2026-10-21 15:07:17,014 INFO [moves] progress 405/112331 (210s) warnings=0
+2026-10-21 15:08:50,706 INFO [moves] progress 600/112331 (303s) warnings=0
+2026-10-21 15:10:52,145 INFO [moves] progress 810/112331 (425s) warnings=0
+2026-10-21 15:12:33,982 INFO [moves] progress 1005/112331 (527s) warnings=0
+2026-10-21 15:14:00,393 INFO [moves] progress 1200/112331 (613s) warnings=0
+2026-10-21 15:15:38,519 INFO [moves] progress 1410/112331 (711s) warnings=0
+2026-10-21 15:17:21,380 INFO [moves] progress 1605/112331 (814s) warnings=0
+2026-10-21 15:18:59,397 INFO [moves] progress 1800/112331 (912s) warnings=0
+2026-10-21 15:20:42,490 INFO [moves] progress 2010/112331 (1015s) warnings=0
+2026-10-21 15:22:10,208 INFO [moves] progress 2205/112331 (1103s) warnings=0
+2026-10-21 15:23:34,047 INFO [moves] progress 2400/112331 (1187s) warnings=0
+2026-10-21 15:24:51,182 INFO [moves] progress 2610/112331 (1264s) warnings=0
+2026-10-21 15:26:21,895 INFO [moves] progress 2805/112331 (1354s) warnings=0
+2026-10-21 15:26:35,202 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:35,504 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:35,835 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:36,133 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:36,514 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:36,734 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:37,256 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:37,543 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:37,748 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:37,843 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:38,120 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:38,121 INFO [moves] progress 3000/112331 (1371s) warnings=0
+2026-10-21 15:26:38,458 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:38,748 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:38,952 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:39,273 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:39,464 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:39,947 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:26:40,304 ERROR [moves] batch fail: <Fault 1: 'Traceback (most recent call last):\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/root/odoo16/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method,
+2026-10-21 15:27:37,828 INFO [moves] progress 3210/112331 (1430s) warnings=0
+2026-10-21 15:29:07,485 INFO [moves] progress 3405/112331 (1520s) warnings=0
+2026-10-21 15:30:47,048 INFO [moves] progress 3600/112331 (1620s) warnings=0
+2026-10-21 15:32:50,742 INFO [moves] progress 3810/112331 (1743s) warnings=0
+2026-10-21 15:34:30,640 INFO [moves] progress 4005/112331 (1843s) warnings=0
+2026-10-21 15:36:08,366 INFO [moves] progress 4200/112331 (1941s) warnings=0
+2026-10-21 15:37:45,700 INFO [moves] progress 4410/112331 (2038s) warnings=0
+2026-10-21 15:39:49,897 INFO [moves] progress 4605/112331 (2162s) warnings=0
+2026-10-21 15:41:31,504 INFO [moves] progress 4800/112331 (2264s) warnings=0
+2026-10-21 15:42:55,433 INFO [moves] progress 5010/112331 (2348s) warnings=0
+2026-10-21 15:44:13,523 INFO [moves] progress 5205/112331 (2426s) warnings=0
+2026-10-21 15:45:27,839 INFO [moves] progress 5400/112331 (2500s) warnings=0
+2026-10-21 15:46:36,476 INFO [moves] progress 5610/112331 (2569s) warnings=0
+2026-10-21 15:47:54,958 INFO [moves] progress 5805/112331 (2647s) warnings=0
+2026-10-21 15:49:19,136 INFO [moves] progress 6000/112331 (2732s) warnings=0
+2026-10-21 15:50:33,670 INFO [moves] progress 6210/112331 (2806s) warnings=0
+2026-10-21 15:51:57,732 INFO [moves] progress 6405/112331 (2890s) warnings=0
+2026-10-21 15:53:13,956 INFO [moves] progress 6600/112331 (2966s) warnings=0
+2026-10-21 15:54:39,652 INFO [moves] progress 6810/112331 (3052s) warnings=0
+2026-10-21 15:56:08,473 INFO [moves] progress 7005/112331 (3141s) warnings=0
+2026-10-21 15:57:25,584 INFO [moves] progress 7200/112331 (3218s) warnings=0
+2026-10-21 15:59:02,047 INFO [moves] progress 7410/112331 (3315s) warnings=0
+2026-10-21 16:01:00,907 INFO [moves] progress 7605/112331 (3433s) warnings=0
+2026-10-21 16:03:07,254 INFO [moves] progress 7800/112331 (3560s) warnings=0
+2026-10-21 16:04:54,990 INFO [moves] progress 8010/112331 (3668s) warnings=0
+2026-10-21 16:06:14,576 INFO [moves] progress 8205/112331 (3747s) warnings=0
+2026-10-21 16:07:53,113 INFO [moves] progress 8400/112331 (3846s) warnings=0
+2026-10-21 16:09:41,068 INFO [moves] progress 8610/112331 (3954s) warnings=0
+2026-10-21 16:11:17,840 INFO [moves] progress 8805/112331 (4050s) warnings=0
+2026-10-21 16:12:58,727 INFO [moves] progress 9000/112331 (4151s) warnings=0
+2026-10-21 16:14:19,886 INFO [moves] progress 9210/112331 (4232s) warnings=0
+2026-10-21 16:15:40,107 INFO [moves] progress 9405/112331 (4313s) warnings=0
+2026-10-21 16:17:09,889 INFO [moves] progress 9600/112331 (4402s) warnings=0
+2026-10-21 16:18:38,808 INFO [moves] progress 9810/112331 (4491s) warnings=0
+2026-10-21 16:19:59,773 INFO [moves] progress 10005/112331 (4572s) warnings=0
+2026-10-21 16:21:23,626 INFO [moves] progress 10200/112331 (4656s) warnings=0
+2026-10-21 16:22:47,345 INFO [moves] progress 10410/112331 (4740s) warnings=0
+2026-10-21 16:24:13,716 INFO [moves] progress 10605/112331 (4826s) warnings=0
+2026-10-21 16:25:36,738 INFO [moves] progress 10800/112331 (4909s) warnings=0
+2026-10-21 16:26:49,054 INFO [moves] progress 11010/112331 (4982s) warnings=0
+2026-10-21 16:28:47,265 INFO [moves] progress 11205/112331 (5100s) warnings=0
+2026-10-21 16:30:11,337 INFO [moves] progress 11400/112331 (5184s) warnings=0
+2026-10-21 16:31:24,870 INFO [moves] progress 11610/112331 (5257s) warnings=0
+2026-10-21 16:32:35,480 INFO [moves] progress 11805/112331 (5328s) warnings=0
+2026-10-21 16:34:07,542 INFO [moves] progress 12000/112331 (5420s) warnings=0
+2026-10-21 16:35:56,874 INFO [moves] progress 12210/112331 (5529s) warnings=0
+2026-10-21 16:37:30,565 INFO [moves] progress 12405/112331 (5623s) warnings=0
+2026-10-21 16:38:37,918 INFO [moves] progress 12600/112331 (5690s) warnings=0
+2026-10-21 16:39:57,424 INFO [moves] progress 12810/112331 (5770s) warnings=0
+2026-10-21 16:41:20,019 INFO [moves] progress 13005/112331 (5853s) warnings=0
+2026-10-21 16:42:41,088 INFO [moves] progress 13200/112331 (5934s) warnings=0
+2026-10-21 16:44:21,425 INFO [moves] progress 13410/112331 (6034s) warnings=0
+2026-10-21 16:45:49,267 INFO [moves] progress 13605/112331 (6122s) warnings=0
+2026-10-21 16:47:34,533 INFO [moves] progress 13800/112331 (6227s) warnings=0
+2026-10-21 16:48:54,091 INFO [moves] progress 14010/112331 (6307s) warnings=0
+2026-10-21 16:50:36,336 INFO [moves] progress 14205/112331 (6409s) warnings=0
+2026-10-21 16:52:02,763 INFO [moves] progress 14400/112331 (6495s) warnings=0
+2026-10-21 16:53:32,118 INFO [moves] progress 14610/112331 (6585s) warnings=0
+2026-10-21 16:55:00,123 INFO [moves] progress 14805/112331 (6673s) warnings=0
+2026-10-21 16:56:45,259 INFO [moves] progress 15000/112331 (6778s) warnings=0
+2026-10-21 16:58:22,201 INFO [moves] progress 15210/112331 (6875s) warnings=0
+2026-10-21 16:59:43,857 INFO [moves] progress 15405/112331 (6956s) warnings=0
+2026-10-21 17:01:22,430 INFO [moves] progress 15600/112331 (7055s) warnings=0
+2026-10-21 17:02:52,491 INFO [moves] progress 15810/112331 (7145s) warnings=0
+2026-10-21 17:04:10,578 INFO [moves] progress 16005/112331 (7223s) warnings=0
+2026-10-21 17:05:26,530 INFO [moves] progress 16200/112331 (7299s) warnings=0
+2026-10-21 17:07:05,442 INFO [moves] progress 16410/112331 (7398s) warnings=0
+2026-10-21 17:08:30,499 INFO [moves] progress 16605/112331 (7483s) warnings=0
+2026-10-21 17:09:56,758 INFO [moves] progress 16800/112331 (7569s) warnings=0
+2026-10-21 17:11:24,265 INFO [moves] progress 17010/112331 (7657s) warnings=0
+2026-10-21 17:12:50,564 INFO [moves] progress 17205/112331 (7743s) warnings=0
+2026-10-21 17:14:09,227 INFO [moves] progress 17400/112331 (7822s) warnings=0
+2026-10-21 17:15:39,576 INFO [moves] progress 17610/112331 (7912s) warnings=0
+2026-10-21 17:17:06,968 INFO [moves] progress 17805/112331 (7999s) warnings=0
+2026-10-21 17:18:39,967 INFO [moves] progress 18000/112331 (8092s) warnings=0
+2026-10-21 17:20:16,453 INFO [moves] progress 18210/112331 (8189s) warnings=0
+2026-10-21 17:21:33,186 INFO [moves] progress 18405/112331 (8266s) warnings=0
+2026-10-21 17:23:13,392 INFO [moves] progress 18600/112331 (8366s) warnings=0
+2026-10-21 17:24:36,111 INFO [moves] progress 18810/112331 (8449s) warnings=0
+2026-10-21 17:26:12,803 INFO [moves] progress 19005/112331 (8545s) warnings=0
+2026-10-21 17:27:35,322 INFO [moves] progress 19200/112331 (8628s) warnings=0
+2026-10-21 17:29:06,893 INFO [moves] progress 19410/112331 (8719s) warnings=0
+2026-10-21 17:30:32,630 INFO [moves] progress 19605/112331 (8805s) warnings=0
+2026-10-21 17:31:58,510 INFO [moves] progress 19800/112331 (8891s) warnings=0
+2026-10-21 17:33:30,354 INFO [moves] progress 20010/112331 (8983s) warnings=0
+2026-10-21 17:35:08,722 INFO [moves] progress 20205/112331 (9081s) warnings=0
+2026-10-21 17:36:34,413 INFO [moves] progress 20400/112331 (9167s) warnings=0
+2026-10-21 17:38:22,406 INFO [moves] progress 20610/112331 (9275s) warnings=0
+2026-10-21 17:39:43,713 INFO [moves] progress 20805/112331 (9356s) warnings=0
+2026-10-21 17:41:20,128 INFO [moves] progress 21000/112331 (9453s) warnings=0
+2026-10-21 17:43:08,190 INFO [moves] progress 21210/112331 (9561s) warnings=0
+2026-10-21 17:44:37,502 INFO [moves] progress 21405/112331 (9650s) warnings=0
+2026-10-21 17:46:28,408 INFO [moves] progress 21600/112331 (9761s) warnings=0
+2026-10-21 17:48:04,762 INFO [moves] progress 21810/112331 (9857s) warnings=0
+2026-10-21 17:49:31,867 INFO [moves] progress 22005/112331 (9944s) warnings=0
+2026-10-21 17:51:24,710 INFO [moves] progress 22200/112331 (10057s) warnings=0
+2026-10-21 17:53:08,096 INFO [moves] progress 22410/112331 (10161s) warnings=0
+2026-10-21 17:54:26,937 INFO [moves] progress 22605/112331 (10239s) warnings=0
+2026-10-21 17:55:53,862 INFO [moves] progress 22800/112331 (10326s) warnings=0
+2026-10-21 17:57:37,318 INFO [moves] progress 23010/112331 (10430s) warnings=0
+2026-10-21 17:59:36,657 INFO [moves] progress 23205/112331 (10549s) warnings=0
+2026-10-21 18:02:27,022 INFO [moves] progress 23400/112331 (10720s) warnings=0
+2026-10-21 18:04:09,321 INFO [moves] progress 23610/112331 (10822s) warnings=0
+2026-10-21 18:05:56,032 INFO [moves] progress 23805/112331 (10929s) warnings=0
+2026-10-21 18:07:25,285 INFO [moves] progress 24000/112331 (11018s) warnings=0
+2026-10-21 18:09:11,492 INFO [moves] progress 24210/112331 (11124s) warnings=0
+2026-10-21 18:10:31,705 INFO [moves] progress 24405/112331 (11204s) warnings=0
+2026-10-21 18:11:55,456 INFO [moves] progress 24600/112331 (11288s) warnings=0
+2026-10-21 18:13:23,338 INFO [moves] progress 24810/112331 (11376s) warnings=0
+2026-10-21 18:15:00,337 INFO [moves] progress 25005/112331 (11473s) warnings=0
+2026-10-21 18:16:59,045 INFO [moves] progress 25200/112331 (11592s) warnings=0
+2026-10-21 18:18:30,486 INFO [moves] progress 25410/112331 (11683s) warnings=0
+2026-10-21 18:19:39,680 INFO [moves] progress 25605/112331 (11752s) warnings=0
+2026-10-21 18:20:59,517 INFO [moves] progress 25800/112331 (11832s) warnings=0
+2026-10-21 18:22:42,507 INFO [moves] progress 26010/112331 (11935s) warnings=0
+2026-10-21 18:24:06,161 INFO [moves] progress 26205/112331 (12019s) warnings=0
+2026-10-21 18:25:25,523 INFO [moves] progress 26400/112331 (12098s) warnings=0
+2026-10-21 18:27:03,107 INFO [moves] progress 26610/112331 (12196s) warnings=0
+2026-10-21 18:28:26,430 INFO [moves] progress 26805/112331 (12279s) warnings=0
+2026-10-21 18:29:44,151 INFO [moves] progress 27000/112331 (12357s) warnings=0
+2026-10-21 18:31:26,743 INFO [moves] progress 27210/112331 (12459s) warnings=0
+2026-10-21 18:31:57,808 INFO [moves] progress 27405/112331 (12490s) warnings=0
+2026-10-21 18:33:11,124 INFO [moves] progress 27600/112331 (12564s) warnings=0
+2026-10-21 18:34:30,240 INFO [moves] progress 27810/112331 (12643s) warnings=0
+2026-10-21 18:35:43,248 INFO [moves] progress 28005/112331 (12716s) warnings=0
+2026-10-21 18:37:17,698 INFO [moves] progress 28200/112331 (12810s) warnings=0
+2026-10-21 18:38:41,009 INFO [moves] progress 28410/112331 (12894s) warnings=0
+2026-10-21 18:39:47,983 INFO [moves] progress 28605/112331 (12961s) warnings=0
+2026-10-21 18:41:03,368 INFO [moves] progress 28800/112331 (13036s) warnings=0
+2026-10-21 18:42:14,918 INFO [moves] progress 29010/112331 (13107s) warnings=0
+2026-10-21 18:43:39,215 INFO [moves] progress 29205/112331 (13192s) warnings=0
+2026-10-21 18:44:57,143 INFO [moves] progress 29400/112331 (13270s) warnings=0
+2026-10-21 18:46:35,620 INFO [moves] progress 29610/112331 (13368s) warnings=0
+2026-10-21 18:47:51,261 INFO [moves] progress 29805/112331 (13444s) warnings=0
+2026-10-21 18:49:08,328 INFO [moves] progress 30000/112331 (13521s) warnings=0
+2026-10-21 18:50:44,401 INFO [moves] progress 30210/112331 (13617s) warnings=0
+2026-10-21 18:52:03,924 INFO [moves] progress 30405/112331 (13696s) warnings=0
+2026-10-21 18:53:30,780 INFO [moves] progress 30600/112331 (13783s) warnings=0
+2026-10-21 18:54:59,248 INFO [moves] progress 30810/112331 (13872s) warnings=0
+2026-10-21 18:56:28,066 INFO [moves] progress 31005/112331 (13961s) warnings=0
+2026-10-21 18:57:48,649 INFO [moves] progress 31200/112331 (14041s) warnings=0
+2026-10-21 18:59:16,425 INFO [moves] progress 31410/112331 (14129s) warnings=0
+2026-10-21 19:01:09,318 INFO [moves] progress 31605/112331 (14242s) warnings=0
+2026-10-21 19:02:23,338 INFO [moves] progress 31800/112331 (14316s) warnings=0
+2026-10-21 19:03:49,493 INFO [moves] progress 32010/112331 (14402s) warnings=0
+2026-10-21 19:04:58,891 INFO [moves] progress 32205/112331 (14471s) warnings=0
+2026-10-21 19:06:46,743 INFO [moves] progress 32400/112331 (14579s) warnings=0
+2026-10-21 19:08:17,476 INFO [moves] progress 32610/112331 (14670s) warnings=0
+2026-10-21 19:09:25,616 INFO [moves] progress 32805/112331 (14738s) warnings=0
+2026-10-21 19:10:34,912 INFO [moves] progress 33000/112331 (14807s) warnings=0
+2026-10-21 19:11:54,402 INFO [moves] progress 33210/112331 (14887s) warnings=0
+2026-10-21 19:13:38,864 INFO [moves] progress 33405/112331 (14991s) warnings=0
+2026-10-21 19:14:48,888 INFO [moves] progress 33600/112331 (15061s) warnings=0
+2026-10-21 19:16:21,956 INFO [moves] progress 33810/112331 (15154s) warnings=0
+2026-10-21 19:17:32,011 INFO [moves] progress 34005/112331 (15225s) warnings=0
+2026-10-21 19:18:46,130 INFO [moves] progress 34200/112331 (15299s) warnings=0
+2026-10-21 19:20:13,676 INFO [moves] progress 34410/112331 (15386s) warnings=0
+2026-10-21 19:21:38,482 INFO [moves] progress 34605/112331 (15471s) warnings=0
+2026-10-21 19:22:52,946 INFO [moves] progress 34800/112331 (15545s) warnings=0
+2026-10-21 19:24:27,921 INFO [moves] progress 35010/112331 (15640s) warnings=0
+2026-10-21 19:25:49,920 INFO [moves] progress 35205/112331 (15722s) warnings=0
+2026-10-21 19:27:08,413 INFO [moves] progress 35400/112331 (15801s) warnings=0
+2026-10-21 19:28:41,823 INFO [moves] progress 35610/112331 (15894s) warnings=0
+2026-10-21 19:30:24,303 INFO [moves] progress 35805/112331 (15997s) warnings=0
+2026-10-21 19:31:59,170 INFO [moves] progress 36000/112331 (16092s) warnings=0
+2026-10-21 19:33:53,779 INFO [moves] progress 36210/112331 (16206s) warnings=0
+2026-10-21 19:35:30,360 INFO [moves] progress 36405/112331 (16303s) warnings=0
+2026-10-21 19:36:56,887 INFO [moves] progress 36600/112331 (16389s) warnings=0
+2026-10-21 19:38:41,107 INFO [moves] progress 36810/112331 (16494s) warnings=0
+2026-10-21 19:40:14,423 INFO [moves] progress 37005/112331 (16587s) warnings=0
+2026-10-21 19:42:12,272 INFO [moves] progress 37200/112331 (16705s) warnings=0
+2026-10-21 19:43:52,521 INFO [moves] progress 37410/112331 (16805s) warnings=0
+2026-10-21 19:45:46,204 INFO [moves] progress 37605/112331 (16919s) warnings=0
+2026-10-21 19:47:13,449 INFO [moves] progress 37800/112331 (17006s) warnings=0
+2026-10-21 19:48:56,447 INFO [moves] progress 38010/112331 (17109s) warnings=0
+2026-10-21 19:50:30,789 INFO [moves] progress 38205/112331 (17203s) warnings=0
+2026-10-21 19:52:10,935 INFO [moves] progress 38400/112331 (17303s) warnings=0
+2026-10-21 19:53:53,681 INFO [moves] progress 38610/112331 (17406s) warnings=0
+2026-10-21 19:55:37,382 INFO [moves] progress 38805/112331 (17510s) warnings=0
+2026-10-21 19:57:17,226 INFO [moves] progress 39000/112331 (17610s) warnings=0
+2026-10-21 19:58:37,539 INFO [moves] progress 39210/112331 (17690s) warnings=0
+2026-10-21 20:00:10,454 INFO [moves] progress 39405/112331 (17783s) warnings=0
+2026-10-21 20:02:18,806 INFO [moves] progress 39600/112331 (17911s) warnings=0
+2026-10-21 20:03:56,145 INFO [moves] progress 39810/112331 (18009s) warnings=0
+2026-10-21 20:05:26,068 INFO [moves] progress 40005/112331 (18099s) warnings=0
+2026-10-21 20:06:48,495 INFO [moves] progress 40200/112331 (18181s) warnings=0
+2026-10-21 20:08:29,843 INFO [moves] progress 40410/112331 (18282s) warnings=0
+2026-10-21 20:09:50,670 INFO [moves] progress 40605/112331 (18363s) warnings=0
+2026-10-21 20:11:23,551 INFO [moves] progress 40800/112331 (18456s) warnings=0
+2026-10-21 20:12:55,532 INFO [moves] progress 41010/112331 (18548s) warnings=0
+2026-10-21 20:14:32,840 INFO [moves] progress 41205/112331 (18645s) warnings=0
+2026-10-21 20:16:02,759 INFO [moves] progress 41400/112331 (18735s) warnings=0
+2026-10-21 20:17:34,171 INFO [moves] progress 41610/112331 (18827s) warnings=0
+2026-10-21 20:18:59,992 INFO [moves] progress 41805/112331 (18913s) warnings=0
+2026-10-21 20:20:22,323 INFO [moves] progress 42000/112331 (18995s) warnings=0
+2026-10-21 20:21:44,612 INFO [moves] progress 42210/112331 (19077s) warnings=0
+2026-10-21 20:22:52,449 INFO [moves] progress 42405/112331 (19145s) warnings=0
+2026-10-21 20:24:19,261 INFO [moves] progress 42600/112331 (19232s) warnings=0
+2026-10-21 20:25:42,362 INFO [moves] progress 42810/112331 (19315s) warnings=0
+2026-10-21 20:26:40,839 INFO [moves] progress 43005/112331 (19373s) warnings=0
+2026-10-21 20:27:54,686 INFO [moves] progress 43200/112331 (19447s) warnings=0
+2026-10-21 20:29:23,254 INFO [moves] progress 43410/112331 (19536s) warnings=0
+2026-10-21 20:30:29,446 INFO [moves] progress 43605/112331 (19602s) warnings=0
+2026-10-21 20:31:41,724 INFO [moves] progress 43800/112331 (19674s) warnings=0
+2026-10-21 20:32:45,966 INFO [moves] progress 44010/112331 (19738s) warnings=0
+2026-10-21 20:33:57,300 INFO [moves] progress 44205/112331 (19810s) warnings=0
+2026-10-21 20:35:12,597 INFO [moves] progress 44400/112331 (19885s) warnings=0
+2026-10-21 20:36:25,204 INFO [moves] progress 44610/112331 (19958s) warnings=0
+2026-10-21 20:37:37,625 INFO [moves] progress 44805/112331 (20030s) warnings=0
+2026-10-21 20:39:09,329 INFO [moves] progress 45000/112331 (20122s) warnings=0
+2026-10-21 20:41:08,906 INFO [moves] progress 45210/112331 (20241s) warnings=0
+2026-10-21 20:42:35,937 INFO [moves] progress 45405/112331 (20328s) warnings=0
+2026-10-21 20:44:11,504 INFO [moves] progress 45600/112331 (20424s) warnings=0
+2026-10-21 20:45:44,715 INFO [moves] progress 45810/112331 (20517s) warnings=0
+2026-10-21 20:47:09,344 INFO [moves] progress 46005/112331 (20602s) warnings=0
+2026-10-21 20:49:05,190 INFO [moves] progress 46200/112331 (20718s) warnings=0
+2026-10-21 20:50:31,468 INFO [moves] progress 46410/112331 (20804s) warnings=0
+2026-10-21 20:52:03,688 INFO [moves] progress 46605/112331 (20896s) warnings=0
+2026-10-21 20:53:18,661 INFO [moves] progress 46800/112331 (20971s) warnings=0
+2026-10-21 20:54:40,696 INFO [moves] progress 47010/112331 (21053s) warnings=0
+2026-10-21 20:55:54,635 INFO [moves] progress 47205/112331 (21127s) warnings=0
+2026-10-21 20:57:11,183 INFO [moves] progress 47400/112331 (21204s) warnings=0
+2026-10-21 20:58:15,615 INFO [moves] progress 47610/112331 (21268s) warnings=0
+2026-10-21 20:59:28,105 WARNING account.move#159253 -> 98836: WARN amount_total src 15717.22 dst 15717.20
+2026-10-21 20:59:39,935 INFO [moves] progress 47805/112331 (21352s) warnings=1
+2026-10-21 21:01:24,545 INFO [moves] progress 48000/112331 (21457s) warnings=1
+2026-10-21 21:03:15,148 INFO [moves] progress 48210/112331 (21568s) warnings=1
+2026-10-21 21:04:47,268 INFO [moves] progress 48405/112331 (21660s) warnings=1
+2026-10-21 21:06:06,647 INFO [moves] progress 48600/112331 (21739s) warnings=1
+2026-10-21 21:07:20,823 INFO [moves] progress 48810/112331 (21813s) warnings=1
+2026-10-21 21:08:36,508 INFO [moves] progress 49005/112331 (21889s) warnings=1
+2026-10-21 21:09:51,614 INFO [moves] progress 49200/112331 (21964s) warnings=1
+2026-10-21 21:11:13,403 INFO [moves] progress 49410/112331 (22046s) warnings=1
+2026-10-21 21:12:41,056 INFO [moves] progress 49605/112331 (22134s) warnings=1
+2026-10-21 21:13:49,619 INFO [moves] progress 49800/112331 (22202s) warnings=1
+2026-10-21 21:15:29,555 INFO [moves] progress 50010/112331 (22302s) warnings=1
+2026-10-21 21:17:08,852 INFO [moves] progress 50205/112331 (22401s) warnings=1
+2026-10-21 21:19:00,980 INFO [moves] progress 50400/112331 (22513s) warnings=1
+2026-10-21 21:20:43,776 INFO [moves] progress 50610/112331 (22616s) warnings=1
+2026-10-21 21:22:01,043 INFO [moves] progress 50805/112331 (22694s) warnings=1
+2026-10-21 21:23:14,651 INFO [moves] progress 51000/112331 (22767s) warnings=1
+2026-10-21 21:24:40,016 INFO [moves] progress 51210/112331 (22853s) warnings=1
+2026-10-21 21:25:44,011 INFO [moves] progress 51405/112331 (22917s) warnings=1
+2026-10-21 21:26:59,721 INFO [moves] progress 51600/112331 (22992s) warnings=1
+2026-10-21 21:28:36,808 INFO [moves] progress 51810/112331 (23089s) warnings=1
+2026-10-21 21:29:55,742 INFO [moves] progress 52005/112331 (23168s) warnings=1
+2026-10-21 21:31:20,077 INFO [moves] progress 52200/112331 (23253s) warnings=1
+2026-10-21 21:33:57,232 INFO [moves] progress 52410/112331 (23410s) warnings=1
+2026-10-21 21:36:16,590 INFO [moves] progress 52605/112331 (23549s) warnings=1
+2026-10-21 21:38:19,638 INFO [moves] progress 52800/112331 (23672s) warnings=1
+2026-10-21 21:40:40,388 INFO [moves] progress 53010/112331 (23813s) warnings=1
+2026-10-21 21:42:40,394 INFO [moves] progress 53205/112331 (23933s) warnings=1
+2026-10-21 21:44:30,089 INFO [moves] progress 53400/112331 (24043s) warnings=1
+2026-10-21 21:46:23,022 INFO [moves] progress 53610/112331 (24156s) warnings=1
+2026-10-21 21:48:27,781 INFO [moves] progress 53805/112331 (24280s) warnings=1
+2026-10-21 21:50:17,022 INFO [moves] progress 54000/112331 (24390s) warnings=1
+2026-10-21 21:52:29,202 INFO [moves] progress 54210/112331 (24522s) warnings=1
+2026-10-21 21:54:12,589 INFO [moves] progress 54405/112331 (24625s) warnings=1
+2026-10-21 21:55:46,902 INFO [moves] progress 54600/112331 (24719s) warnings=1
+2026-10-21 21:57:30,389 INFO [moves] progress 54810/112331 (24823s) warnings=1
+2026-10-21 21:58:55,287 INFO [moves] progress 55005/112331 (24908s) warnings=1
+2026-10-21 22:00:35,619 INFO [moves] progress 55200/112331 (25008s) warnings=1
+2026-10-21 22:02:33,554 INFO [moves] progress 55410/112331 (25126s) warnings=1
+2026-10-21 22:04:12,914 INFO [moves] progress 55605/112331 (25225s) warnings=1
+2026-10-21 22:05:45,416 INFO [moves] progress 55800/112331 (25318s) warnings=1
+2026-10-21 22:06:46,610 INFO [moves] progress 56010/112331 (25379s) warnings=1
+2026-10-21 22:07:53,511 INFO [moves] progress 56205/112331 (25446s) warnings=1
+2026-10-21 22:09:48,275 INFO [moves] progress 56400/112331 (25561s) warnings=1
+2026-10-21 22:11:26,461 INFO [moves] progress 56610/112331 (25659s) warnings=1
+2026-10-21 22:12:47,825 INFO [moves] progress 56805/112331 (25740s) warnings=1
+2026-10-21 22:14:16,458 INFO [moves] progress 57000/112331 (25829s) warnings=1
+2026-10-21 22:15:45,790 INFO [moves] progress 57210/112331 (25918s) warnings=1
+2026-10-21 22:17:17,958 INFO [moves] progress 57405/112331 (26010s) warnings=1
+2026-10-21 22:18:36,751 INFO [moves] progress 57600/112331 (26089s) warnings=1
+2026-10-21 22:20:08,796 INFO [moves] progress 57810/112331 (26181s) warnings=1
+2026-10-21 22:21:27,858 INFO [moves] progress 58005/112331 (26260s) warnings=1
+2026-10-21 22:22:41,947 INFO [moves] progress 58200/112331 (26334s) warnings=1
+2026-10-21 22:24:27,708 INFO [moves] progress 58410/112331 (26440s) warnings=1
+2026-10-21 22:25:47,804 INFO [moves] progress 58605/112331 (26520s) warnings=1
+2026-10-21 22:27:12,433 INFO [moves] progress 58800/112331 (26605s) warnings=1
+2026-10-21 22:28:29,888 INFO [moves] progress 59010/112331 (26682s) warnings=1
+2026-10-21 22:29:48,017 INFO [moves] progress 59205/112331 (26761s) warnings=1
+2026-10-21 22:31:18,409 INFO [moves] progress 59400/112331 (26851s) warnings=1
+2026-10-21 22:32:39,244 INFO [moves] progress 59610/112331 (26932s) warnings=1
+2026-10-21 22:34:05,382 INFO [moves] progress 59805/112331 (27018s) warnings=1
+2026-10-21 22:35:18,386 INFO [moves] progress 60000/112331 (27091s) warnings=1
+2026-10-21 22:36:43,163 INFO [moves] progress 60210/112331 (27176s) warnings=1
+2026-10-21 22:37:58,557 INFO [moves] progress 60405/112331 (27251s) warnings=1
+2026-10-21 22:39:30,112 INFO [moves] progress 60600/112331 (27343s) warnings=1
+2026-10-21 22:41:04,781 INFO [moves] progress 60810/112331 (27437s) warnings=1
+2026-10-21 22:42:04,650 INFO [moves] progress 61005/112331 (27497s) warnings=1
+2026-10-21 22:43:25,140 INFO [moves] progress 61200/112331 (27578s) warnings=1
+2026-10-21 22:44:59,516 INFO [moves] progress 61410/112331 (27672s) warnings=1
+2026-10-21 22:46:23,620 INFO [moves] progress 61605/112331 (27756s) warnings=1
+2026-10-21 22:47:36,162 INFO [moves] progress 61800/112331 (27829s) warnings=1
+2026-10-21 22:49:07,762 INFO [moves] progress 62010/112331 (27920s) warnings=1
+2026-10-21 22:50:18,589 INFO [moves] progress 62205/112331 (27991s) warnings=1
+2026-10-21 22:51:42,248 INFO [moves] progress 62400/112331 (28075s) warnings=1
+2026-10-21 22:52:43,509 INFO [moves] progress 62610/112331 (28136s) warnings=1
+2026-10-21 22:54:07,586 INFO [moves] progress 62805/112331 (28220s) warnings=1
+2026-10-21 22:55:19,007 INFO [moves] progress 63000/112331 (28292s) warnings=1
+2026-10-21 22:56:46,014 INFO [moves] progress 63210/112331 (28379s) warnings=1
+2026-10-21 22:57:55,057 INFO [moves] progress 63405/112331 (28448s) warnings=1
+2026-10-21 22:59:05,096 INFO [moves] progress 63600/112331 (28518s) warnings=1
+2026-10-21 23:00:48,069 INFO [moves] progress 63810/112331 (28621s) warnings=1
+2026-10-21 23:02:14,600 INFO [moves] progress 64005/112331 (28707s) warnings=1
+2026-10-21 23:03:41,761 INFO [moves] progress 64200/112331 (28794s) warnings=1
+2026-10-21 23:05:34,815 INFO [moves] progress 64410/112331 (28907s) warnings=1
+2026-10-21 23:06:55,519 INFO [moves] progress 64605/112331 (28988s) warnings=1
+2026-10-21 23:08:04,084 INFO [moves] progress 64800/112331 (29057s) warnings=1
+2026-10-21 23:09:18,677 INFO [moves] progress 65010/112331 (29131s) warnings=1
+2026-10-21 23:10:46,647 INFO [moves] progress 65205/112331 (29219s) warnings=1
+2026-10-21 23:11:50,673 INFO [moves] progress 65400/112331 (29283s) warnings=1
+2026-10-21 23:13:19,967 INFO [moves] progress 65610/112331 (29372s) warnings=1
+2026-10-21 23:14:46,344 INFO [moves] progress 65805/112331 (29459s) warnings=1
+2026-10-21 23:16:05,958 INFO [moves] progress 66000/112331 (29538s) warnings=1
+2026-10-21 23:17:42,094 INFO [moves] progress 66210/112331 (29635s) warnings=1
+2026-10-21 23:19:06,295 INFO [moves] progress 66405/112331 (29719s) warnings=1
+2026-10-21 23:20:44,810 INFO [moves] progress 66600/112331 (29817s) warnings=1
+2026-10-21 23:22:09,645 INFO [moves] progress 66810/112331 (29902s) warnings=1
+2026-10-21 23:23:49,556 INFO [moves] progress 67005/112331 (30002s) warnings=1
+2026-10-21 23:25:39,987 INFO [moves] progress 67200/112331 (30113s) warnings=1
+2026-10-21 23:27:17,459 INFO [moves] progress 67410/112331 (30210s) warnings=1
+2026-10-21 23:28:47,067 INFO [moves] progress 67605/112331 (30300s) warnings=1
+2026-10-21 23:30:26,379 INFO [moves] progress 67800/112331 (30399s) warnings=1
+2026-10-21 23:32:58,684 INFO [moves] progress 68010/112331 (30551s) warnings=1
+2026-10-21 23:34:37,097 INFO [moves] progress 68205/112331 (30650s) warnings=1
+2026-10-21 23:36:40,368 INFO [moves] progress 68400/112331 (30773s) warnings=1
+2026-10-21 23:38:10,744 INFO [moves] progress 68610/112331 (30863s) warnings=1
+2026-10-21 23:39:44,041 INFO [moves] progress 68805/112331 (30957s) warnings=1
+2026-10-21 23:41:40,238 INFO [moves] progress 69000/112331 (31073s) warnings=1
+2026-10-21 23:43:12,351 INFO [moves] progress 69210/112331 (31165s) warnings=1
+2026-10-21 23:44:52,694 INFO [moves] progress 69405/112331 (31265s) warnings=1
+2026-10-21 23:46:31,984 INFO [moves] progress 69600/112331 (31365s) warnings=1
+2026-10-21 23:48:26,002 INFO [moves] progress 69810/112331 (31479s) warnings=1
+2026-10-21 23:49:58,956 INFO [moves] progress 70005/112331 (31571s) warnings=1
+2026-10-21 23:51:57,649 INFO [moves] progress 70200/112331 (31690s) warnings=1
+2026-10-21 23:53:38,739 INFO [moves] progress 70410/112331 (31791s) warnings=1
+2026-10-21 23:55:35,165 INFO [moves] progress 70605/112331 (31908s) warnings=1
+2026-10-21 23:57:22,504 INFO [moves] progress 70800/112331 (32015s) warnings=1
+2026-10-21 23:59:11,466 INFO [moves] progress 71010/112331 (32124s) warnings=1
+2026-10-22 00:01:29,564 INFO [moves] progress 71205/112331 (32262s) warnings=1
+2026-10-22 00:03:41,371 INFO [moves] progress 71400/112331 (32394s) warnings=1
+2026-10-22 00:06:00,042 INFO [moves] progress 71610/112331 (32533s) warnings=1
+2026-10-22 00:08:39,948 INFO [moves] progress 71805/112331 (32692s) warnings=1
+2026-10-22 00:11:11,301 INFO [moves] progress 72000/112331 (32844s) warnings=1
+2026-10-22 00:13:18,855 INFO [moves] progress 72210/112331 (32971s) warnings=1
+2026-10-22 00:14:57,208 INFO [moves] progress 72405/112331 (33070s) warnings=1
+2026-10-22 00:16:28,826 INFO [moves] progress 72600/112331 (33161s) warnings=1
+2026-10-22 00:17:56,252 INFO [moves] progress 72810/112331 (33249s) warnings=1
+2026-10-22 00:19:10,899 INFO [moves] progress 73005/112331 (33323s) warnings=1
+2026-10-22 00:20:45,761 INFO [moves] progress 73200/112331 (33418s) warnings=1
+2026-10-22 00:22:32,638 INFO [moves] progress 73410/112331 (33525s) warnings=1
+2026-10-22 00:23:59,300 INFO [moves] progress 73605/112331 (33612s) warnings=1
+2026-10-22 00:25:24,540 INFO [moves] progress 73800/112331 (33697s) warnings=1
+2026-10-22 00:27:14,510 INFO [moves] progress 74010/112331 (33807s) warnings=1
+2026-10-22 00:29:04,639 INFO [moves] progress 74205/112331 (33917s) warnings=1
+2026-10-22 00:31:13,261 INFO [moves] progress 74400/112331 (34046s) warnings=1
+2026-10-22 00:33:10,771 INFO [moves] progress 74610/112331 (34163s) warnings=1
+2026-10-22 00:34:23,952 INFO [moves] progress 74805/112331 (34236s) warnings=1
+2026-10-22 00:35:51,733 INFO [moves] progress 75000/112331 (34324s) warnings=1
+2026-10-22 00:37:34,058 INFO [moves] progress 75210/112331 (34427s) warnings=1
+2026-10-22 00:38:49,232 INFO [moves] progress 75405/112331 (34502s) warnings=1
+2026-10-22 00:40:06,697 INFO [moves] progress 75600/112331 (34579s) warnings=1
+2026-10-22 00:41:40,009 INFO [moves] progress 75810/112331 (34673s) warnings=1
+2026-10-22 00:42:48,907 INFO [moves] progress 76005/112331 (34741s) warnings=1
+2026-10-22 00:44:15,395 INFO [moves] progress 76200/112331 (34828s) warnings=1
+2026-10-22 00:46:52,141 INFO [moves] progress 76410/112331 (34985s) warnings=1
+2026-10-22 00:49:09,369 INFO [moves] progress 76605/112331 (35122s) warnings=1
+2026-10-22 00:50:36,205 INFO [moves] progress 76800/112331 (35209s) warnings=1
+2026-10-22 00:52:05,719 INFO [moves] progress 77010/112331 (35298s) warnings=1
+2026-10-22 00:53:30,012 INFO [moves] progress 77205/112331 (35383s) warnings=1
+2026-10-22 00:54:46,140 INFO [moves] progress 77400/112331 (35459s) warnings=1
+2026-10-22 00:56:19,889 INFO [moves] progress 77610/112331 (35552s) warnings=1
+2026-10-22 00:57:31,901 INFO [moves] progress 77805/112331 (35624s) warnings=1
+2026-10-22 00:58:45,734 INFO [moves] progress 78000/112331 (35698s) warnings=1
+2026-10-22 00:59:53,357 INFO [moves] progress 78210/112331 (35766s) warnings=1
+2026-10-22 01:01:28,947 INFO [moves] progress 78405/112331 (35861s) warnings=1
+2026-10-22 01:03:07,907 INFO [moves] progress 78600/112331 (35960s) warnings=1
+2026-10-22 01:04:41,891 INFO [moves] progress 78810/112331 (36054s) warnings=1
+2026-10-22 01:06:15,892 INFO [moves] progress 79005/112331 (36148s) warnings=1
+2026-10-22 01:07:56,291 INFO [moves] progress 79200/112331 (36249s) warnings=1
+2026-10-22 01:09:34,544 INFO [moves] progress 79410/112331 (36347s) warnings=1
+2026-10-22 01:11:04,746 INFO [moves] progress 79605/112331 (36437s) warnings=1
+2026-10-22 01:12:30,100 INFO [moves] progress 79800/112331 (36523s) warnings=1
+2026-10-22 01:13:59,501 INFO [moves] progress 80010/112331 (36612s) warnings=1
+2026-10-22 01:15:14,416 INFO [moves] progress 80205/112331 (36687s) warnings=1
+2026-10-22 01:16:35,678 INFO [moves] progress 80400/112331 (36768s) warnings=1
+2026-10-22 01:18:16,047 INFO [moves] progress 80610/112331 (36869s) warnings=1
+2026-10-22 01:19:23,528 INFO [moves] progress 80805/112331 (36936s) warnings=1
+2026-10-22 01:20:53,221 INFO [moves] progress 81000/112331 (37026s) warnings=1
+2026-10-22 01:22:25,766 INFO [moves] progress 81210/112331 (37118s) warnings=1
+2026-10-22 01:23:52,166 INFO [moves] progress 81405/112331 (37205s) warnings=1
+2026-10-22 01:25:16,516 INFO [moves] progress 81600/112331 (37289s) warnings=1
+2026-10-22 01:26:40,434 INFO [moves] progress 81810/112331 (37373s) warnings=1
+2026-10-22 01:27:56,619 INFO [moves] progress 82005/112331 (37449s) warnings=1
+2026-10-22 01:29:08,032 INFO [moves] progress 82200/112331 (37521s) warnings=1
+2026-10-22 01:30:24,807 INFO [moves] progress 82410/112331 (37597s) warnings=1
+2026-10-22 01:31:36,220 INFO [moves] progress 82605/112331 (37669s) warnings=1
+2026-10-22 01:32:39,878 INFO [moves] progress 82800/112331 (37732s) warnings=1
+2026-10-22 01:33:46,543 INFO [moves] progress 83010/112331 (37799s) warnings=1
+2026-10-22 01:34:49,238 INFO [moves] progress 83205/112331 (37862s) warnings=1
+2026-10-22 01:35:56,156 INFO [moves] progress 83400/112331 (37929s) warnings=1
+2026-10-22 01:37:22,537 INFO [moves] progress 83610/112331 (38015s) warnings=1
+2026-10-22 01:38:23,120 INFO [moves] progress 83805/112331 (38076s) warnings=1
+2026-10-22 01:39:39,324 INFO [moves] progress 84000/112331 (38152s) warnings=1
+2026-10-22 01:41:11,721 INFO [moves] progress 84210/112331 (38244s) warnings=1
+2026-10-22 01:42:14,904 INFO [moves] progress 84405/112331 (38307s) warnings=1
+2026-10-22 01:43:15,172 INFO [moves] progress 84600/112331 (38368s) warnings=1
+2026-10-22 01:44:23,531 INFO [moves] progress 84810/112331 (38436s) warnings=1
+2026-10-22 01:45:41,668 INFO [moves] progress 85005/112331 (38514s) warnings=1
+2026-10-22 01:46:59,101 INFO [moves] progress 85200/112331 (38592s) warnings=1
+2026-10-22 01:48:18,444 INFO [moves] progress 85410/112331 (38671s) warnings=1
+2026-10-22 01:49:28,295 INFO [moves] progress 85605/112331 (38741s) warnings=1
+2026-10-22 01:50:44,624 INFO [moves] progress 85800/112331 (38817s) warnings=1
+2026-10-22 01:52:22,569 INFO [moves] progress 86010/112331 (38915s) warnings=1
+2026-10-22 01:53:46,844 INFO [moves] progress 86205/112331 (38999s) warnings=1
+2026-10-22 01:55:21,459 INFO [moves] progress 86400/112331 (39094s) warnings=1
+2026-10-22 01:57:12,414 INFO [moves] progress 86610/112331 (39205s) warnings=1
+2026-10-22 01:58:54,013 INFO [moves] progress 86805/112331 (39307s) warnings=1
+2026-10-22 02:00:53,004 INFO [moves] progress 87000/112331 (39426s) warnings=1
+2026-10-22 02:03:22,354 INFO [moves] progress 87210/112331 (39575s) warnings=1
+2026-10-22 02:05:08,788 INFO [moves] progress 87405/112331 (39681s) warnings=1
+2026-10-22 02:06:44,393 INFO [moves] progress 87600/112331 (39777s) warnings=1
+2026-10-22 02:08:51,036 INFO [moves] progress 87810/112331 (39904s) warnings=1
+2026-10-22 02:10:28,941 INFO [moves] progress 88005/112331 (40001s) warnings=1
+2026-10-22 02:12:00,101 INFO [moves] progress 88200/112331 (40093s) warnings=1
+2026-10-22 02:13:47,757 INFO [moves] progress 88410/112331 (40200s) warnings=1
+2026-10-22 02:15:14,865 INFO [moves] progress 88605/112331 (40287s) warnings=1
+2026-10-22 02:16:33,625 INFO [moves] progress 88800/112331 (40366s) warnings=1
+2026-10-22 02:17:57,185 INFO [moves] progress 89010/112331 (40450s) warnings=1
+2026-10-22 02:19:30,025 INFO [moves] progress 89205/112331 (40543s) warnings=1
+2026-10-22 02:21:02,776 INFO [moves] progress 89400/112331 (40635s) warnings=1
+2026-10-22 02:22:32,204 INFO [moves] progress 89610/112331 (40725s) warnings=1
+2026-10-22 02:23:43,838 INFO [moves] progress 89805/112331 (40796s) warnings=1
+2026-10-22 02:25:08,080 INFO [moves] progress 90000/112331 (40881s) warnings=1
+2026-10-22 02:26:33,761 INFO [moves] progress 90210/112331 (40966s) warnings=1
+2026-10-22 02:28:42,105 INFO [moves] progress 90405/112331 (41095s) warnings=1
+2026-10-22 02:30:37,836 INFO [moves] progress 90600/112331 (41210s) warnings=1
+2026-10-22 02:32:48,752 INFO [moves] progress 90810/112331 (41341s) warnings=1
+2026-10-22 02:34:15,581 INFO [moves] progress 91005/112331 (41428s) warnings=1
+2026-10-22 02:36:17,382 INFO [moves] progress 91200/112331 (41550s) warnings=1
+2026-10-22 02:38:27,625 INFO [moves] progress 91410/112331 (41680s) warnings=1
+2026-10-22 02:39:41,411 INFO [moves] progress 91605/112331 (41754s) warnings=1
+2026-10-22 02:41:32,206 INFO [moves] progress 91800/112331 (41865s) warnings=1
+2026-10-22 02:43:05,539 INFO [moves] progress 92010/112331 (41958s) warnings=1
+2026-10-22 02:44:32,860 INFO [moves] progress 92205/112331 (42045s) warnings=1
+2026-10-22 02:46:30,350 INFO [moves] progress 92400/112331 (42163s) warnings=1
+2026-10-22 02:47:50,261 INFO [moves] progress 92610/112331 (42243s) warnings=1
+2026-10-22 02:49:03,055 INFO [moves] progress 92805/112331 (42316s) warnings=1
+2026-10-22 02:50:25,934 INFO [moves] progress 93000/112331 (42398s) warnings=1
+2026-10-22 02:51:53,743 INFO [moves] progress 93210/112331 (42486s) warnings=1
+2026-10-22 02:53:18,578 INFO [moves] progress 93405/112331 (42571s) warnings=1
+2026-10-22 02:54:54,185 INFO [moves] progress 93600/112331 (42667s) warnings=1
+2026-10-22 02:56:27,322 INFO [moves] progress 93810/112331 (42760s) warnings=1
+2026-10-22 02:58:08,511 INFO [moves] progress 94005/112331 (42861s) warnings=1
+2026-10-22 02:59:19,948 INFO [moves] progress 94200/112331 (42932s) warnings=1
+2026-10-22 03:01:00,150 INFO [moves] progress 94410/112331 (43033s) warnings=1
+2026-10-22 03:02:30,997 INFO [moves] progress 94605/112331 (43124s) warnings=1
+2026-10-22 03:03:46,311 INFO [moves] progress 94800/112331 (43199s) warnings=1
+2026-10-22 03:05:16,642 INFO [moves] progress 95010/112331 (43289s) warnings=1
+2026-10-22 03:06:50,704 INFO [moves] progress 95205/112331 (43383s) warnings=1
+2026-10-22 03:08:05,131 INFO [moves] progress 95400/112331 (43458s) warnings=1
+2026-10-22 03:09:33,495 INFO [moves] progress 95610/112331 (43546s) warnings=1
+2026-10-22 03:11:04,418 INFO [moves] progress 95805/112331 (43637s) warnings=1
+2026-10-22 03:12:30,572 INFO [moves] progress 96000/112331 (43723s) warnings=1
+2026-10-22 03:14:01,065 INFO [moves] progress 96210/112331 (43814s) warnings=1
+2026-10-22 03:15:52,005 INFO [moves] progress 96405/112331 (43925s) warnings=1
+2026-10-22 03:17:40,318 INFO [moves] progress 96600/112331 (44033s) warnings=1
+2026-10-22 03:19:30,948 INFO [moves] progress 96810/112331 (44143s) warnings=1
+2026-10-22 03:21:10,499 INFO [moves] progress 97005/112331 (44243s) warnings=1
+2026-10-22 03:22:45,241 INFO [moves] progress 97200/112331 (44338s) warnings=1
+2026-10-22 03:24:13,599 INFO [moves] progress 97410/112331 (44426s) warnings=1
+2026-10-22 03:25:15,473 INFO [moves] progress 97605/112331 (44488s) warnings=1
+2026-10-22 03:26:27,912 INFO [moves] progress 97800/112331 (44560s) warnings=1
+2026-10-22 03:27:46,699 INFO [moves] progress 98010/112331 (44639s) warnings=1
+2026-10-22 03:28:48,949 INFO [moves] progress 98205/112331 (44701s) warnings=1
+2026-10-22 03:30:13,175 INFO [moves] progress 98400/112331 (44786s) warnings=1
+2026-10-22 03:32:02,583 INFO [moves] progress 98610/112331 (44895s) warnings=1
+2026-10-22 03:33:28,394 INFO [moves] progress 98805/112331 (44981s) warnings=1
+2026-10-22 03:35:08,302 INFO [moves] progress 99000/112331 (45081s) warnings=1
+2026-10-22 03:36:51,756 INFO [moves] progress 99210/112331 (45184s) warnings=1
+2026-10-22 03:38:16,649 INFO [moves] progress 99405/112331 (45269s) warnings=1
+2026-10-22 03:40:12,928 INFO [moves] progress 99600/112331 (45385s) warnings=1
+2026-10-22 03:41:50,006 INFO [moves] progress 99810/112331 (45483s) warnings=1
+2026-10-22 03:43:17,734 INFO [moves] progress 100005/112331 (45570s) warnings=1
+2026-10-22 03:45:17,236 INFO [moves] progress 100200/112331 (45690s) warnings=1
+2026-10-22 03:46:57,097 INFO [moves] progress 100410/112331 (45790s) warnings=1
+2026-10-22 03:48:40,442 INFO [moves] progress 100605/112331 (45893s) warnings=1
+2026-10-22 03:50:04,552 INFO [moves] progress 100800/112331 (45977s) warnings=1
+2026-10-22 03:51:45,944 INFO [moves] progress 101010/112331 (46078s) warnings=1
+2026-10-22 03:53:45,437 INFO [moves] progress 101205/112331 (46198s) warnings=1
+2026-10-22 03:55:20,587 INFO [moves] progress 101400/112331 (46293s) warnings=1
+2026-10-22 03:56:57,843 INFO [moves] progress 101610/112331 (46390s) warnings=1
+2026-10-22 03:58:39,053 INFO [moves] progress 101805/112331 (46492s) warnings=1
+2026-10-22 04:00:42,991 INFO [moves] progress 102000/112331 (46616s) warnings=1
+2026-10-22 04:03:10,020 INFO [moves] progress 102210/112331 (46763s) warnings=1
+2026-10-22 04:04:47,851 INFO [moves] progress 102405/112331 (46860s) warnings=1
+2026-10-22 04:06:40,727 INFO [moves] progress 102600/112331 (46973s) warnings=1
+2026-10-22 04:08:45,177 INFO [moves] progress 102810/112331 (47098s) warnings=1
+2026-10-22 04:10:32,153 INFO [moves] progress 103005/112331 (47205s) warnings=1
+2026-10-22 04:12:31,956 INFO [moves] progress 103200/112331 (47324s) warnings=1
+2026-10-22 04:14:42,706 INFO [moves] progress 103410/112331 (47455s) warnings=1
+2026-10-22 04:15:57,990 INFO [moves] progress 103605/112331 (47531s) warnings=1
+2026-10-22 04:17:47,049 INFO [moves] progress 103800/112331 (47640s) warnings=1
+2026-10-22 04:19:13,097 INFO [moves] progress 104010/112331 (47726s) warnings=1
+2026-10-22 04:20:44,283 INFO [moves] progress 104205/112331 (47817s) warnings=1
+2026-10-22 04:22:10,604 INFO [moves] progress 104400/112331 (47903s) warnings=1
+2026-10-22 04:23:53,961 INFO [moves] progress 104610/112331 (48006s) warnings=1
+2026-10-22 04:25:49,631 INFO [moves] progress 104805/112331 (48122s) warnings=1
+2026-10-22 04:27:27,151 INFO [moves] progress 105000/112331 (48220s) warnings=1
+2026-10-22 04:29:07,072 INFO [moves] progress 105210/112331 (48320s) warnings=1
+2026-10-22 04:30:41,507 INFO [moves] progress 105405/112331 (48414s) warnings=1
+2026-10-22 04:32:24,219 INFO [moves] progress 105600/112331 (48517s) warnings=1
+2026-10-22 04:33:50,273 INFO [moves] progress 105810/112331 (48603s) warnings=1
+2026-10-22 04:35:30,281 INFO [moves] progress 106005/112331 (48703s) warnings=1
+2026-10-22 04:36:56,804 INFO [moves] progress 106200/112331 (48789s) warnings=1
+2026-10-22 04:38:37,349 INFO [moves] progress 106410/112331 (48890s) warnings=1
+2026-10-22 04:39:51,791 INFO [moves] progress 106605/112331 (48964s) warnings=1
+2026-10-22 04:41:24,258 INFO [moves] progress 106800/112331 (49057s) warnings=1
+2026-10-22 04:42:44,384 INFO [moves] progress 107010/112331 (49137s) warnings=1
+2026-10-22 04:44:06,432 INFO [moves] progress 107205/112331 (49219s) warnings=1
+2026-10-22 04:45:36,115 INFO [moves] progress 107400/112331 (49309s) warnings=1
+2026-10-22 04:46:44,516 WARNING Skip account.move#244783: master map nahi: product_id: product.product#24141
+2026-10-22 04:47:14,753 INFO [moves] progress 107610/112331 (49407s) warnings=1
+2026-10-22 04:48:37,696 INFO [moves] progress 107805/112331 (49490s) warnings=1
+2026-10-22 04:50:09,111 INFO [moves] progress 108000/112331 (49582s) warnings=1
+2026-10-22 04:50:13,913 WARNING Skip account.move#245264: master map nahi: product_id: product.product#24141
+2026-10-22 04:50:42,715 WARNING Skip account.move#245339: master map nahi: product_id: product.product#24141
+2026-10-22 04:51:33,472 INFO [moves] progress 108210/112331 (49666s) warnings=1
+2026-10-22 04:52:57,950 INFO [moves] progress 108405/112331 (49750s) warnings=1
+2026-10-22 04:54:31,290 INFO [moves] progress 108600/112331 (49844s) warnings=1
+2026-10-22 04:56:15,132 INFO [moves] progress 108810/112331 (49948s) warnings=1
+2026-10-22 04:57:36,649 INFO [moves] progress 109005/112331 (50029s) warnings=1
+2026-10-22 04:58:57,778 INFO [moves] progress 109200/112331 (50110s) warnings=1
+2026-10-22 05:00:46,130 INFO [moves] progress 109410/112331 (50219s) warnings=1
+2026-10-22 05:02:13,047 WARNING Skip account.move#246807: master map nahi: product_id: product.product#24141
+2026-10-22 05:02:43,611 INFO [moves] progress 109605/112331 (50336s) warnings=1
+2026-10-22 05:04:46,046 INFO [moves] progress 109800/112331 (50459s) warnings=1
+2026-10-22 05:06:14,829 WARNING Skip account.move#247214: master map nahi: product_id: product.product#24141
+2026-10-22 05:06:44,053 WARNING Skip account.move#247261: master map nahi: product_id: product.product#24141
+2026-10-22 05:07:18,563 INFO [moves] progress 110010/112331 (50611s) warnings=1
+2026-10-22 05:09:09,484 INFO [moves] progress 110205/112331 (50722s) warnings=1
+2026-10-22 05:09:41,075 WARNING Skip account.move#247563: master map nahi: product_id: product.product#24141
+2026-10-22 05:09:49,636 WARNING Skip account.move#247556: master map nahi: product_id: product.product#24141
+2026-10-22 05:10:43,567 INFO [moves] progress 110400/112331 (50816s) warnings=1
+2026-10-22 05:12:05,249 INFO [moves] progress 110610/112331 (50898s) warnings=1
+2026-10-22 05:13:27,710 INFO [moves] progress 110805/112331 (50980s) warnings=1
+2026-10-22 05:14:48,124 INFO [moves] progress 111000/112331 (51061s) warnings=1
+2026-10-22 05:16:39,808 INFO [moves] progress 111210/112331 (51172s) warnings=1
+2026-10-22 05:18:22,429 INFO [moves] progress 111405/112331 (51275s) warnings=1
+2026-10-22 05:18:53,079 WARNING Skip account.move#254759: master map nahi: partner_id: res.partner#29802
+2026-10-22 05:18:55,369 WARNING Skip account.move#254748: master map nahi: partner_id: res.partner#29801, partner_id: res.partner#29801, partner_id: res.partner#29801, partner_id: res.partner#29801
+2026-10-22 05:18:55,370 WARNING Skip account.move#254749: master map nahi: partner_id: res.partner#29801
+2026-10-22 05:18:56,578 WARNING Skip account.move#254762: master map nahi: partner_id: res.partner#29803, partner_id: res.partner#29803, partner_id: res.partner#29803, partner_id: res.partner#29803
+2026-10-22 05:18:56,579 WARNING Skip account.move#254763: master map nahi: partner_id: res.partner#29803
+2026-10-22 05:19:02,909 WARNING Skip account.move#254768: master map nahi: partner_id: res.partner#29804, partner_id: res.partner#29804, partner_id: res.partner#29804, partner_id: res.partner#29804, partner_id: res.partner#29804
+2026-10-22 05:19:02,909 WARNING Skip account.move#254769: master map nahi: partner_id: res.partner#29804
+2026-10-22 05:19:02,910 WARNING Skip account.move#254771: master map nahi: partner_id: res.partner#29805, partner_id: res.partner#29805, partner_id: res.partner#29805, partner_id: res.partner#29805
+2026-10-22 05:19:02,910 WARNING Skip account.move#254772: master map nahi: partner_id: res.partner#29805
+2026-10-22 05:19:08,504 WARNING Skip account.move#254758: master map nahi: partner_id: res.partner#29802, partner_id: res.partner#29802, partner_id: res.partner#29802, partner_id: res.partner#29802
+2026-10-22 05:19:08,665 WARNING Skip account.move#254805: master map nahi: partner_id: res.partner#29806, partner_id: res.partner#29806, partner_id: res.partner#29806, partner_id: res.partner#29806, partner_id: res.partner#29806
+2026-10-22 05:19:08,665 WARNING Skip account.move#254806: master map nahi: partner_id: res.partner#29806
+2026-10-22 05:19:11,649 WARNING Skip account.move#254809: master map nahi: partner_id: res.partner#29807, partner_id: res.partner#29807, partner_id: res.partner#29807, partner_id: res.partner#29807
+2026-10-22 05:19:11,650 WARNING Skip account.move#254810: master map nahi: partner_id: res.partner#29807
+2026-10-22 05:19:11,651 WARNING Skip account.move#254811: master map nahi: partner_id: res.partner#29808, partner_id: res.partner#29808, partner_id: res.partner#29808, partner_id: res.partner#29808, partner_id: res.partner#29808, partner_id: res.partner#29808
+2026-10-22 05:19:11,651 WARNING Skip account.move#254812: master map nahi: partner_id: res.partner#29808
+2026-10-22 05:19:11,652 WARNING Skip account.move#254813: master map nahi: partner_id: res.partner#29809, partner_id: res.partner#29809, partner_id: res.partner#29809, partner_id: res.partner#29809, partner_id: res.partner#29809
+2026-10-22 05:19:11,652 WARNING Skip account.move#254814: master map nahi: partner_id: res.partner#29809
+2026-10-22 05:19:16,252 WARNING Skip account.move#254824: master map nahi: partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810
+2026-10-22 05:19:16,253 WARNING Skip account.move#254825: master map nahi: partner_id: res.partner#29810
+2026-10-22 05:19:16,253 WARNING Skip account.move#254826: master map nahi: partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810
+2026-10-22 05:19:16,253 WARNING Skip account.move#254827: master map nahi: partner_id: res.partner#29810
+2026-10-22 05:19:16,254 WARNING Skip account.move#254828: master map nahi: partner_id: res.partner#29811, partner_id: res.partner#29811, partner_id: res.partner#29811, partner_id: res.partner#29811
+2026-10-22 05:19:16,254 WARNING Skip account.move#254829: master map nahi: partner_id: res.partner#29811
+2026-10-22 05:19:25,928 WARNING Skip account.move#254840: master map nahi: partner_id: res.partner#29812, partner_id: res.partner#29812, partner_id: res.partner#29812, partner_id: res.partner#29812, partner_id: res.partner#29812
+2026-10-22 05:19:25,929 WARNING Skip account.move#254841: master map nahi: partner_id: res.partner#29812
+2026-10-22 05:19:26,083 WARNING Skip account.move#254850: master map nahi: partner_id: res.partner#29814, partner_id: res.partner#29814, partner_id: res.partner#29814, partner_id: res.partner#29814, partner_id: res.partner#29814
+2026-10-22 05:19:26,084 WARNING Skip account.move#254851: master map nahi: partner_id: res.partner#29814
+2026-10-22 05:19:28,907 INFO [moves] progress 111600/112331 (51341s) warnings=1
+2026-10-22 05:19:31,490 WARNING Skip account.move#254846: master map nahi: partner_id: res.partner#29813, partner_id: res.partner#29813, partner_id: res.partner#29813, partner_id: res.partner#29813, partner_id: res.partner#29813, partner_id: res.partner#29813
+2026-10-22 05:19:31,490 WARNING Skip account.move#254847: master map nahi: partner_id: res.partner#29813
+2026-10-22 05:19:32,134 WARNING Skip account.move#254856: master map nahi: partner_id: res.partner#29815, partner_id: res.partner#29815, partner_id: res.partner#29815, partner_id: res.partner#29815
+2026-10-22 05:19:32,134 WARNING Skip account.move#254857: master map nahi: partner_id: res.partner#29815
+2026-10-22 05:19:34,101 WARNING Skip account.move#254868: master map nahi: partner_id: res.partner#29816, partner_id: res.partner#29816, partner_id: res.partner#29816, partner_id: res.partner#29816, partner_id: res.partner#29816
+2026-10-22 05:19:34,101 WARNING Skip account.move#254869: master map nahi: partner_id: res.partner#29816
+2026-10-22 05:19:36,899 WARNING Skip account.move#254872: master map nahi: partner_id: res.partner#29817, partner_id: res.partner#29817, partner_id: res.partner#29817, partner_id: res.partner#29817
+2026-10-22 05:19:36,899 WARNING Skip account.move#254873: master map nahi: partner_id: res.partner#29817
+2026-10-22 05:19:39,528 WARNING Skip account.move#254886: master map nahi: partner_id: res.partner#29820, partner_id: res.partner#29820, partner_id: res.partner#29820, partner_id: res.partner#29820, partner_id: res.partner#29820
+2026-10-22 05:19:39,528 WARNING Skip account.move#254887: master map nahi: partner_id: res.partner#29820
+2026-10-22 05:19:42,195 WARNING Skip account.move#254878: master map nahi: partner_id: res.partner#29819, partner_id: res.partner#29819, partner_id: res.partner#29819, partner_id: res.partner#29819
+2026-10-22 05:19:42,196 WARNING Skip account.move#254879: master map nahi: partner_id: res.partner#29819
+2026-10-22 05:19:43,557 WARNING Skip account.move#254926: master map nahi: partner_id: res.partner#29825, partner_id: res.partner#29825, partner_id: res.partner#29825, partner_id: res.partner#29825
+2026-10-22 05:19:43,558 WARNING Skip account.move#254927: master map nahi: partner_id: res.partner#29825
+2026-10-22 05:19:43,558 WARNING Skip account.move#254928: master map nahi: partner_id: res.partner#29826, partner_id: res.partner#29826, partner_id: res.partner#29826, partner_id: res.partner#29826
+2026-10-22 05:19:43,558 WARNING Skip account.move#254929: master map nahi: partner_id: res.partner#29826
+2026-10-22 05:19:44,503 WARNING Skip account.move#254900: master map nahi: partner_id: res.partner#29821, partner_id: res.partner#29821, partner_id: res.partner#29821, partner_id: res.partner#29821
+2026-10-22 05:19:44,504 WARNING Skip account.move#254901: master map nahi: partner_id: res.partner#29821
+2026-10-22 05:19:44,504 WARNING Skip account.move#254902: master map nahi: partner_id: res.partner#29812, partner_id: res.partner#29812, partner_id: res.partner#29812, partner_id: res.partner#29812
+2026-10-22 05:19:44,504 WARNING Skip account.move#254903: master map nahi: partner_id: res.partner#29812
+2026-10-22 05:19:45,597 WARNING Skip account.move#254890: master map nahi: partner_id: res.partner#29809, partner_id: res.partner#29809, partner_id: res.partner#29809, partner_id: res.partner#29809, partner_id: res.partner#29809
+2026-10-22 05:19:45,597 WARNING Skip account.move#254891: master map nahi: partner_id: res.partner#29809
+2026-10-22 05:19:48,765 WARNING Skip account.move#254940: master map nahi: partner_id: res.partner#29828, partner_id: res.partner#29828, partner_id: res.partner#29828, partner_id: res.partner#29828
+2026-10-22 05:19:48,769 WARNING Skip account.move#254941: master map nahi: partner_id: res.partner#29828
+2026-10-22 05:19:48,770 WARNING Skip account.move#254942: master map nahi: partner_id: res.partner#29829, partner_id: res.partner#29829, partner_id: res.partner#29829, partner_id: res.partner#29829
+2026-10-22 05:19:48,770 WARNING Skip account.move#254943: master map nahi: partner_id: res.partner#29829
+2026-10-22 05:19:50,743 WARNING Skip account.move#254912: master map nahi: partner_id: res.partner#29822, partner_id: res.partner#29822, partner_id: res.partner#29822, partner_id: res.partner#29822, partner_id: res.partner#29822
+2026-10-22 05:19:50,743 WARNING Skip account.move#254913: master map nahi: partner_id: res.partner#29822
+2026-10-22 05:19:54,725 WARNING Skip account.move#254938: master map nahi: partner_id: res.partner#29827, partner_id: res.partner#29827, partner_id: res.partner#29827, partner_id: res.partner#29827
+2026-10-22 05:19:54,726 WARNING Skip account.move#254939: master map nahi: partner_id: res.partner#29827
+2026-10-22 05:19:55,220 WARNING Skip account.move#254918: master map nahi: partner_id: res.partner#29823, partner_id: res.partner#29823, partner_id: res.partner#29823, partner_id: res.partner#29823, partner_id: res.partner#29823
+2026-10-22 05:19:55,220 WARNING Skip account.move#254919: master map nahi: partner_id: res.partner#29823
+2026-10-22 05:19:55,221 WARNING Skip account.move#254920: master map nahi: partner_id: res.partner#29824, partner_id: res.partner#29824, partner_id: res.partner#29824, partner_id: res.partner#29824, partner_id: res.partner#29824
+2026-10-22 05:19:55,221 WARNING Skip account.move#254921: master map nahi: partner_id: res.partner#29824
+2026-10-22 05:19:57,598 WARNING Skip account.move#254946: master map nahi: partner_id: res.partner#29830, partner_id: res.partner#29830, partner_id: res.partner#29830, partner_id: res.partner#29830, partner_id: res.partner#29830
+2026-10-22 05:19:57,599 WARNING Skip account.move#254947: master map nahi: partner_id: res.partner#29830
+2026-10-22 05:20:08,344 WARNING Skip account.move#254989: master map nahi: partner_id: res.partner#29831, partner_id: res.partner#29831, partner_id: res.partner#29831, partner_id: res.partner#29831, partner_id: res.partner#29831, partner_id: res.partner#29831
+2026-10-22 05:20:08,344 WARNING Skip account.move#254990: master map nahi: partner_id: res.partner#29831
+2026-10-22 05:20:08,345 WARNING Skip account.move#254991: master map nahi: partner_id: res.partner#29823, partner_id: res.partner#29823, partner_id: res.partner#29823, partner_id: res.partner#29823, partner_id: res.partner#29823
+2026-10-22 05:20:08,345 WARNING Skip account.move#254992: master map nahi: partner_id: res.partner#29823
+2026-10-22 05:20:08,345 WARNING Skip account.move#254993: master map nahi: partner_id: res.partner#29832, partner_id: res.partner#29832, partner_id: res.partner#29832, partner_id: res.partner#29832, partner_id: res.partner#29832
+2026-10-22 05:20:08,345 WARNING Skip account.move#254994: master map nahi: partner_id: res.partner#29832
+2026-10-22 05:20:16,126 WARNING Skip account.move#254999: master map nahi: partner_id: res.partner#29833, partner_id: res.partner#29833, partner_id: res.partner#29833, partner_id: res.partner#29833
+2026-10-22 05:20:16,127 WARNING Skip account.move#255000: master map nahi: partner_id: res.partner#29833
+2026-10-22 05:20:17,870 WARNING Skip account.move#255032: master map nahi: partner_id: res.partner#29838
+2026-10-22 05:20:23,143 WARNING Skip account.move#255049: master map nahi: partner_id: res.partner#29841, partner_id: res.partner#29841, partner_id: res.partner#29841, partner_id: res.partner#29841
+2026-10-22 05:20:23,144 WARNING Skip account.move#255050: master map nahi: partner_id: res.partner#29841
+2026-10-22 05:20:28,879 WARNING Skip account.move#255013: master map nahi: partner_id: res.partner#29836, partner_id: res.partner#29836, partner_id: res.partner#29836, partner_id: res.partner#29836
+2026-10-22 05:20:28,880 WARNING Skip account.move#255014: master map nahi: partner_id: res.partner#29836
+2026-10-22 05:20:28,881 WARNING Skip account.move#255015: master map nahi: partner_id: res.partner#29834, partner_id: res.partner#29834, partner_id: res.partner#29834, partner_id: res.partner#29834
+2026-10-22 05:20:28,881 WARNING Skip account.move#255016: master map nahi: partner_id: res.partner#29834
+2026-10-22 05:20:30,771 WARNING Skip account.move#255041: master map nahi: partner_id: res.partner#29839, partner_id: res.partner#29839, partner_id: res.partner#29839, partner_id: res.partner#29839
+2026-10-22 05:20:30,771 WARNING Skip account.move#255042: master map nahi: partner_id: res.partner#29839
+2026-10-22 05:20:30,941 WARNING Skip account.move#255026: master map nahi: partner_id: res.partner#29837, partner_id: res.partner#29837, partner_id: res.partner#29837, partner_id: res.partner#29837
+2026-10-22 05:20:30,942 WARNING Skip account.move#255027: master map nahi: partner_id: res.partner#29837
+2026-10-22 05:20:32,672 WARNING Skip account.move#255058: master map nahi: partner_id: res.partner#29842, partner_id: res.partner#29842, partner_id: res.partner#29842, partner_id: res.partner#29842
+2026-10-22 05:20:32,673 WARNING Skip account.move#255059: master map nahi: partner_id: res.partner#29842
+2026-10-22 05:20:33,060 WARNING Skip account.move#255045: master map nahi: partner_id: res.partner#29840, partner_id: res.partner#29840, partner_id: res.partner#29840, partner_id: res.partner#29840, partner_id: res.partner#29840
+2026-10-22 05:20:33,060 WARNING Skip account.move#255046: master map nahi: partner_id: res.partner#29840
+2026-10-22 05:20:33,060 INFO [moves] progress 111810/112331 (51406s) warnings=1
+2026-10-22 05:20:34,610 WARNING Skip account.move#255092: master map nahi: partner_id: res.partner#29849, partner_id: res.partner#29849, partner_id: res.partner#29849, partner_id: res.partner#29849
+2026-10-22 05:20:34,610 WARNING Skip account.move#255093: master map nahi: partner_id: res.partner#29849
+2026-10-22 05:20:34,975 WARNING Skip account.move#255064: master map nahi: partner_id: res.partner#29843, partner_id: res.partner#29843, partner_id: res.partner#29843, partner_id: res.partner#29843
+2026-10-22 05:20:34,976 WARNING Skip account.move#255065: master map nahi: partner_id: res.partner#29843
+2026-10-22 05:20:37,138 WARNING Skip account.move#255031: master map nahi: partner_id: res.partner#29838, partner_id: res.partner#29838, partner_id: res.partner#29838, partner_id: res.partner#29838, partner_id: res.partner#29838, partner_id: res.partner#29838
+2026-10-22 05:20:37,611 WARNING Skip account.move#255068: master map nahi: partner_id: res.partner#29844, partner_id: res.partner#29844, partner_id: res.partner#29844, partner_id: res.partner#29844
+2026-10-22 05:20:37,611 WARNING Skip account.move#255069: master map nahi: partner_id: res.partner#29844
+2026-10-22 05:20:40,662 WARNING Skip account.move#255082: master map nahi: partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846
+2026-10-22 05:20:40,663 WARNING Skip account.move#255083: master map nahi: partner_id: res.partner#29846
+2026-10-22 05:20:41,224 WARNING Skip account.move#255143: master map nahi: partner_id: res.partner#29850, partner_id: res.partner#29850, partner_id: res.partner#29850, partner_id: res.partner#29850
+2026-10-22 05:20:41,226 WARNING Skip account.move#255144: master map nahi: partner_id: res.partner#29850
+2026-10-22 05:20:43,610 WARNING Skip account.move#255086: master map nahi: partner_id: res.partner#29847, partner_id: res.partner#29847, partner_id: res.partner#29847, partner_id: res.partner#29847
+2026-10-22 05:20:43,611 WARNING Skip account.move#255087: master map nahi: partner_id: res.partner#29847
+2026-10-22 05:20:43,611 WARNING Skip account.move#255088: master map nahi: partner_id: res.partner#29848, partner_id: res.partner#29848, partner_id: res.partner#29848, partner_id: res.partner#29848
+2026-10-22 05:20:43,611 WARNING Skip account.move#255089: master map nahi: partner_id: res.partner#29848
+2026-10-22 05:20:48,503 WARNING Skip account.move#255156: master map nahi: partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810, partner_id: res.partner#29810
+2026-10-22 05:20:48,503 WARNING Skip account.move#255157: master map nahi: partner_id: res.partner#29810
+2026-10-22 05:20:48,557 WARNING Skip account.move#255170: master map nahi: partner_id: res.partner#29851, partner_id: res.partner#29851, partner_id: res.partner#29851, partner_id: res.partner#29851
+2026-10-22 05:20:48,558 WARNING Skip account.move#255171: master map nahi: partner_id: res.partner#29851
+2026-10-22 05:20:59,852 WARNING Skip account.move#255191: master map nahi: partner_id: res.partner#29853, partner_id: res.partner#29853, partner_id: res.partner#29853, partner_id: res.partner#29853
+2026-10-22 05:20:59,854 WARNING Skip account.move#255192: master map nahi: partner_id: res.partner#29853
+2026-10-22 05:21:06,214 WARNING Skip account.move#255205: master map nahi: partner_id: res.partner#29855, partner_id: res.partner#29855, partner_id: res.partner#29855, partner_id: res.partner#29855
+2026-10-22 05:21:06,214 WARNING Skip account.move#255206: master map nahi: partner_id: res.partner#29855
+2026-10-22 05:21:11,992 WARNING Skip account.move#255183: master map nahi: partner_id: res.partner#29852, partner_id: res.partner#29852, partner_id: res.partner#29852, partner_id: res.partner#29852
+2026-10-22 05:21:11,992 WARNING Skip account.move#255184: master map nahi: partner_id: res.partner#29852
+2026-10-22 05:21:29,169 WARNING Skip account.move#255239: master map nahi: partner_id: res.partner#29805, partner_id: res.partner#29805, partner_id: res.partner#29805, partner_id: res.partner#29805
+2026-10-22 05:21:29,173 WARNING Skip account.move#255240: master map nahi: partner_id: res.partner#29805
+2026-10-22 05:21:45,913 INFO [moves] progress 112005/112331 (51478s) warnings=1
+2026-10-22 05:22:32,583 WARNING Skip account.move#255341: master map nahi: partner_id: res.partner#29872, partner_id: res.partner#29872, partner_id: res.partner#29872, partner_id: res.partner#29872
+2026-10-22 05:22:32,584 WARNING Skip account.move#255342: master map nahi: partner_id: res.partner#29872
+2026-10-22 05:22:34,309 WARNING Skip account.move#255404: master map nahi: partner_id: res.partner#29878, partner_id: res.partner#29878, partner_id: res.partner#29878, partner_id: res.partner#29878
+2026-10-22 05:22:34,309 WARNING Skip account.move#255405: master map nahi: partner_id: res.partner#29878
+2026-10-22 05:22:40,203 WARNING Skip account.move#255394: master map nahi: partner_id: res.partner#29876, partner_id: res.partner#29876, partner_id: res.partner#29876, partner_id: res.partner#29876, partner_id: res.partner#29876
+2026-10-22 05:22:40,204 WARNING Skip account.move#255395: master map nahi: partner_id: res.partner#29876
+2026-10-22 05:22:50,213 WARNING Skip account.move#255402: master map nahi: partner_id: res.partner#29877, partner_id: res.partner#29877, partner_id: res.partner#29877, partner_id: res.partner#29877
+2026-10-22 05:22:50,213 WARNING Skip account.move#255403: master map nahi: partner_id: res.partner#29877
+2026-10-22 05:22:53,159 WARNING Skip account.move#255451: master map nahi: partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846
+2026-10-22 05:22:53,160 WARNING Skip account.move#255452: master map nahi: partner_id: res.partner#29846
+2026-10-22 05:22:56,693 WARNING Skip account.move#255465: master map nahi: partner_id: res.partner#29882, partner_id: res.partner#29882, partner_id: res.partner#29882, partner_id: res.partner#29882, partner_id: res.partner#29882
+2026-10-22 05:22:56,694 WARNING Skip account.move#255466: master map nahi: partner_id: res.partner#29882
+2026-10-22 05:22:56,695 WARNING Skip account.move#255468: master map nahi: partner_id: res.partner#29883, partner_id: res.partner#29883, partner_id: res.partner#29883, partner_id: res.partner#29883, partner_id: res.partner#29883, partner_id: res.partner#29883
+2026-10-22 05:22:56,695 WARNING Skip account.move#255469: master map nahi: partner_id: res.partner#29883
+2026-10-22 05:22:57,566 WARNING Skip account.move#255480: master map nahi: partner_id: res.partner#29885, partner_id: res.partner#29885, partner_id: res.partner#29885, partner_id: res.partner#29885
+2026-10-22 05:22:57,567 WARNING Skip account.move#255481: master map nahi: partner_id: res.partner#29885
+2026-10-22 05:23:01,462 WARNING Skip account.move#255495: master map nahi: partner_id: res.partner#29888
+2026-10-22 05:23:01,512 WARNING Skip account.move#255459: master map nahi: partner_id: res.partner#29880, partner_id: res.partner#29880, partner_id: res.partner#29880, partner_id: res.partner#29880
+2026-10-22 05:23:01,512 WARNING Skip account.move#255460: master map nahi: partner_id: res.partner#29880
+2026-10-22 05:23:01,514 WARNING Skip account.move#255461: master map nahi: partner_id: res.partner#29881, partner_id: res.partner#29881, partner_id: res.partner#29881, partner_id: res.partner#29881
+2026-10-22 05:23:01,514 WARNING Skip account.move#255462: master map nahi: partner_id: res.partner#29881
+2026-10-22 05:23:02,957 INFO [moves] progress 112200/112331 (51555s) warnings=1
+2026-10-22 05:23:04,344 WARNING Skip account.move#255486: master map nahi: partner_id: res.partner#29883, partner_id: res.partner#29883, partner_id: res.partner#29883, partner_id: res.partner#29883
+2026-10-22 05:23:04,345 WARNING Skip account.move#255487: master map nahi: partner_id: res.partner#29883
+2026-10-22 05:23:06,125 WARNING Skip account.move#255476: master map nahi: partner_id: res.partner#29884, partner_id: res.partner#29884, partner_id: res.partner#29884, partner_id: res.partner#29884
+2026-10-22 05:23:06,125 WARNING Skip account.move#255477: master map nahi: partner_id: res.partner#29884
+2026-10-22 05:23:07,693 WARNING Skip account.move#255490: master map nahi: partner_id: res.partner#29886, partner_id: res.partner#29886, partner_id: res.partner#29886, partner_id: res.partner#29886
+2026-10-22 05:23:07,694 WARNING Skip account.move#255491: master map nahi: partner_id: res.partner#29886
+2026-10-22 05:23:07,695 WARNING Skip account.move#255492: master map nahi: partner_id: res.partner#29887, partner_id: res.partner#29887, partner_id: res.partner#29887, partner_id: res.partner#29887, partner_id: res.partner#29887, partner_id: res.partner#29887
+2026-10-22 05:23:07,695 WARNING Skip account.move#255493: master map nahi: partner_id: res.partner#29887
+2026-10-22 05:23:07,696 WARNING Skip account.move#255494: master map nahi: partner_id: res.partner#29888, partner_id: res.partner#29888, partner_id: res.partner#29888, partner_id: res.partner#29888, partner_id: res.partner#29888
+2026-10-22 05:23:12,753 WARNING Skip account.move#255516: master map nahi: partner_id: res.partner#29889, partner_id: res.partner#29889, partner_id: res.partner#29889, partner_id: res.partner#29889, partner_id: res.partner#29889
+2026-10-22 05:23:12,754 WARNING Skip account.move#255517: master map nahi: partner_id: res.partner#29889
+2026-10-22 05:23:13,516 WARNING Skip account.move#255528: master map nahi: partner_id: res.partner#29850, partner_id: res.partner#29850, partner_id: res.partner#29850, partner_id: res.partner#29850
+2026-10-22 05:23:13,516 WARNING Skip account.move#255529: master map nahi: partner_id: res.partner#29850
+2026-10-22 05:23:17,159 WARNING Skip account.move#255544: master map nahi: partner_id: res.partner#29892, partner_id: res.partner#29892, partner_id: res.partner#29892, partner_id: res.partner#29892
+2026-10-22 05:23:17,160 WARNING Skip account.move#255545: master map nahi: partner_id: res.partner#29892
+2026-10-22 05:23:19,363 WARNING Skip account.move#255533: master map nahi: partner_id: res.partner#29890, partner_id: res.partner#29890, partner_id: res.partner#29890, partner_id: res.partner#29890, partner_id: res.partner#29890, partner_id: res.partner#29890
+2026-10-22 05:23:19,364 WARNING Skip account.move#255534: master map nahi: partner_id: res.partner#29890
+2026-10-22 05:23:20,830 WARNING Skip account.move#255548: master map nahi: partner_id: res.partner#29893, partner_id: res.partner#29893, partner_id: res.partner#29893, partner_id: res.partner#29893
+2026-10-22 05:23:20,830 WARNING Skip account.move#255549: master map nahi: partner_id: res.partner#29893
+2026-10-22 05:23:25,995 WARNING Skip account.move#255555: master map nahi: partner_id: res.partner#29894
+2026-10-22 05:23:27,979 WARNING Skip account.move#255554: master map nahi: partner_id: res.partner#29894, partner_id: res.partner#29894, partner_id: res.partner#29894, partner_id: res.partner#29894, partner_id: res.partner#29894
+2026-10-22 05:23:28,072 WARNING Skip account.move#255538: master map nahi: partner_id: res.partner#29891, partner_id: res.partner#29891, partner_id: res.partner#29891, partner_id: res.partner#29891
+2026-10-22 05:23:28,072 WARNING Skip account.move#255539: master map nahi: partner_id: res.partner#29891
+2026-10-22 05:23:28,170 WARNING Skip account.move#255570: master map nahi: partner_id: res.partner#29895, partner_id: res.partner#29895, partner_id: res.partner#29895, partner_id: res.partner#29895
+2026-10-22 05:23:28,170 WARNING Skip account.move#255571: master map nahi: partner_id: res.partner#29895
+2026-10-22 05:23:28,171 WARNING Skip account.move#255572: master map nahi: partner_id: res.partner#29896, partner_id: res.partner#29896, partner_id: res.partner#29896, partner_id: res.partner#29896
+2026-10-22 05:23:28,171 WARNING Skip account.move#255573: master map nahi: partner_id: res.partner#29896
+2026-10-22 05:23:32,035 WARNING Skip account.move#255594: master map nahi: partner_id: res.partner#29898, partner_id: res.partner#29898, partner_id: res.partner#29898, partner_id: res.partner#29898
+2026-10-22 05:23:32,035 WARNING Skip account.move#255595: master map nahi: partner_id: res.partner#29898
+2026-10-22 05:23:32,728 WARNING Skip account.move#255578: master map nahi: partner_id: res.partner#29897, partner_id: res.partner#29897, partner_id: res.partner#29897, partner_id: res.partner#29897
+2026-10-22 05:23:32,728 WARNING Skip account.move#255579: master map nahi: partner_id: res.partner#29897
+2026-10-22 05:23:36,825 WARNING Skip account.move#255600: master map nahi: partner_id: res.partner#29899, partner_id: res.partner#29899, partner_id: res.partner#29899, partner_id: res.partner#29899
+2026-10-22 05:23:36,825 WARNING Skip account.move#255601: master map nahi: partner_id: res.partner#29899
+2026-10-22 05:23:37,501 WARNING Skip account.move#255562: master map nahi: partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846, partner_id: res.partner#29846
+2026-10-22 05:23:37,501 WARNING Skip account.move#255563: master map nahi: partner_id: res.partner#29846
+2026-10-22 05:23:42,604 INFO Duplicate naam wale 1713 moves ka naam badla gaya: renamed_moves.csv
+2026-10-22 05:23:42,626 INFO Report: transaction_migration_report.csv | Totals: {'OK': 111882, 'ERROR': 270, 'WARN': 1, 'SKIP': 178}
+2026-10-22 05:23:42,626 INFO Ruke hue documents ki wajah (missing masters): missing_masters.csv (76 alag records)

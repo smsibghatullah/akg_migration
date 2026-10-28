@@ -1,0 +1,23 @@
+nohup: ignoring input
+dst move 34888 line 482906 -> 101200 {'account_id': 75, 'amount_currency': 5235.47}
+dst move 34878 line 482908 -> 101200 {'account_id': 75}
+dst move 35066 line 482910 -> 101200 {'account_id': 75}
+dst move 35101 line 482898 -> 201000 {'account_id': 13}
+dst move 35688 line 482896 -> 201000 {'account_id': 13}
+dst move 35698 line 482904 -> 101200 {'account_id': 75}
+dst move 35755 line 482902 -> 101200 {'account_id': 75}
+dst move 35863 line 482894 -> 201000 {'account_id': 13}
+dst move 49005 line 482990 -> 101200 {'account_id': 75, 'amount_currency': 4729.08}
+dst move 49057 line 482988 -> 101200 {'account_id': 75, 'amount_currency': 23972.15}
+dst move 49339 line 482996 -> 101200 {'account_id': 75, 'amount_currency': 1800.0}
+dst move 49358 line 482994 -> 101200 {'account_id': 75, 'amount_currency': 43828.45}
+dst move 49390 line 482992 -> 101200 {'account_id': 75, 'amount_currency': 10000.0}
+dst move 56788 line 483006 -> 101200 {'account_id': 75, 'amount_currency': 9675.0}
+dst move 56846 line 483004 -> 101200 {'account_id': 75, 'amount_currency': 37535.04}
+dst move 56883 line 483000 -> 201000 {'account_id': 13, 'amount_currency': 5071.24}
+dst move 56990 line 482998 -> 101200 {'account_id': 75, 'amount_currency': 7429.9}
+dst move 61656 line 483012 -> 101200 {'account_id': 75, 'amount_currency': 4337.5}
+dst move 66115 line 483002 -> 101200 {'account_id': 75, 'amount_currency': 5033.22}
+dst move 66097 line 483010 -> 201000 {'account_id': 13, 'amount_currency': 4337.5}
+dst move 73045 line 483014 -> 101200 {'account_id': 75, 'amount_currency': 51709.8}
+{'skip: dst shape': 151, 'skip: src match': 27, 'ok 101200': 16, 'ok 201000': 5} 

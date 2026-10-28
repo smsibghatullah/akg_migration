@@ -1,0 +1,41 @@
+== DST websites ==
+[{'id': 1, 'name': 'AKG Hardware'}, {'id': 2, 'name': 'Welcome to AKG Hardware'}]
+
+== DST pages ==
+   7 /locations [1, 'AKG Hardware']
+   5 / [1, 'AKG Hardware']
+   8 /cookie-policy [1, 'AKG Hardware']
+   9 /employee-portal [2, 'Welcome to AKG Hardware']
+   10 / [2, 'Welcome to AKG Hardware']
+   6 /your-task-has-been-submitted False
+   4 /privacy False
+   2 / False
+   1 /contactus-thank-you False
+   3 /contactus False
+
+== DST menus (page_id) ==
+   11 Locations | /locations | page: False | web: [1, 'AKG Hardware']
+   12 Locations | /locations | page: False | web: False
+   13 Product Catalog | https://heyzine.com/flip-book/2e6ffeaa66.html | page: False | web: [1, 'AKG Hardware']
+   14 Product Catalog | https://heyzine.com/flip-book/2e6ffeaa66.html | page: False | web: False
+   5 Contact us | /contactus | page: [3, 'Contact Us'] | web: [1, 'AKG Hardware']
+   2 Home | / | page: [2, 'Home'] | web: False
+   4 Home | / | page: [5, 'Home'] | web: [1, 'AKG Hardware']
+   28 Home | /employee-portal | page: [9, 'Home'] | web: [2, 'Welcome to AKG Hardware']
+   29 Distributor Registration | /s/distribution_agreement | page: False | web: [2, 'Welcome to AKG Hardware']
+   30 Book Material Transportation | /appointment | page: False | web: [2, 'Welcome to AKG Hardware']
+   31 Contact us | /contactus | page: [3, 'Contact Us'] | web: [2, 'Welcome to AKG Hardware']
+   17 Shop | /shop | page: False | web: False
+   19 Shop | /shop | page: False | web: False
+   32 Shop | /shop | page: False | web: [1, 'AKG Hardware']
+   33 Shop | /shop | page: False | web: [2, 'Welcome to AKG Hardware']
+   34 Shop | /shop | page: False | web: False
+   9 Appointment | /appointment | page: False | web: False
+   6 Contact us | /contactus | page: [3, 'Contact Us'] | web: False
+
+== SOURCE: image URL patterns (website 1 aur 3 ke views) ==
+  view 3552  web=1 website.contactus                             total=1  non-attachment=['/web/image/website.s_banner_default_image']
+  view 3146  web=3 website.homepage                              total=5  non-attachment=[]
+  view 3711  web=3 website.homepage                              total=5  non-attachment=[]
+  view 3706  web=1 portal.portal_my_home_oe_structure_portal_my_ total=3  non-attachment=[]
+  view 3733  web=3 website.our-locations                         total=8  non-attachment=[]

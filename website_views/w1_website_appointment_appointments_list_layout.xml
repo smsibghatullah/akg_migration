@@ -1,0 +1,16 @@
+<data name="Online Appointment: Appointments List Layout" inherit_id="appointment.appointments_list_layout" track="1">
+        <xpath expr="//t[@t-call='portal.portal_layout']" position="attributes">
+            <attribute name="t-call">website.layout</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_appointment_choice')]" position="before">
+            <t t-call="website_appointment.website_calendar_index"/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_appointment_index')]" position="attributes">
+            <attribute name="class">o_appointment_index bg-o-color-4 px-3</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass(&quot;o_appointment_svg&quot;)]" position="before">
+            <div class="alert alert-info text-center d-none" groups="appointment.group_appointment_manager">
+                <p class="m-0">Use the top button '<b>+ New</b>' to create an appointment type.</p>
+            </div>
+        </xpath>
+    </data>

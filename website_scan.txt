@@ -1,0 +1,61 @@
+model                          SOURCE       DEST
+website                             2          1
+website.page                       11          6
+website.menu                       14         19
+website.rewrite                     0          0
+website.visitor                 21451         10
+website.snippet.filter              6          0
+ir.ui.view                       3063       3610
+ir.attachment                   41091        490
+blog.blog                  NA(<Fault 2: "Object blog.blog doesn't exis) NA(HTTP 404 blog.blog/search_count: the mod)
+blog.post                  NA(<Fault 2: "Object blog.post doesn't exis) NA(HTTP 404 blog.post/search_count: the mod)
+blog.tag                   NA(<Fault 2: "Object blog.tag doesn't exist) NA(HTTP 404 blog.tag/search_count: the mode)
+blog.tag.category          NA(<Fault 2: "Object blog.tag.category does) NA(HTTP 404 blog.tag.category/search_count:)
+product.public.category            10 NA(HTTP 404 product.public.category/search_)
+product.ribbon                      4 NA(HTTP 404 product.ribbon/search_count: th)
+slide.channel              NA(<Fault 2: "Object slide.channel doesn't ) NA(HTTP 404 slide.channel/search_count: the)
+forum.forum                NA(<Fault 2: "Object forum.forum doesn't ex) NA(HTTP 404 forum.forum/search_count: the m)
+event.event                NA(<Fault 2: "Object event.event doesn't ex) NA(HTTP 404 event.event/search_count: the m)
+res.lang                           85         93
+
+-- Website se jude ir.ui.view / attachments --
+SRC views website_id set : 47
+SRC attachments (website/view/blog): 142
+SRC products website_published : 0
+DST views website_id set : 6
+DST attachments (website/view/blog): 79
+DST products website_published : NA(HTTP 500 product.template/search_count: )
+
+-- Websites --
+SRC {'id': 3, 'name': 'AKG Hardware', 'domain': 'https://www.akghardware.com', 'default_lang_id': [1, 'English (US)']}
+SRC {'id': 1, 'name': 'Welcome to AKG Hardware', 'domain': 'https://odoo.akghardware.com', 'default_lang_id': [1, 'English (US)']}
+DST {'id': 1, 'name': 'My Website', 'domain': False, 'default_lang_id': [1, 'English (US)']}
+
+-- Source pages --
+   17 /employee-portal | employee-portal | pub: False | [3, 'AKG Hardware']
+   8 / | Home | pub: True | [3, 'AKG Hardware']
+   13 / | Home | pub: True | [3, 'AKG Hardware']
+   2 / | Home | pub: True | [3, 'AKG Hardware']
+   9 /locations | Our Locations | pub: True | [3, 'AKG Hardware']
+   10 /cookie-policy | Cookie Policy | pub: True | [3, 'AKG Hardware']
+   7 /home | Home | pub: True | [1, 'Welcome to AKG Hardware']
+   4 /employee-portal | Home | pub: True | [1, 'Welcome to AKG Hardware']
+   5 /contactus | Contact Us | pub: True | [1, 'Welcome to AKG Hardware']
+   3 /contactus | Contact Us | pub: True | False
+   1 /contactus-thank-you | Thanks (Contact us) | pub: True | False
+
+-- Destination pages --
+   5 / | Home | pub: True | [1, 'My Website']
+   1 /contactus-thank-you | Thanks (Contact us) | pub: True | False
+   2 / | Home | pub: True | False
+   4 /privacy | Privacy Policy | pub: True | False
+   3 /contactus | Contact Us | pub: True | False
+   6 /your-task-has-been-submitted | Task Submitted | pub: True | False
+
+-- Field farq (jo source mein hain, dest mein nahi) --
+website -> dest mein nahi: ['account_on_checkout', 'add_to_cart_action', 'cart_abandoned_delay', 'cart_recovery_mail_template_id', 'contact_us_button_url', 'currency_id', 'enabled_portal_reorder_button', 'prevent_zero_price_sale', 'prevent_zero_price_sale_text', 'product_page_grid_columns', 'product_page_image_layout', 'product_page_image_spacing', 'product_page_image_width', 'salesperson_id', 'salesteam_id', 'send_abandoned_cart_email', 'shop_default_sort', 'shop_ppg', 'shop_ppr', 'social_facebook', 'social_github', 'social_instagram', 'social_linkedin', 'social_twitter', 'social_youtube']
+website.page -> dest mein nahi: ['date_publish', 'field_parent', 'groups_id']
+website.menu -> dest mein nahi: []
+blog.post : ek taraf model nahi
+blog.blog : ek taraf model nahi
+product.public.category : ek taraf model nahi

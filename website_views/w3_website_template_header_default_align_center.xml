@@ -1,0 +1,5 @@
+<data inherit_id="website.template_header_default" active="False">
+    <xpath expr="//t[@t-set='_nav_class']" position="replace">
+        <t t-set="_nav_class" t-valuef="mx-auto"/>
+    </xpath>
+</data>

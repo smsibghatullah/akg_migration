@@ -1,0 +1,37 @@
+<data inherit_id="website.template_header_contact" name="Template Header Contact (oe_structure_header_contact_1)">
+    <xpath expr="//*[hasclass('oe_structure')][@id='oe_structure_header_contact_1']" position="replace">
+        <div class="oe_structure oe_structure_solo" id="oe_structure_header_contact_1">
+            <section class="s_text_block pt8 pb8 o_cc o_cc2 o_colored_level" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+                <div class="container">
+                    <div class="row align-items-center">
+    
+
+                        <div class="o_colored_level col-lg-8">
+                            <small>
+                                <i class="fa fa-1x fa-fw fa-phone me-2"/><span class="me-3"><a href="tel:+968 97 92 6449" data-bs-original-title="" title="">+968 97 92 6449</a></span>
+                                <i class="fa fa-1x fa-fw fa-envelope me-2 d-inline"/><a href="mailto:info@akghardware.com" data-bs-original-title="" title="">info@akghardware.com</a>
+                            </small>
+                        </div>
+                        <div class="col-lg-4 text-lg-end o_colored_level">
+                            <div class="s_social_media o_not_editable" data-snippet="s_social_media" data-name="Social Media">
+                                <small class="s_social_media_title text-muted d-none"><b>Follow us</b></small>
+<a href="/website/social/facebook" class="s_social_media_facebook" target="_blank">
+                                    <i class="fa fa-facebook m-1 o_editable_media"/>
+                                </a>
+<a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank">
+                                    <i class="fa fa-linkedin m-1 o_editable_media"/>
+                                </a>
+<a href="/website/social/youtube" class="s_social_media_youtube" target="_blank">
+                                    <i class="fa fa-youtube m-1 o_editable_media"/>
+                                </a>
+<a href="/website/social/instagram" class="s_social_media_instagram" target="_blank">
+                                    <i class="fa fa-instagram m-1 o_editable_media"/>
+                                </a>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </xpath>
+</data>

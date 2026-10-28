@@ -329,3 +329,912 @@ To avoid a mess, no company crossover is allowed!
 2026-10-20 09:58:40,260 INFO [product.template] progress: 1400/4396  (ok=1400 err=0)
 2026-10-20 10:00:13,781 INFO [product.template] progress: 1600/4396  (ok=1600 err=0)
 2026-10-20 10:01:44,845 INFO [product.template] progress: 1800/4396  (ok=1800 err=0)
+2026-10-20 21:05:53,640 INFO company map: {'1': 1}
+2026-10-20 21:05:53,866 INFO == product.attribute -> product.attribute : 1 records, 5 fields
+2026-10-20 21:05:54,012 INFO == product.attribute done: ok=1 err=0
+2026-10-20 21:05:54,120 INFO == product.attribute.value -> product.attribute.value : 38 records, 7 fields
+2026-10-20 21:05:55,038 INFO == product.attribute.value done: ok=38 err=0
+2026-10-20 21:05:55,186 INFO == product.template -> product.template : 7 records, 47 fields
+2026-10-20 21:05:56,322 INFO == product.template done: ok=7 err=0
+2026-10-20 21:05:56,405 INFO == product.template.attribute.line -> product.template.attribute.line : 7 records, 5 fields
+2026-10-20 21:05:57,452 INFO == product.template.attribute.line done: ok=7 err=0
+2026-10-20 21:05:57,593 INFO == product.product -> product.product : 38 records, 53 fields
+2026-10-20 21:06:16,066 INFO == product.product done: ok=38 err=0
+2026-10-20 21:06:16,332 INFO == res.partner -> res.partner : 6 records, 71 fields
+2026-10-20 21:06:17,513 INFO == res.partner done: ok=6 err=0
+2026-10-21 08:39:39,720 INFO company map: {'1': 1}
+2026-10-21 08:39:39,909 INFO == pos.payment.method -> pos.payment.method : 21 records, 7 fields
+2026-10-21 08:39:40,065 INFO payment method 'Cash': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:40,169 INFO payment method 'Sohar Islamic': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:40,383 ERROR [pos.payment.method] src id 2 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297
+2026-10-21 08:39:40,383 INFO payment method 'Customer Account': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:40,526 ERROR [pos.payment.method] src id 3 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:40,527 INFO payment method 'Cheque': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:40,627 ERROR [pos.payment.method] src id 4 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:40,627 INFO payment method 'Bank Muscat': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:40,799 ERROR [pos.payment.method] src id 7 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297
+2026-10-21 08:39:40,799 INFO payment method 'Oman Arab Bank': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,009 ERROR [pos.payment.method] src id 8 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297
+2026-10-21 08:39:41,009 INFO payment method 'Sohar Islamic': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,208 ERROR [pos.payment.method] src id 10 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297
+2026-10-21 08:39:41,209 INFO payment method 'Bank Muscat': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,431 ERROR [pos.payment.method] src id 11 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297
+2026-10-21 08:39:41,431 INFO payment method 'Oman Arab Bank-': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,615 ERROR [pos.payment.method] src id 12 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:41,615 INFO payment method 'Bank Muscat-': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,724 ERROR [pos.payment.method] src id 13 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:41,725 INFO payment method 'Bank Muscat1': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,806 INFO payment method 'Cheques': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:41,880 INFO payment method 'Cash-Head Office': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,051 INFO payment method 'Cash-Ghubra': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,171 ERROR [pos.payment.method] src id 17 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Ghubra Branch/05296
+2026-10-21 08:39:42,171 INFO payment method 'Cash-Mabela': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,333 INFO payment method 'Cash-Sohar': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,441 ERROR [pos.payment.method] src id 19 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Sohar Shop/05297
+2026-10-21 08:39:42,441 INFO payment method 'Cash-Exhibitions': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,567 INFO payment method 'Bank Muscat': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,811 ERROR [pos.payment.method] src id 21 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:42,811 INFO payment method 'Oman Arab Bank': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:42,991 ERROR [pos.payment.method] src id 22 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:42,991 INFO payment method 'Cash-Nizwa': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:43,126 ERROR [pos.payment.method] src id 23 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298
+2026-10-21 08:39:43,126 INFO payment method 'Global Pay': payment_method_type=none (allowed: ['none', 'terminal', 'external_qr', 'cash_machine', 'bank_qr_code'])
+2026-10-21 08:39:43,269 ERROR [pos.payment.method] src id 24 fail: HTTP 422 pos.payment.method/write: Please close and validate the following open PoS Sessions before modifying this payment method.
+Open sessions: Nizwa Showroom/05298 Sohar Shop/05297 Ghubra Branch/05296
+2026-10-21 08:39:43,676 ERROR pending write fail pos.payment.method#1.config_ids: HTTP 422 pos.payment.method/write: Validation Error: You cannot assign the same Cash payment method to multiple POS Shops. Please create a separate Cash payment method for each shop.
+2026-10-21 08:39:43,850 ERROR pending write fail pos.payment.method#13.config_ids: HTTP 422 pos.payment.method/write: Validation Error: You cannot assign the same Cash payment method to multiple POS Shops. Please create a separate Cash payment method for each shop.
+2026-10-21 08:39:43,871 INFO == pos.payment.method done: ok=6 err=15
+2026-10-21 08:39:43,872 WARNING 3 relations unresolved -> unresolved.csv
+2026-10-21 08:39:43,892 INFO DONE. migration.log aur unresolved.csv check karo.
+2026-10-21 08:40:08,554 INFO company map: {'1': 1}
+2026-10-21 08:40:08,582 INFO DONE. migration.log aur unresolved.csv check karo.
+2026-10-21 08:40:14,061 INFO company map: {'1': 1}
+2026-10-21 08:40:14,287 INFO == pos.config -> pos.config : 644 records, 52 fields
+2026-10-21 08:40:15,927 ERROR [pos.config] src id 2 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:16,189 ERROR [pos.config] src id 3 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:16,623 ERROR [pos.config] src id 4 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:16,858 ERROR [pos.config] src id 5 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:17,102 ERROR [pos.config] src id 6 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:17,330 ERROR [pos.config] src id 7 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:17,568 ERROR [pos.config] src id 8 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:17,854 ERROR [pos.config] src id 9 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:18,032 ERROR [pos.config] src id 10 fail: HTTP 422 pos.config/write: You cannot remove Sohar Islamic, Oman Arab Bank-, Bank Muscat-, Cash-Ghubra, Bank Muscat, Oman Arab Bank, Global Pay from Ghubra Branch while it has an open session.
+2026-10-21 08:40:18,245 ERROR [pos.config] src id 11 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:18,523 ERROR [pos.config] src id 12 fail: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:18,810 ERROR [pos.config] src id 13 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:19,039 ERROR [pos.config] src id 15 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:19,246 ERROR [pos.config] src id 16 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:19,445 ERROR [pos.config] src id 17 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:19,720 ERROR [pos.config] src id 18 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:20,010 ERROR [pos.config] src id 19 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:20,334 ERROR [pos.config] src id 20 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:20,496 ERROR [pos.config] src id 21 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:20,650 ERROR [pos.config] src id 22 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:20,845 ERROR [pos.config] src id 23 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:20,939 ERROR [pos.config] src id 24 fail: HTTP 422 pos.config/write: You cannot remove Sohar Islamic, Bank Muscat, Oman Arab Bank, Sohar Islamic, Cash-Sohar, Bank Muscat, Oman Arab Bank, Global Pay from Sohar Shop while it has an open session.
+2026-10-21 08:40:21,131 ERROR [pos.config] src id 25 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:21,395 ERROR [pos.config] src id 26 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:21,602 ERROR [pos.config] src id 27 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:21,814 ERROR [pos.config] src id 28 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:22,033 ERROR [pos.config] src id 29 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:22,211 ERROR [pos.config] src id 30 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:23,179 ERROR [pos.config] src id 32 fail: HTTP 422 pos.config/create: The operation cannot be completed: Journal codes must be unique per company.
+2026-10-21 08:40:24,497 ERROR [pos.config] src id 35 fail: HTTP 422 pos.config/create: The operation cannot be completed: Journal codes must be unique per company.
+2026-10-21 08:40:26,884 ERROR [pos.config] src id 40 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:27,224 ERROR [pos.config] src id 41 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:27,529 ERROR [pos.config] src id 42 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:28,076 ERROR [pos.config] src id 43 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:28,486 ERROR [pos.config] src id 44 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:28,761 ERROR [pos.config] src id 45 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:29,041 ERROR [pos.config] src id 46 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:29,307 ERROR [pos.config] src id 47 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:29,549 ERROR [pos.config] src id 48 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:29,748 ERROR [pos.config] src id 49 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:29,952 ERROR [pos.config] src id 50 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:30,174 ERROR [pos.config] src id 51 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:30,487 ERROR [pos.config] src id 52 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:30,680 ERROR [pos.config] src id 53 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:30,954 ERROR [pos.config] src id 54 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:31,202 ERROR [pos.config] src id 55 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:31,391 ERROR [pos.config] src id 56 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:31,642 ERROR [pos.config] src id 57 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:31,923 ERROR [pos.config] src id 58 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:32,175 ERROR [pos.config] src id 59 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:32,391 ERROR [pos.config] src id 60 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:32,631 ERROR [pos.config] src id 61 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:32,901 ERROR [pos.config] src id 62 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:33,123 ERROR [pos.config] src id 63 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:33,375 ERROR [pos.config] src id 64 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:33,602 ERROR [pos.config] src id 65 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:33,868 ERROR [pos.config] src id 66 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:34,157 ERROR [pos.config] src id 67 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:34,451 ERROR [pos.config] src id 68 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:34,637 ERROR [pos.config] src id 69 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:35,020 ERROR [pos.config] src id 71 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:35,243 ERROR [pos.config] src id 72 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:35,459 ERROR [pos.config] src id 73 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:35,699 ERROR [pos.config] src id 74 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:35,914 ERROR [pos.config] src id 75 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:36,211 ERROR [pos.config] src id 76 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:36,460 ERROR [pos.config] src id 77 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:36,701 ERROR [pos.config] src id 78 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:36,927 ERROR [pos.config] src id 79 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:37,203 ERROR [pos.config] src id 80 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:37,538 ERROR [pos.config] src id 81 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:37,768 ERROR [pos.config] src id 82 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:38,093 ERROR [pos.config] src id 83 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:38,456 ERROR [pos.config] src id 84 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:38,817 ERROR [pos.config] src id 85 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:39,160 ERROR [pos.config] src id 86 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:39,389 ERROR [pos.config] src id 87 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:39,670 ERROR [pos.config] src id 88 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:39,867 ERROR [pos.config] src id 89 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:40,142 ERROR [pos.config] src id 90 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:40,372 ERROR [pos.config] src id 91 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:40,556 ERROR [pos.config] src id 92 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:40,756 ERROR [pos.config] src id 93 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:40,922 ERROR [pos.config] src id 94 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:41,205 ERROR [pos.config] src id 95 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:41,451 ERROR [pos.config] src id 96 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:41,707 ERROR [pos.config] src id 97 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:41,963 ERROR [pos.config] src id 98 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:42,202 ERROR [pos.config] src id 99 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:42,493 ERROR [pos.config] src id 100 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:42,827 ERROR [pos.config] src id 101 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:43,033 ERROR [pos.config] src id 102 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:43,381 ERROR [pos.config] src id 103 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:43,642 ERROR [pos.config] src id 104 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:43,903 ERROR [pos.config] src id 105 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:44,149 ERROR [pos.config] src id 106 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:44,388 ERROR [pos.config] src id 107 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:44,586 ERROR [pos.config] src id 108 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:44,874 ERROR [pos.config] src id 109 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:45,095 ERROR [pos.config] src id 110 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:45,307 ERROR [pos.config] src id 111 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:45,627 ERROR [pos.config] src id 112 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:45,862 ERROR [pos.config] src id 113 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:46,082 ERROR [pos.config] src id 114 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:46,316 ERROR [pos.config] src id 115 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:46,530 ERROR [pos.config] src id 116 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:46,745 ERROR [pos.config] src id 117 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:46,980 ERROR [pos.config] src id 118 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:47,161 ERROR [pos.config] src id 119 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:47,353 ERROR [pos.config] src id 120 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:47,525 ERROR [pos.config] src id 121 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:47,692 ERROR [pos.config] src id 122 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:47,852 ERROR [pos.config] src id 123 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:48,012 ERROR [pos.config] src id 124 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:48,175 ERROR [pos.config] src id 125 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:48,395 ERROR [pos.config] src id 126 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:48,615 ERROR [pos.config] src id 127 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:48,850 ERROR [pos.config] src id 128 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:49,048 ERROR [pos.config] src id 129 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:49,304 ERROR [pos.config] src id 130 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:49,486 ERROR [pos.config] src id 131 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:49,736 ERROR [pos.config] src id 132 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:49,907 ERROR [pos.config] src id 133 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:50,136 ERROR [pos.config] src id 134 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:50,401 ERROR [pos.config] src id 135 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:50,634 ERROR [pos.config] src id 136 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:50,897 ERROR [pos.config] src id 137 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:51,134 ERROR [pos.config] src id 138 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:51,339 ERROR [pos.config] src id 139 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:51,500 ERROR [pos.config] src id 140 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:51,719 ERROR [pos.config] src id 141 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:51,930 ERROR [pos.config] src id 142 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:52,142 ERROR [pos.config] src id 143 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:52,312 ERROR [pos.config] src id 144 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:52,508 ERROR [pos.config] src id 145 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:52,829 ERROR [pos.config] src id 146 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:53,033 ERROR [pos.config] src id 147 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:53,356 ERROR [pos.config] src id 148 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:53,548 ERROR [pos.config] src id 150 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:53,755 ERROR [pos.config] src id 151 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:53,951 ERROR [pos.config] src id 152 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:54,165 ERROR [pos.config] src id 153 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:54,460 ERROR [pos.config] src id 154 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:54,633 ERROR [pos.config] src id 155 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:54,795 ERROR [pos.config] src id 156 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:54,942 ERROR [pos.config] src id 157 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:55,145 ERROR [pos.config] src id 158 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:55,337 ERROR [pos.config] src id 160 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:55,502 ERROR [pos.config] src id 161 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:55,638 ERROR [pos.config] src id 162 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:55,944 ERROR [pos.config] src id 163 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:56,160 ERROR [pos.config] src id 164 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:56,404 ERROR [pos.config] src id 166 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:56,662 ERROR [pos.config] src id 167 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:56,867 ERROR [pos.config] src id 168 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:57,093 ERROR [pos.config] src id 169 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:57,312 ERROR [pos.config] src id 170 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:57,468 ERROR [pos.config] src id 171 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:57,672 ERROR [pos.config] src id 172 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:57,887 ERROR [pos.config] src id 173 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:58,079 ERROR [pos.config] src id 174 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:58,297 ERROR [pos.config] src id 175 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:58,511 ERROR [pos.config] src id 176 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:58,786 ERROR [pos.config] src id 177 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:59,042 ERROR [pos.config] src id 178 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:59,318 ERROR [pos.config] src id 179 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:59,592 ERROR [pos.config] src id 180 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:40:59,844 ERROR [pos.config] src id 181 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:00,097 ERROR [pos.config] src id 182 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:00,381 ERROR [pos.config] src id 183 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:00,636 ERROR [pos.config] src id 184 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:00,934 ERROR [pos.config] src id 185 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:01,211 ERROR [pos.config] src id 186 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:01,670 ERROR [pos.config] src id 187 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:02,022 ERROR [pos.config] src id 188 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:02,287 ERROR [pos.config] src id 189 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:02,606 ERROR [pos.config] src id 190 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:02,939 ERROR [pos.config] src id 191 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:03,361 ERROR [pos.config] src id 192 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:03,657 ERROR [pos.config] src id 193 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:04,049 ERROR [pos.config] src id 194 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:04,336 ERROR [pos.config] src id 195 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:04,730 ERROR [pos.config] src id 196 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:05,030 ERROR [pos.config] src id 197 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:05,468 ERROR [pos.config] src id 198 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:05,760 ERROR [pos.config] src id 199 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:06,096 ERROR [pos.config] src id 200 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:06,378 ERROR [pos.config] src id 201 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:06,666 ERROR [pos.config] src id 202 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:06,944 ERROR [pos.config] src id 203 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:07,228 ERROR [pos.config] src id 204 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:07,697 ERROR [pos.config] src id 205 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:08,112 ERROR [pos.config] src id 206 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:08,420 ERROR [pos.config] src id 207 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:08,706 ERROR [pos.config] src id 208 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:08,960 ERROR [pos.config] src id 209 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:09,274 ERROR [pos.config] src id 210 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:09,484 ERROR [pos.config] src id 211 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:09,682 ERROR [pos.config] src id 212 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:09,981 ERROR [pos.config] src id 213 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:10,365 ERROR [pos.config] src id 214 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:10,634 ERROR [pos.config] src id 215 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:10,921 ERROR [pos.config] src id 216 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:11,201 ERROR [pos.config] src id 217 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:11,590 ERROR [pos.config] src id 218 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:11,847 ERROR [pos.config] src id 219 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:12,141 ERROR [pos.config] src id 220 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:12,451 ERROR [pos.config] src id 221 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:12,737 ERROR [pos.config] src id 222 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:13,043 ERROR [pos.config] src id 223 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:13,303 ERROR [pos.config] src id 224 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:13,729 ERROR [pos.config] src id 225 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:13,994 ERROR [pos.config] src id 226 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:14,245 ERROR [pos.config] src id 227 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:14,472 ERROR [pos.config] src id 228 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:14,745 ERROR [pos.config] src id 229 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:15,029 ERROR [pos.config] src id 230 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:15,249 ERROR [pos.config] src id 232 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:15,517 ERROR [pos.config] src id 233 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:15,704 ERROR [pos.config] src id 234 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:16,005 ERROR [pos.config] src id 235 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:16,219 ERROR [pos.config] src id 236 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:16,487 ERROR [pos.config] src id 237 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:16,640 ERROR [pos.config] src id 238 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:16,800 ERROR [pos.config] src id 239 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:17,009 ERROR [pos.config] src id 240 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:17,195 ERROR [pos.config] src id 241 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:17,412 ERROR [pos.config] src id 242 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:17,671 ERROR [pos.config] src id 243 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:17,870 ERROR [pos.config] src id 244 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:17,994 ERROR [pos.config] src id 245 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:18,214 ERROR [pos.config] src id 246 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:18,401 ERROR [pos.config] src id 247 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:18,608 ERROR [pos.config] src id 248 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:18,805 ERROR [pos.config] src id 249 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:18,982 ERROR [pos.config] src id 250 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:19,173 ERROR [pos.config] src id 251 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:19,401 ERROR [pos.config] src id 252 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:19,662 ERROR [pos.config] src id 253 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:19,870 ERROR [pos.config] src id 254 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:20,110 ERROR [pos.config] src id 255 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:20,253 ERROR [pos.config] src id 256 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:20,508 ERROR [pos.config] src id 257 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:20,667 ERROR [pos.config] src id 258 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:20,876 ERROR [pos.config] src id 259 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:21,083 ERROR [pos.config] src id 260 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:21,283 ERROR [pos.config] src id 261 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:21,437 ERROR [pos.config] src id 262 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:21,688 ERROR [pos.config] src id 263 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:21,858 ERROR [pos.config] src id 264 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:22,073 ERROR [pos.config] src id 265 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:22,216 ERROR [pos.config] src id 266 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:22,385 ERROR [pos.config] src id 267 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:22,537 ERROR [pos.config] src id 268 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:22,705 ERROR [pos.config] src id 269 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:22,891 ERROR [pos.config] src id 270 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:23,001 ERROR [pos.config] src id 271 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:23,160 ERROR [pos.config] src id 272 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:23,322 ERROR [pos.config] src id 273 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:23,506 ERROR [pos.config] src id 274 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:23,683 ERROR [pos.config] src id 275 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:23,880 ERROR [pos.config] src id 276 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,054 ERROR [pos.config] src id 277 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,238 ERROR [pos.config] src id 278 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,348 ERROR [pos.config] src id 279 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,467 ERROR [pos.config] src id 280 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,673 ERROR [pos.config] src id 281 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,808 ERROR [pos.config] src id 282 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:24,989 ERROR [pos.config] src id 283 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:25,153 ERROR [pos.config] src id 284 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:25,312 ERROR [pos.config] src id 285 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:25,520 ERROR [pos.config] src id 286 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:25,741 ERROR [pos.config] src id 287 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:26,299 ERROR [pos.config] src id 289 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:26,478 ERROR [pos.config] src id 290 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:26,640 ERROR [pos.config] src id 291 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:26,764 ERROR [pos.config] src id 292 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:26,937 ERROR [pos.config] src id 293 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:27,136 ERROR [pos.config] src id 294 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:27,367 ERROR [pos.config] src id 295 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:27,625 ERROR [pos.config] src id 296 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:27,838 ERROR [pos.config] src id 297 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:28,098 ERROR [pos.config] src id 298 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:28,316 ERROR [pos.config] src id 299 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:28,517 ERROR [pos.config] src id 300 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:28,679 ERROR [pos.config] src id 301 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:28,834 ERROR [pos.config] src id 302 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:29,011 ERROR [pos.config] src id 303 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:29,196 ERROR [pos.config] src id 304 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:29,381 ERROR [pos.config] src id 305 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:29,544 ERROR [pos.config] src id 306 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:29,741 ERROR [pos.config] src id 307 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:29,912 ERROR [pos.config] src id 308 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:30,131 ERROR [pos.config] src id 309 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:30,311 ERROR [pos.config] src id 310 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:30,404 ERROR [pos.config] src id 311 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:30,520 ERROR [pos.config] src id 312 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:30,675 ERROR [pos.config] src id 313 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:30,900 ERROR [pos.config] src id 314 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,073 ERROR [pos.config] src id 315 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,198 ERROR [pos.config] src id 316 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,286 ERROR [pos.config] src id 317 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,367 ERROR [pos.config] src id 318 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,469 ERROR [pos.config] src id 319 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,581 ERROR [pos.config] src id 320 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,701 ERROR [pos.config] src id 321 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,792 ERROR [pos.config] src id 322 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:31,932 ERROR [pos.config] src id 323 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,013 ERROR [pos.config] src id 324 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,066 ERROR [pos.config] src id 325 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,134 ERROR [pos.config] src id 326 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,201 ERROR [pos.config] src id 327 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,339 ERROR [pos.config] src id 328 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,484 ERROR [pos.config] src id 329 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,611 ERROR [pos.config] src id 330 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,754 ERROR [pos.config] src id 331 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,831 ERROR [pos.config] src id 332 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 08:41:32,900 ERROR [pos.config] src id 333 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:17,961 INFO company map: {'1': 1}
+2026-10-21 09:24:18,211 INFO == pos.config -> pos.config : 79 records, 52 fields
+2026-10-21 09:24:24,488 INFO == pos.config done: ok=79 err=0
+2026-10-21 09:24:25,175 INFO company map: {'1': 1}
+2026-10-21 09:24:25,508 INFO == pos.config -> pos.config : 79 records, 52 fields
+2026-10-21 09:24:26,745 ERROR [pos.config] src id 22 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:26,999 ERROR [pos.config] src id 23 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:27,307 ERROR [pos.config] src id 25 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:27,575 ERROR [pos.config] src id 30 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:34,027 ERROR [pos.config] src id 81 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:34,415 ERROR [pos.config] src id 94 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:34,725 ERROR [pos.config] src id 128 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:35,048 ERROR [pos.config] src id 129 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:35,447 ERROR [pos.config] src id 140 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:35,981 ERROR [pos.config] src id 173 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:24:36,197 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:36,894 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:37,428 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:38,029 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:38,652 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:39,313 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:39,941 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:40,532 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:41,253 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:41,875 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:42,642 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:43,284 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:43,800 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:44,402 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:45,192 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:45,786 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:46,460 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:46,963 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:47,636 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:48,320 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:49,040 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:49,752 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:50,379 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:50,845 WARNING pos.config 'Test': cash payment method 'Cash-Mabela' (dst id 15) hata diya (POS [4] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:51,585 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:52,096 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:52,653 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:53,049 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:53,425 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:53,994 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:54,739 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:55,532 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:56,247 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:56,987 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:57,589 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:58,435 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:59,229 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:24:59,899 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:00,666 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:01,621 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:03,213 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:04,683 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:05,840 WARNING pos.config 'Head Office POS': cash payment method 'Cash-Head Office' (dst id 13) hata diya (POS [1] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:06,921 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:07,826 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:08,728 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:09,491 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:10,570 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:11,467 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:12,494 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:13,397 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:14,530 ERROR [pos.config] src id 603 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:14,687 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:15,599 ERROR [pos.config] src id 609 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:15,820 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:16,505 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:17,205 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:17,909 WARNING pos.config 'Ghubra Branch-General': cash payment method 'Cash-Ghubra' (dst id 14) hata diya (POS [3] mein pehle se / ek POS mein sirf ek cash method)
+2026-10-21 09:25:18,672 ERROR [pos.config] src id 645 fail: HTTP 422 pos.config/create: The operation cannot be completed: Journal codes must be unique per company.
+2026-10-21 09:25:18,970 ERROR [pos.config] src id 651 fail: HTTP 422 pos.config/create: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:24,554 ERROR pending write fail pos.config#350.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:24,918 ERROR pending write fail pos.config#351.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:25,225 ERROR pending write fail pos.config#352.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:25,536 ERROR pending write fail pos.config#353.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:25,896 ERROR pending write fail pos.config#354.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:26,379 ERROR pending write fail pos.config#355.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:26,708 ERROR pending write fail pos.config#356.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:27,160 ERROR pending write fail pos.config#357.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:27,626 ERROR pending write fail pos.config#358.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:28,184 ERROR pending write fail pos.config#359.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:28,652 ERROR pending write fail pos.config#360.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:29,069 ERROR pending write fail pos.config#361.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:29,450 ERROR pending write fail pos.config#362.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:29,956 ERROR pending write fail pos.config#363.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:30,287 ERROR pending write fail pos.config#364.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:30,654 ERROR pending write fail pos.config#365.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:30,993 ERROR pending write fail pos.config#366.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:31,476 ERROR pending write fail pos.config#367.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:32,040 ERROR pending write fail pos.config#368.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:32,312 ERROR pending write fail pos.config#369.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:32,890 ERROR pending write fail pos.config#370.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:33,586 ERROR pending write fail pos.config#371.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:34,086 ERROR pending write fail pos.config#372.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:35,062 ERROR pending write fail pos.config#373.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:35,390 ERROR pending write fail pos.config#374.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:36,085 ERROR pending write fail pos.config#375.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:36,572 ERROR pending write fail pos.config#376.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:36,966 ERROR pending write fail pos.config#377.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:37,454 ERROR pending write fail pos.config#378.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:37,910 ERROR pending write fail pos.config#379.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:38,509 ERROR pending write fail pos.config#380.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:38,886 ERROR pending write fail pos.config#381.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:39,453 ERROR pending write fail pos.config#382.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:39,953 ERROR pending write fail pos.config#383.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:40,499 ERROR pending write fail pos.config#384.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:40,922 ERROR pending write fail pos.config#385.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:41,430 ERROR pending write fail pos.config#386.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:41,773 ERROR pending write fail pos.config#387.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:42,294 ERROR pending write fail pos.config#388.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:42,700 ERROR pending write fail pos.config#389.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:43,204 ERROR pending write fail pos.config#390.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:43,521 ERROR pending write fail pos.config#391.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:43,764 ERROR pending write fail pos.config#392.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:44,369 ERROR pending write fail pos.config#393.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:44,860 ERROR pending write fail pos.config#394.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:45,336 ERROR pending write fail pos.config#395.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:45,866 ERROR pending write fail pos.config#396.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:46,394 ERROR pending write fail pos.config#397.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:46,925 ERROR pending write fail pos.config#398.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:47,552 ERROR pending write fail pos.config#399.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:48,085 ERROR pending write fail pos.config#400.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:48,626 ERROR pending write fail pos.config#402.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:49,313 ERROR pending write fail pos.config#404.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:50,086 ERROR pending write fail pos.config#405.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:50,680 ERROR pending write fail pos.config#406.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:51,318 ERROR pending write fail pos.config#407.payment_method_ids: HTTP 422 pos.config/write: This cash payment method is already used in another Point of Sale.
+A new cash payment method should be created for this Point of Sale.
+2026-10-21 09:25:51,333 INFO == pos.config done: ok=65 err=14
+2026-10-21 09:25:56,813 WARNING 57 relations unresolved -> unresolved.csv

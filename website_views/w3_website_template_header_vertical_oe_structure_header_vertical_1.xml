@@ -1,0 +1,25 @@
+<data inherit_id="website.template_header_vertical" name="Template Header Vertical (oe_structure_header_vertical_1)">
+    <xpath expr="//*[hasclass('oe_structure')][@id='oe_structure_header_vertical_1']" position="replace">
+        <div class="oe_structure oe_structure_solo" id="oe_structure_header_vertical_1">
+            <section class="s_text_block" data-snippet="s_text_block" data-name="Text">
+                <div class="container">
+                    <div class="s_social_media no_icon_color o_not_editable" data-snippet="s_social_media" data-name="Social Media" contenteditable="false">
+                        <h6 class="s_social_media_title d-none" contenteditable="true">Follow us</h6>
+                        <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank">
+                            <i class="fa fa-facebook m-1"/>
+                        </a>
+                        <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank">
+                            <i class="fa fa-twitter m-1"/>
+                        </a>
+                        <a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank">
+                            <i class="fa fa-linkedin m-1"/>
+                        </a>
+                        <a href="/website/social/instagram" class="s_social_media_instagram" target="_blank">
+                            <i class="fa fa-instagram m-1"/>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </xpath>
+</data>

@@ -1,0 +1,17 @@
+kind,src_id,name_or_key,action,detail
+paperformat,1,A4,EXISTS,dst #1
+paperformat,2,US Letter,EXISTS,dst #2
+paperformat,3,US Batch Deposit,EXISTS,dst #3
+paperformat,4,A4 Label Sheet,EXISTS,dst #4
+paperformat,5,Dymo Label Sheet,EXISTS,dst #5
+paperformat,6,Time Off Summary,EXISTS,dst #9
+paperformat,8,Survey Certification,CREATED,dst #14
+company,1,Rawabi Bosher Trading & Const. Est. SPC.,WARN,"layout dst mein nahi mila: web.external_layout_bold | dst mein ye hain: web.address_layout, web.basic_layout, web.external_layout, web.external_layout_body, web.external_layout_bubble, web.external_layout_center, web.external_layout_compact, web.external_layout_dual, web.external_layout_folder, web.external_layout_footer_content, web.external_layout_lines, web.external_layout_standard, web.external_layout_wave, web.frontend_layout, web.internal_layout, web.layout, web.login_layout, web.minimal_layout, web.preview_layout_report, web.report_layout, web.report_preview_layout | --layout KEY se chuno"
+company,1,Rawabi Bosher Trading & Const. Est. SPC.,UPDATED,"company_details, font, logo, paperformat_id, primary_color, report_footer, secondary_color"
+report,295,account.report_invoice_with_payments,EXISTS,farq: attachment
+report,297,account.report_invoice,EXISTS,farq: attachment
+report,296,account.report_original_vendor_bill,EXISTS,
+report,886,sale_renting.report_rental_order,EXISTS,
+report,602,sale.report_saleorder_pro_forma,EXISTS,farq: print_report_name
+report,601,sale.report_saleorder,EXISTS,
+view,3557,account.report_invoice,EXISTS,dst #899

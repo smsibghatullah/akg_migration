@@ -1,0 +1,445 @@
+legend: M = migrate hui location | WV = warehouse ki view location | WS = warehouse ka lot_stock
+id     M   tag  usage     parent  quants complete_name (warehouse_id)
+84     M        view      13             CWH
+387        WV   view      -              CWH
+                                       -> warehouse AKG Hardware Central Warehouse
+86     M        internal  84      0      CWH/Input  [archived]
+389             internal  387     0      CWH/Input  [archived]
+                                       -> warehouse AKG Hardware Central Warehouse
+88     M        internal  84      0      CWH/Output  [archived]
+391             internal  387     0      CWH/Output  [archived]
+                                       -> warehouse AKG Hardware Central Warehouse
+89     M        internal  84      0      CWH/Packing Zone  [archived]
+392             internal  387     0      CWH/Packing Zone  [archived]
+                                       -> warehouse AKG Hardware Central Warehouse
+91     M        internal  84      0      CWH/Post-Production  [archived]
+90     M        internal  84      0      CWH/Pre-Production  [archived]
+87     M        internal  84      0      CWH/Quality Control  [archived]
+390             internal  387     0      CWH/Quality Control  [archived]
+                                       -> warehouse AKG Hardware Central Warehouse
+85     M        internal  84      128    CWH/Stock
+388        WS   internal  387     0      CWH/Stock
+                                       -> warehouse AKG Hardware Central Warehouse
+323    M        internal  85      10     CWH/Stock/Basement
+108    M        internal  85      0      CWH/Stock/Bihui
+116    M        internal  108     0      CWH/Stock/Bihui/R01
+172    M        internal  116     0      CWH/Stock/Bihui/R01/S01
+173    M        internal  116     0      CWH/Stock/Bihui/R01/S02
+174    M        internal  116     1      CWH/Stock/Bihui/R01/S03
+308    M        internal  174     0      CWH/Stock/Bihui/R01/S03/B03
+175    M        internal  116     1      CWH/Stock/Bihui/R01/S04
+176    M        internal  116     0      CWH/Stock/Bihui/R01/S05
+117    M        internal  108     0      CWH/Stock/Bihui/R02
+177    M        internal  117     0      CWH/Stock/Bihui/R02/S01
+178    M        internal  117     0      CWH/Stock/Bihui/R02/S02
+179    M        internal  117     1      CWH/Stock/Bihui/R02/S03
+180    M        internal  117     1      CWH/Stock/Bihui/R02/S04
+181    M        internal  117     0      CWH/Stock/Bihui/R02/S05
+118    M        internal  108     0      CWH/Stock/Bihui/R03
+182    M        internal  118     0      CWH/Stock/Bihui/R03/S01
+183    M        internal  118     1      CWH/Stock/Bihui/R03/S02
+184    M        internal  118     0      CWH/Stock/Bihui/R03/S03
+185    M        internal  118     0      CWH/Stock/Bihui/R03/S04
+186    M        internal  118     0      CWH/Stock/Bihui/R03/S05
+119    M        internal  108     0      CWH/Stock/Bihui/R04
+187    M        internal  119     0      CWH/Stock/Bihui/R04/S01
+188    M        internal  119     0      CWH/Stock/Bihui/R04/S02
+189    M        internal  119     0      CWH/Stock/Bihui/R04/S03
+190    M        internal  119     0      CWH/Stock/Bihui/R04/S04
+120    M        internal  108     0      CWH/Stock/Bihui/R05
+191    M        internal  120     0      CWH/Stock/Bihui/R05/S01
+192    M        internal  120     0      CWH/Stock/Bihui/R05/S02
+193    M        internal  120     0      CWH/Stock/Bihui/R05/S03
+194    M        internal  120     0      CWH/Stock/Bihui/R05/S04
+121    M        internal  108     0      CWH/Stock/Bihui/R06
+195    M        internal  121     0      CWH/Stock/Bihui/R06/S01
+196    M        internal  121     0      CWH/Stock/Bihui/R06/S02
+197    M        internal  121     0      CWH/Stock/Bihui/R06/S03
+198    M        internal  121     0      CWH/Stock/Bihui/R06/S04
+199    M        internal  121     0      CWH/Stock/Bihui/R06/S05
+324    M        internal  108     0      CWH/Stock/Bihui/R07
+325    M        internal  324     0      CWH/Stock/Bihui/R07/S01
+326    M        internal  324     0      CWH/Stock/Bihui/R07/S02
+327    M        internal  324     1      CWH/Stock/Bihui/R07/S03
+328    M        internal  324     1      CWH/Stock/Bihui/R07/S04
+109    M        internal  85      0      CWH/Stock/Huepar
+122    M        internal  109     0      CWH/Stock/Huepar/R01
+200    M        internal  122     0      CWH/Stock/Huepar/R01/S01
+201    M        internal  122     0      CWH/Stock/Huepar/R01/S02
+202    M        internal  122     0      CWH/Stock/Huepar/R01/S03
+203    M        internal  122     0      CWH/Stock/Huepar/R01/S04
+123    M        internal  109     0      CWH/Stock/Huepar/R02
+204    M        internal  123     0      CWH/Stock/Huepar/R02/S01
+205    M        internal  123     0      CWH/Stock/Huepar/R02/S02
+206    M        internal  123     0      CWH/Stock/Huepar/R02/S03
+207    M        internal  123     0      CWH/Stock/Huepar/R02/S04
+349    M        internal  109     0      CWH/Stock/Huepar/R07
+350    M        internal  349     1      CWH/Stock/Huepar/R07/S04
+106    M        internal  85      5      CWH/Stock/Mapei
+329    M        internal  106     36     CWH/Stock/Mapei/Bulk
+110    M        internal  106     0      CWH/Stock/Mapei/R01
+146    M        internal  110     1      CWH/Stock/Mapei/R01/S01
+147    M        internal  110     0      CWH/Stock/Mapei/R01/S02
+148    M        internal  110     1      CWH/Stock/Mapei/R01/S03
+149    M        internal  110     1      CWH/Stock/Mapei/R01/S04
+150    M        internal  110     0      CWH/Stock/Mapei/R01/S05
+111    M        internal  106     0      CWH/Stock/Mapei/R02
+151    M        internal  111     0      CWH/Stock/Mapei/R02/S01
+152    M        internal  111     0      CWH/Stock/Mapei/R02/S02
+153    M        internal  111     0      CWH/Stock/Mapei/R02/S03
+154    M        internal  111     0      CWH/Stock/Mapei/R02/S04
+155    M        internal  111     0      CWH/Stock/Mapei/R02/S05
+112    M        internal  106     0      CWH/Stock/Mapei/R03
+156    M        internal  112     5      CWH/Stock/Mapei/R03/S01
+157    M        internal  112     6      CWH/Stock/Mapei/R03/S02
+158    M        internal  112     0      CWH/Stock/Mapei/R03/S03
+113    M        internal  106     0      CWH/Stock/Mapei/R04
+159    M        internal  113     2      CWH/Stock/Mapei/R04/S01
+160    M        internal  113     15     CWH/Stock/Mapei/R04/S02
+161    M        internal  113     1      CWH/Stock/Mapei/R04/S03
+114    M        internal  106     0      CWH/Stock/Mapei/R05
+162    M        internal  114     0      CWH/Stock/Mapei/R05/S01
+163    M        internal  114     0      CWH/Stock/Mapei/R05/S02
+164    M        internal  114     0      CWH/Stock/Mapei/R05/S03
+165    M        internal  114     0      CWH/Stock/Mapei/R05/S04
+166    M        internal  114     0      CWH/Stock/Mapei/R05/S05
+115    M        internal  106     0      CWH/Stock/Mapei/R06
+167    M        internal  115     1      CWH/Stock/Mapei/R06/S01
+168    M        internal  115     0      CWH/Stock/Mapei/R06/S02
+169    M        internal  115     1      CWH/Stock/Mapei/R06/S03
+170    M        internal  115     0      CWH/Stock/Mapei/R06/S04
+171    M        internal  115     0      CWH/Stock/Mapei/R06/S05
+144    M        internal  106     0      CWH/Stock/Mapei/ULK
+107    M        internal  85      1      CWH/Stock/Rubi
+330    M        internal  107     18     CWH/Stock/Rubi/Bulk
+124    M        internal  107     0      CWH/Stock/Rubi/R01
+208    M        internal  124     0      CWH/Stock/Rubi/R01/S01
+331    M        internal  208     1      CWH/Stock/Rubi/R01/S01/B01
+332    M        internal  208     1      CWH/Stock/Rubi/R01/S01/B02
+209    M        internal  124     0      CWH/Stock/Rubi/R01/S02
+333    M        internal  209     1      CWH/Stock/Rubi/R01/S02/B01
+334    M        internal  209     1      CWH/Stock/Rubi/R01/S02/B02
+210    M        internal  124     1      CWH/Stock/Rubi/R01/S03
+335    M        internal  210     0      CWH/Stock/Rubi/R01/S03/B01
+336    M        internal  210     0      CWH/Stock/Rubi/R01/S03/B02
+337    M        internal  210     0      CWH/Stock/Rubi/R01/S03/B03
+338    M        internal  210     1      CWH/Stock/Rubi/R01/S03/B04
+339    M        internal  210     1      CWH/Stock/Rubi/R01/S03/B05
+340    M        internal  210     1      CWH/Stock/Rubi/R01/S03/B06
+211    M        internal  124     0      CWH/Stock/Rubi/R01/S04
+341    M        internal  211     1      CWH/Stock/Rubi/R01/S04/B01
+342    M        internal  211     1      CWH/Stock/Rubi/R01/S04/B02
+212    M        internal  124     1      CWH/Stock/Rubi/R01/S05
+125    M        internal  107     0      CWH/Stock/Rubi/R02
+213    M        internal  125     0      CWH/Stock/Rubi/R02/S01
+343    M        internal  213     0      CWH/Stock/Rubi/R02/S01/B01
+344    M        internal  213     1      CWH/Stock/Rubi/R02/S01/B02
+214    M        internal  125     0      CWH/Stock/Rubi/R02/S02
+345    M        internal  214     1      CWH/Stock/Rubi/R02/S02/B01
+346    M        internal  214     1      CWH/Stock/Rubi/R02/S02/B02
+215    M        internal  125     1      CWH/Stock/Rubi/R02/S03
+347    M        internal  215     1      CWH/Stock/Rubi/R02/S03/B01
+348    M        internal  215     1      CWH/Stock/Rubi/R02/S03/B02
+309    M        internal  215     0      CWH/Stock/Rubi/R02/S03/B03
+310    M        internal  215     0      CWH/Stock/Rubi/R02/S03/B04
+216    M        internal  125     0      CWH/Stock/Rubi/R02/S04
+311    M        internal  216     1      CWH/Stock/Rubi/R02/S04/B01
+312    M        internal  216     1      CWH/Stock/Rubi/R02/S04/B02
+313    M        internal  216     0      CWH/Stock/Rubi/R02/S04/B03
+314    M        internal  216     1      CWH/Stock/Rubi/R02/S04/B04
+315    M        internal  216     0      CWH/Stock/Rubi/R02/S04/B05
+316    M        internal  216     2      CWH/Stock/Rubi/R02/S04/B06
+317    M        internal  216     1      CWH/Stock/Rubi/R02/S04/B07
+318    M        internal  216     1      CWH/Stock/Rubi/R02/S04/B08
+217    M        internal  125     0      CWH/Stock/Rubi/R02/S05
+126    M        internal  107     0      CWH/Stock/Rubi/R03
+218    M        internal  126     1      CWH/Stock/Rubi/R03/S01
+319    M        internal  218     1      CWH/Stock/Rubi/R03/S01/B01
+320    M        internal  218     1      CWH/Stock/Rubi/R03/S01/B02
+219    M        internal  126     1      CWH/Stock/Rubi/R03/S02
+321    M        internal  219     1      CWH/Stock/Rubi/R03/S02/B01
+322    M        internal  219     0      CWH/Stock/Rubi/R03/S02/B02
+220    M        internal  126     0      CWH/Stock/Rubi/R03/S03
+221    M        internal  126     3      CWH/Stock/Rubi/R03/S04
+222    M        internal  126     0      CWH/Stock/Rubi/R03/S05
+127    M        internal  107     0      CWH/Stock/Rubi/R04
+223    M        internal  127     1      CWH/Stock/Rubi/R04/S01
+224    M        internal  127     2      CWH/Stock/Rubi/R04/S02
+225    M        internal  127     0      CWH/Stock/Rubi/R04/S03
+226    M        internal  127     1      CWH/Stock/Rubi/R04/S04
+128    M        internal  107     0      CWH/Stock/Rubi/R05
+227    M        internal  128     0      CWH/Stock/Rubi/R05/S01
+228    M        internal  128     1      CWH/Stock/Rubi/R05/S02
+229    M        internal  128     1      CWH/Stock/Rubi/R05/S03
+230    M        internal  128     1      CWH/Stock/Rubi/R05/S04
+231    M        internal  128     1      CWH/Stock/Rubi/R05/S05
+129    M        internal  107     0      CWH/Stock/Rubi/R06
+232    M        internal  129     0      CWH/Stock/Rubi/R06/S01
+233    M        internal  129     3      CWH/Stock/Rubi/R06/S02
+234    M        internal  129     0      CWH/Stock/Rubi/R06/S03
+235    M        internal  129     1      CWH/Stock/Rubi/R06/S04
+236    M        internal  129     2      CWH/Stock/Rubi/R06/S05
+130    M        internal  107     0      CWH/Stock/Rubi/R07
+237    M        internal  130     1      CWH/Stock/Rubi/R07/S01
+238    M        internal  130     1      CWH/Stock/Rubi/R07/S02
+239    M        internal  130     2      CWH/Stock/Rubi/R07/S03
+240    M        internal  130     3      CWH/Stock/Rubi/R07/S04
+241    M        internal  130     2      CWH/Stock/Rubi/R07/S05
+131    M        internal  107     0      CWH/Stock/Rubi/R08
+242    M        internal  131     0      CWH/Stock/Rubi/R08/S01
+243    M        internal  131     0      CWH/Stock/Rubi/R08/S02
+244    M        internal  131     2      CWH/Stock/Rubi/R08/S03
+245    M        internal  131     3      CWH/Stock/Rubi/R08/S04
+246    M        internal  131     1      CWH/Stock/Rubi/R08/S05
+132    M        internal  107     0      CWH/Stock/Rubi/R09
+247    M        internal  132     0      CWH/Stock/Rubi/R09/S01
+248    M        internal  132     0      CWH/Stock/Rubi/R09/S02
+249    M        internal  132     1      CWH/Stock/Rubi/R09/S03
+250    M        internal  132     0      CWH/Stock/Rubi/R09/S04
+251    M        internal  132     2      CWH/Stock/Rubi/R09/S05
+133    M        internal  107     0      CWH/Stock/Rubi/R10
+252    M        internal  133     0      CWH/Stock/Rubi/R10/S01
+253    M        internal  133     0      CWH/Stock/Rubi/R10/S02
+254    M        internal  133     0      CWH/Stock/Rubi/R10/S03
+255    M        internal  133     1      CWH/Stock/Rubi/R10/S04
+256    M        internal  133     1      CWH/Stock/Rubi/R10/S05
+134    M        internal  107     0      CWH/Stock/Rubi/R11
+257    M        internal  134     0      CWH/Stock/Rubi/R11/S01
+258    M        internal  134     0      CWH/Stock/Rubi/R11/S02
+259    M        internal  134     1      CWH/Stock/Rubi/R11/S03
+260    M        internal  134     0      CWH/Stock/Rubi/R11/S04
+261    M        internal  134     0      CWH/Stock/Rubi/R11/S05
+135    M        internal  107     0      CWH/Stock/Rubi/R12
+262    M        internal  135     0      CWH/Stock/Rubi/R12/S01
+263    M        internal  135     0      CWH/Stock/Rubi/R12/S02
+264    M        internal  135     3      CWH/Stock/Rubi/R12/S03
+265    M        internal  135     1      CWH/Stock/Rubi/R12/S04
+266    M        internal  135     1      CWH/Stock/Rubi/R12/S05
+136    M        internal  107     0      CWH/Stock/Rubi/R13
+267    M        internal  136     1      CWH/Stock/Rubi/R13/S01
+268    M        internal  136     0      CWH/Stock/Rubi/R13/S02
+269    M        internal  136     0      CWH/Stock/Rubi/R13/S03
+270    M        internal  136     0      CWH/Stock/Rubi/R13/S04
+271    M        internal  136     0      CWH/Stock/Rubi/R13/S05
+137    M        internal  107     0      CWH/Stock/Rubi/R14
+272    M        internal  137     2      CWH/Stock/Rubi/R14/S01
+273    M        internal  137     1      CWH/Stock/Rubi/R14/S02
+274    M        internal  137     0      CWH/Stock/Rubi/R14/S03
+275    M        internal  137     0      CWH/Stock/Rubi/R14/S04
+276    M        internal  137     0      CWH/Stock/Rubi/R14/S05
+138    M        internal  107     0      CWH/Stock/Rubi/R15
+277    M        internal  138     1      CWH/Stock/Rubi/R15/S01
+278    M        internal  138     1      CWH/Stock/Rubi/R15/S02
+279    M        internal  138     1      CWH/Stock/Rubi/R15/S03
+280    M        internal  138     0      CWH/Stock/Rubi/R15/S04
+281    M        internal  138     2      CWH/Stock/Rubi/R15/S05
+139    M        internal  107     0      CWH/Stock/Rubi/R16
+282    M        internal  139     0      CWH/Stock/Rubi/R16/S01
+283    M        internal  139     0      CWH/Stock/Rubi/R16/S02
+284    M        internal  139     0      CWH/Stock/Rubi/R16/S03
+285    M        internal  139     0      CWH/Stock/Rubi/R16/S04
+286    M        internal  139     1      CWH/Stock/Rubi/R16/S05
+140    M        internal  107     0      CWH/Stock/Rubi/R17
+287    M        internal  140     1      CWH/Stock/Rubi/R17/S01
+288    M        internal  140     1      CWH/Stock/Rubi/R17/S02
+289    M        internal  140     1      CWH/Stock/Rubi/R17/S03
+290    M        internal  140     1      CWH/Stock/Rubi/R17/S04
+291    M        internal  140     1      CWH/Stock/Rubi/R17/S05
+141    M        internal  107     0      CWH/Stock/Rubi/R18
+292    M        internal  141     0      CWH/Stock/Rubi/R18/S01
+293    M        internal  141     0      CWH/Stock/Rubi/R18/S02
+294    M        internal  141     0      CWH/Stock/Rubi/R18/S03
+295    M        internal  141     1      CWH/Stock/Rubi/R18/S04
+296    M        internal  141     1      CWH/Stock/Rubi/R18/S05
+142    M        internal  107     0      CWH/Stock/Rubi/R19
+297    M        internal  142     0      CWH/Stock/Rubi/R19/S01
+298    M        internal  142     1      CWH/Stock/Rubi/R19/S02
+299    M        internal  142     1      CWH/Stock/Rubi/R19/S03
+300    M        internal  142     1      CWH/Stock/Rubi/R19/S04
+301    M        internal  142     1      CWH/Stock/Rubi/R19/S05
+143    M        internal  107     0      CWH/Stock/Rubi/R20
+302    M        internal  143     1      CWH/Stock/Rubi/R20/S01
+303    M        internal  143     1      CWH/Stock/Rubi/R20/S02
+304    M        internal  143     1      CWH/Stock/Rubi/R20/S03
+305    M        internal  143     1      CWH/Stock/Rubi/R20/S04
+306    M        internal  143     1      CWH/Stock/Rubi/R20/S05
+307    M        internal  143     1      CWH/Stock/Rubi/R20/S06
+145    M        internal  107     0      CWH/Stock/Rubi/ULK
+92     M        internal  85      0      CWH/Stock/Shelf 1
+93     M        internal  92      0      CWH/Stock/Shelf 1/Rack A
+94     M        internal  92      0      CWH/Stock/Shelf 1/Rack B
+95     M        internal  92      0      CWH/Stock/Shelf 1/Rack C
+96     M        internal  92      0      CWH/Stock/Shelf 1/Rack D
+97     M        internal  92      0      CWH/Stock/Shelf 1/Rack E
+76     M        view      13             GOL
+381        WV   view      -              GOL
+                                       -> warehouse GOL-Sohar
+78     M        internal  76      0      GOL/Input  [archived]
+383             internal  381     0      GOL/Input  [archived]
+                                       -> warehouse GOL-Sohar
+80     M        internal  76      0      GOL/Output  [archived]
+385             internal  381     0      GOL/Output  [archived]
+                                       -> warehouse GOL-Sohar
+81     M        internal  76      0      GOL/Packing Zone  [archived]
+386             internal  381     0      GOL/Packing Zone  [archived]
+                                       -> warehouse GOL-Sohar
+83     M        internal  76      0      GOL/Post-Production  [archived]
+82     M        internal  76      0      GOL/Pre-Production  [archived]
+79     M        internal  76      0      GOL/Quality Control  [archived]
+384             internal  381     0      GOL/Quality Control  [archived]
+                                       -> warehouse GOL-Sohar
+77     M        internal  76      4      GOL/Stock
+382        WS   internal  381     0      GOL/Stock
+                                       -> warehouse GOL-Sohar
+36     M        view      13             GWH
+363        WV   view      -              GWH
+                                       -> warehouse AKG Hardware Ghubra
+37     M        internal  36      725    GWH/Ghubra Store
+66     M        internal  37      0      GWH/Ghubra Store/First Floor  [archived]
+67     M        internal  66      0      GWH/Ghubra Store/First Floor/R1  [archived]
+70     M        internal  67      0      GWH/Ghubra Store/First Floor/R1/02  [archived]
+71     M        internal  67      0      GWH/Ghubra Store/First Floor/R1/03  [archived]
+72     M        internal  67      0      GWH/Ghubra Store/First Floor/R1/04  [archived]
+73     M        internal  67      0      GWH/Ghubra Store/First Floor/R1/05  [archived]
+74     M        internal  67      0      GWH/Ghubra Store/First Floor/R1/06  [archived]
+68     M        internal  66      0      GWH/Ghubra Store/First Floor/R2  [archived]
+75     M        internal  66      0      GWH/Ghubra Store/First Floor/R3  [archived]
+69     M        internal  75      0      GWH/Ghubra Store/First Floor/R3/01  [archived]
+38     M        internal  36      0      GWH/Input  [archived]
+365             internal  363     0      GWH/Input  [archived]
+                                       -> warehouse AKG Hardware Ghubra
+40     M        internal  36      0      GWH/Output  [archived]
+367             internal  363     0      GWH/Output  [archived]
+                                       -> warehouse AKG Hardware Ghubra
+41     M        internal  36      0      GWH/Packing Zone  [archived]
+368             internal  363     0      GWH/Packing Zone  [archived]
+                                       -> warehouse AKG Hardware Ghubra
+49     M        internal  36      0      GWH/Post-Production  [archived]
+48     M        internal  36      0      GWH/Pre-Production  [archived]
+39     M        internal  36      0      GWH/Quality Control  [archived]
+366             internal  363     0      GWH/Quality Control  [archived]
+                                       -> warehouse AKG Hardware Ghubra
+364        WS   internal  363     0      GWH/Stock
+                                       -> warehouse AKG Hardware Ghubra
+29     M        view      13             GWH1  [archived]
+357        WV   view      -              GWH1
+                                       -> warehouse AKG Hardware Ghubra Warehouse-
+31     M        internal  29      0      GWH1/Input  [archived]
+359             internal  357     0      GWH1/Input  [archived]
+                                       -> warehouse AKG Hardware Ghubra Warehouse-
+33     M        internal  29      0      GWH1/Output  [archived]
+361             internal  357     0      GWH1/Output  [archived]
+                                       -> warehouse AKG Hardware Ghubra Warehouse-
+34     M        internal  29      0      GWH1/Packing Zone  [archived]
+362             internal  357     0      GWH1/Packing Zone  [archived]
+                                       -> warehouse AKG Hardware Ghubra Warehouse-
+47     M        internal  29      0      GWH1/Post-Production  [archived]
+46     M        internal  29      0      GWH1/Pre-Production  [archived]
+32     M        internal  29      0      GWH1/Quality Control  [archived]
+360             internal  357     0      GWH1/Quality Control  [archived]
+                                       -> warehouse AKG Hardware Ghubra Warehouse-
+30     M        internal  29      0      GWH1/Stock  [archived]
+358        WS   internal  357     0      GWH1/Stock
+                                       -> warehouse AKG Hardware Ghubra Warehouse-
+50     M        view      13             MIS
+369        WV   view      -              MIS
+                                       -> warehouse MIS Store
+52     M        internal  50      0      MIS/Input  [archived]
+371             internal  369     0      MIS/Input  [archived]
+                                       -> warehouse MIS Store
+54     M        internal  50      0      MIS/Output  [archived]
+373             internal  369     0      MIS/Output  [archived]
+                                       -> warehouse MIS Store
+55     M        internal  50      0      MIS/Packing Zone  [archived]
+374             internal  369     0      MIS/Packing Zone  [archived]
+                                       -> warehouse MIS Store
+57     M        internal  50      0      MIS/Post-Production  [archived]
+56     M        internal  50      0      MIS/Pre-Production  [archived]
+53     M        internal  50      0      MIS/Quality Control  [archived]
+372             internal  369     0      MIS/Quality Control  [archived]
+                                       -> warehouse MIS Store
+51     M        internal  50      97     MIS/Stock
+370        WS   internal  369     0      MIS/Stock
+                                       -> warehouse MIS Store
+21     M        view      13             MS-WH
+22     M        internal  21      0      MS-WH/Maabela Store  [archived]
+23     M        view      13             MWH
+351        WV   view      -              MWH
+                                       -> warehouse AKG Hardware Mabela
+25     M        internal  23      0      MWH/Input  [archived]
+353             internal  351     0      MWH/Input  [archived]
+                                       -> warehouse AKG Hardware Mabela
+24     M        internal  23      493    MWH/Mabela Store
+27     M        internal  23      0      MWH/Output  [archived]
+355             internal  351     0      MWH/Output  [archived]
+                                       -> warehouse AKG Hardware Mabela
+28     M        internal  23      0      MWH/Packing Zone  [archived]
+356             internal  351     0      MWH/Packing Zone  [archived]
+                                       -> warehouse AKG Hardware Mabela
+45     M        internal  23      0      MWH/Post-Production  [archived]
+44     M        internal  23      0      MWH/Pre-Production  [archived]
+26     M        internal  23      0      MWH/Quality Control  [archived]
+354             internal  351     0      MWH/Quality Control  [archived]
+                                       -> warehouse AKG Hardware Mabela
+352        WS   internal  351     0      MWH/Stock
+                                       -> warehouse AKG Hardware Mabela
+98     M        view      13             NWH
+393        WV   view      -              NWH
+                                       -> warehouse AKG Hardware Nizwa
+100    M        internal  98      0      NWH/Input  [archived]
+395             internal  393     0      NWH/Input  [archived]
+                                       -> warehouse AKG Hardware Nizwa
+102    M        internal  98      0      NWH/Output  [archived]
+397             internal  393     0      NWH/Output  [archived]
+                                       -> warehouse AKG Hardware Nizwa
+103    M        internal  98      0      NWH/Packing Zone  [archived]
+398             internal  393     0      NWH/Packing Zone  [archived]
+                                       -> warehouse AKG Hardware Nizwa
+105    M        internal  98      0      NWH/Post-Production  [archived]
+104    M        internal  98      0      NWH/Pre-Production  [archived]
+101    M        internal  98      0      NWH/Quality Control  [archived]
+396             internal  393     0      NWH/Quality Control  [archived]
+                                       -> warehouse AKG Hardware Nizwa
+99     M        internal  98      474    NWH/Stock
+394        WS   internal  393     0      NWH/Stock
+                                       -> warehouse AKG Hardware Nizwa
+14     M        view      -              Partners
+13     M        view      -              Physical Locations
+35     M        internal  -       3      Rental
+58     M        view      13             SWH
+375        WV   view      -              SWH
+                                       -> warehouse AKG Hardware Sohar
+60     M        internal  58      0      SWH/Input  [archived]
+377             internal  375     0      SWH/Input  [archived]
+                                       -> warehouse AKG Hardware Sohar
+62     M        internal  58      0      SWH/Output  [archived]
+379             internal  375     0      SWH/Output  [archived]
+                                       -> warehouse AKG Hardware Sohar
+63     M        internal  58      0      SWH/Packing Zone  [archived]
+380             internal  375     0      SWH/Packing Zone  [archived]
+                                       -> warehouse AKG Hardware Sohar
+65     M        internal  58      0      SWH/Post-Production  [archived]
+64     M        internal  58      0      SWH/Pre-Production  [archived]
+61     M        internal  58      0      SWH/Quality Control  [archived]
+378             internal  375     0      SWH/Quality Control  [archived]
+                                       -> warehouse AKG Hardware Sohar
+59     M        internal  58      423    SWH/Stock
+376        WS   internal  375     0      SWH/Stock
+                                       -> warehouse AKG Hardware Sohar
+5      M   WV   view      13             Test-
+                                       -> warehouse Test--
+7      M        internal  5       0      Test-/Input  [archived]
+                                       -> warehouse Test--
+9      M        internal  5       0      Test-/Output  [archived]
+                                       -> warehouse Test--
+10     M        internal  5       0      Test-/Packing Zone  [archived]
+                                       -> warehouse Test--
+43     M        internal  5       0      Test-/Post-Production  [archived]
+                                       -> warehouse Test--
+42     M        internal  5       0      Test-/Pre-Production  [archived]
+                                       -> warehouse Test--
+8      M        internal  5       0      Test-/Quality Control  [archived]
+                                       -> warehouse Test--
+6      M   WS   internal  5       0      Test-/Test
+                                       -> warehouse Test--
+15     M        view      -              Virtual Locations

@@ -1,2 +1,9 @@
 model,field,count
-sale.order.line,invoice_lines,993
+account.move,repaired_lines,2498
+account.move,commercial_partner_id,179
+account.move,partner_shipping_id,179
+account.move,invoice_cash_rounding_id,55
+account.move.line,analytic_distribution,32
+account.move,partner_bank_id,19
+account.move,reversed_entry_id,6
+account.move.line,followup_line_id,2

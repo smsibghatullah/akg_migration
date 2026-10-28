@@ -38,6 +38,8 @@ except ImportError:
 MASTER_IDMAP = "idmap.json"          # master script ka map (padha jata hai; check --fix is mein likhta hai)
 TX_DB = "txmap.sqlite3"              # transactions ka map (bada, is liye sqlite)
 BATCH = 20
+DUP_SUFFIX = "-DUP"                  # Odoo 16 mein jin posted moves ka naam duplicate tha, unke naam ke aage ye laga dete hain
+RENAMED = []                         # (src_id, dst_id, purana naam, naya naam) -> renamed_moves.csv
 CTX = {"active_test": False, "tracking_disable": True, "mail_create_nosubscribe": True,
        "mail_create_nolog": True, "mail_notrack": True}
 CTX_MOVE = dict(CTX, check_move_validity=False, skip_invoice_sync=True, skip_account_move_synchronization=True)
@@ -300,6 +302,11 @@ def build_plan(smodel, dmodel, skip=()):
         if s["type"] in ("many2one", "many2many") and rel and d.get("relation") and rel != d["relation"]:
             continue
         plan[f] = (f, s["type"], d["type"], rel)
+    # --- Odoo 20: holiday_status_id (hr.leave.type) -> work_entry_type_id (hr.work.entry.type) ---
+    if ("holiday_status_id" in sf and "holiday_status_id" not in df and "work_entry_type_id" in df
+            and sf["holiday_status_id"]["type"] == "many2one"):
+        plan["holiday_status_id"] = ("work_entry_type_id", "many2one", "many2one",
+                                     sf["holiday_status_id"].get("relation") or "hr.leave.type")
     return plan
 
 
@@ -399,6 +406,17 @@ def state_purchase(did, rec):
     return vals["state"]
 
 
+def _unique_name(did):
+    """Draft move ka naam + DUP_SUFFIX, jo us journal mein pehle se na ho. (purana, naya) return karta hai."""
+    d = dst.call("account.move", "read", [did], fields=["name", "journal_id"], context=CTX)[0]
+    for i in range(1, 100):
+        cand = "%s%s%s" % (d["name"], DUP_SUFFIX, "" if i == 1 else i)
+        if not dst.call("account.move", "search", [("name", "=", cand), ("journal_id", "=", m2o_id(d["journal_id"]))],
+                        context=CTX):
+            return d["name"], cand
+    raise RuntimeError("unique naam nahi mila: %s" % d["name"])
+
+
 def state_move(did, rec):
     s = rec.get("state")
     if s == "draft":
@@ -409,6 +427,13 @@ def state_move(did, rec):
     try:
         dst.call("account.move", "write", [did], vals, context=CTX_MOVE)
     except RuntimeError as e:             # direct write na chale to official action
+        if s == "posted" and "same name" in str(e):
+            # Odoo 16 mein invoice aur refund ka naam ek jaisa ho sakta tha; Odoo 20 mein posted naam unique chahiye
+            old, new = _unique_name(did)
+            dst.call("account.move", "write", [did], {"name": new}, context=CTX_MOVE)
+            dst.call("account.move", "write", [did], vals, context=CTX_MOVE)
+            RENAMED.append((rec.get("id"), did, old, new))
+            return s
         log.warning("move state write fail (%s) - action se koshish", str(e)[:120])
         dst.call("account.move", "action_post" if s == "posted" else "button_cancel", ids=[did], context=CTX_MOVE)
     return s
@@ -455,6 +480,24 @@ def hook_move_line(lv, lrec, move_rec):
     return lv
 
 
+def repair_move_lines(did, lines):
+    """Create ke baad: Odoo 20 kabhi debit/credit/balance recompute kar ke 0 kar deta hai.
+    Source ki asal amounts line by line wapas likh deta hai. Kitni lines theek kin, wo count return karta hai."""
+    lm = "account.move.line"
+    dl = dst.call(lm, "search", [("move_id", "=", did)], order="id", context=CTX)
+    if len(dl) != len(lines):
+        return 0
+    fl = [f for f in ("debit", "credit", "balance", "amount_currency") if f in dst.fields(lm)]
+    cur = {r["id"]: r for r in dst.call(lm, "read", dl, fields=fl, context=CTX)}
+    n = 0
+    for s, d_ in zip(lines, dl):
+        want = {f: (s.get(f) or 0.0) for f in fl if f in s}
+        if want and any(abs((cur[d_].get(f) or 0.0) - want[f]) > 0.005 for f in want):
+            dst.call(lm, "write", [d_], want, context=CTX_MOVE)
+            n += 1
+    return n
+
+
 def hook_leave_state(vals, rec):
     return vals
 
@@ -490,6 +533,7 @@ SPECS = collections.OrderedDict([
                               skip=["payment_id", "statement_line_id", "statement_id"]),
                    skip=["payment_id", "statement_line_id", "stock_move_id"], extra_read=["move_type"],
                    state=state_move, map_lines=True, compare=["amount_total"], batch=15,
+                   repair=repair_move_lines,
                    desc="Invoices, bills, journal entries (lines ke saath, exact copy)")),
     ("payments", dict(model="account.payment", date=("date", False), ctx=CTX_MOVE, via_move=True,
                       strict=["partner_id", "journal_id"], desc="Payments (existing migrated move se link)")),
@@ -548,6 +592,20 @@ def run_step(name, a):
         add_result(name, model, "", "SKIP", "destination model nahi")
         return
     hdr_plan = build_plan(model, model, skip=spec.get("skip", ()))
+    if spec.get("via_move"):
+        # payments / statement lines: jo fields move_id se related hain (date, ref...) unhe nahi bhejte,
+        # warna Odoo posted move ko badalne ki koshish karta hai ("cannot modify readonly fields on the posted move")
+        try:
+            rel_move = {r["name"] for r in dst.call("ir.model.fields", "search_read",
+                                                    [("model", "=", model), ("related", "=like", "move_id.%")],
+                                                    fields=["name"])}
+        except Exception:
+            rel_move = set()
+        if rel_move:
+            log.info("[%s] move se related %d fields nahi bheje jayenge (date, ref, journal_id... move mein pehle se hain)",
+                     name, len(rel_move))
+        for f in rel_move:
+            hdr_plan.pop(f, None)
     dfields = dst.fields(model)
     lspec = spec.get("lines")
     line_plan = ldf = None
@@ -615,7 +673,8 @@ def process_batch(name, spec, model, batch, hdr_plan, dfields, line_plan, ldf, a
     lines_by = collections.defaultdict(list)
     if lspec:
         lf = src.fields(lspec["model"])
-        lrf = sorted({f for f in list(line_plan) + ["display_type", "tax_line_id", "account_id", lspec["fk"]] if f in lf})
+        lrf = sorted({f for f in list(line_plan) + ["display_type", "tax_line_id", "account_id", lspec["fk"],
+                                                    "debit", "credit", "balance", "amount_currency"] if f in lf})
         lids = src.call(lspec["model"], "search", [(lspec["fk"], "in", batch)], order="id", context=CTX)
         for j in range(0, len(lids), 500):
             for lr in src.call(lspec["model"], "read", lids[j:j + 500], fields=lrf, context=CTX):
@@ -630,6 +689,7 @@ def process_batch(name, spec, model, batch, hdr_plan, dfields, line_plan, ldf, a
         except Exception as e:
             log.error("[%s] %s#%s fail: %s", name, model, sid, str(e)[:300])
             add_result(name, model, sid, "ERROR", str(e)[:400])
+        MAP.commit()   # har document ke baad map disk par: rokne par ghost duplicates nahi bante
 
 
 def migrate_one(name, spec, model, rec, lines, hdr_plan, dfields, line_plan, ldf, strict, a):
@@ -672,7 +732,22 @@ def migrate_one(name, spec, model, rec, lines, hdr_plan, dfields, line_plan, ldf
         add_result(name, model, sid, "DRY_OK", "%d fields, %d lines" % (len(vals), len(cmds)))
         return
     ctx = spec.get("ctx", CTX)
-    did = dst.call(model, "create", vals, context=ctx)
+    mv, prev_state = vals.get("move_id") if spec.get("via_move") else None, None
+    if mv:
+        # Odoo payment / statement line create karte waqt move ki lines dobara likhta hai -> posted move par error.
+        # Is liye: move ko abhi draft karo, line_ids=[] ke saath banao (lines nahi likhi jayengi), phir move purani state par.
+        prev_state = dst.call("account.move", "read", [mv], fields=["state"], context=CTX)[0]["state"]
+        vals["line_ids"] = []
+        if prev_state != "draft":
+            dst.call("account.move", "write", [mv], {"state": "draft"}, context=CTX_MOVE)
+    try:
+        did = dst.call(model, "create", vals, context=ctx)
+    finally:
+        if mv and prev_state and prev_state != "draft":
+            back = {"state": prev_state}
+            if prev_state == "posted":
+                back["posted_before"] = True
+            dst.call("account.move", "write", [mv], back, context=CTX_MOVE)
     MAP.set(model, sid, did)
     notes = []
     if spec.get("map_lines") and lspec:
@@ -683,6 +758,13 @@ def migrate_one(name, spec, model, rec, lines, hdr_plan, dfields, line_plan, ldf
                 MAP.set(lspec["model"], s_, d_)
         else:
             notes.append("WARN lines %d src vs %d dst" % (len(sl), len(dl)))
+    if spec.get("repair") and lspec:
+        try:
+            fixed = spec["repair"](did, lines)
+            if fixed:
+                STATS[(model, "repaired_lines")] += fixed
+        except Exception as e:
+            notes.append("WARN repair: " + str(e)[:200])
     if spec.get("state"):
         try:
             spec["state"](did, rec)
@@ -1051,9 +1133,10 @@ def cmd_rollback(a):
                     if lspec:
                         for lid in dst.call(lspec["model"], "search", [(lspec["fk"], "=", did)], context=CTX):
                             MAP.drop_dst(lspec["model"], lid)
+                    rb_ctx = dict(CTX_MOVE, force_delete=True)
                     if "state" in dst.fields(model) and "draft" in _allowed(model, "state"):
-                        dst.call(model, "write", [did], {"state": "draft"}, context=CTX_MOVE)
-                    dst.call(model, "unlink", [did], context=CTX_MOVE)
+                        dst.call(model, "write", [did], {"state": "draft"}, context=rb_ctx)
+                    dst.call(model, "unlink", [did], context=rb_ctx)
                 MAP.drop(model, sid)
                 ok += 1
             except Exception as e:
@@ -1081,6 +1164,14 @@ def write_reports(a):
             w.writerow(["model", "field", "count"])
             for (m, f), c in STATS.most_common():
                 w.writerow([m, f, c])
+    if RENAMED:
+        fresh = not os.path.exists("renamed_moves.csv")
+        with open("renamed_moves.csv", "a", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            if fresh:
+                w.writerow(["src_id", "dst_id", "old_name", "new_name"])
+            w.writerows(RENAMED)
+        log.info("Duplicate naam wale %d moves ka naam badla gaya: renamed_moves.csv", len(RENAMED))
     tot = collections.Counter(r[3] for r in RESULTS)
     log.info("Report: %s | Totals: %s", a.report, dict(tot))
     if MISSING:

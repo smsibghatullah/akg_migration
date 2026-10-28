@@ -1,0 +1,5 @@
+<data inherit_id="website.template_header_slogan" active="False">
+    <xpath expr="//t[@t-set='_nav_class']" position="after">
+        <t t-set="_nav_class" t-valuef="#{_nav_class} justify-content-end"/>
+    </xpath>
+</data>

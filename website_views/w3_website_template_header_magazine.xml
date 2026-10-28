@@ -1,0 +1,53 @@
+<data inherit_id="website.layout" name="Template Header Magazine" active="False">
+    <xpath expr="//header//nav" position="replace">
+        <!-- Topbar -->
+        <div class="oe_structure oe_structure_solo" id="oe_structure_header_magazine_1"/>
+        <t t-call="website.navbar">
+            <t t-set="_navbar_expand_class" t-value="''"/>
+            <div id="top_menu_container" class="container">
+                <!-- Brand -->
+                <t t-call="website.placeholder_header_brand"/>
+                <div class="d-flex align-items-center ms-auto">
+                    <!-- Navbar Toggler -->
+                    <t t-call="website.navbar_toggler">
+                        <t t-set="_toggler_class" t-valuef="ms-2"/>
+                    </t>
+                </div>
+                <!-- Navbar Collapse -->
+                <div id="top_menu_collapse" class="collapse navbar-collapse">
+                    <t t-set="_nav_class" t-valuef="text-end align-items-sm-end"/>
+                    <t t-call="website.navbar_nav">
+                        <!-- Menu -->
+                        <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                            <t t-call="website.submenu">
+                                <t t-set="item_class" t-valuef="nav-item"/>
+                                <t t-set="link_class" t-valuef="nav-link"/>
+                            </t>
+                        </t>
+                        <li class="nav-item">
+                            <!-- Language Selector -->
+                            <t t-call="website.placeholder_header_language_selector">
+                                <t t-set="_div_classes" t-valuef="pb-2"/>
+                            </t>
+                        </li>
+                        <!-- Call To Action -->
+                        <li class="nav-item">
+                            <t t-call="website.placeholder_header_call_to_action"/>
+                        </li>
+                        <!-- Sign In -->
+                        <t t-call="portal.placeholder_user_sign_in">
+                            <t t-set="_item_class" t-valuef="nav-item"/>
+                            <t t-set="_link_class" t-valuef="nav-link"/>
+                        </t>
+                        <!-- User Dropdown -->
+                        <t t-call="portal.user_dropdown">
+                            <t t-set="_user_name" t-value="true"/>
+                            <t t-set="_item_class" t-valuef="nav-item dropdown"/>
+                            <t t-set="_link_class" t-valuef="nav-link"/>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </xpath>
+</data>

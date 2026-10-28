@@ -1,0 +1,29 @@
+<t name="Appointment Types" t-name="appointment.appointments_list_layout">
+        <t t-set="no_breadcrumbs" t-value="True"/>
+        <t t-call="portal.portal_layout">
+            <div id="wrap" class="o_appointment_index bg-o-color-4 px-3 mt-3">
+                <div class="oe_structure container o_appointment_choice">
+                    <h1 class="o_page_header mt32 mb24">
+                        Schedule Transportation</h1>
+                    <div t-if="not appointment_types" class="col-12 px-0 o_appointment_not_found">
+                        <h2 class="mb-3 d-none">No appointment found.</h2>
+                        <div class="o_appointment_svg col-12 mx-auto text-center py-5 w-75">
+                            <i class="mx-auto h3 fa fa-spinner fa-spin"/>
+                        </div>
+                    </div>
+                    <div t-else="">
+                        <form class="form o_appointment_appointments_list_form pt-3" t-attf-action="/appointment/#{appointment_types[0].id}?#{keep_query('*')}" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <t t-call="appointment.appointment_type_select"/>
+                            <div t-out="appointment_types[0].message_intro" class="o_calendar_intro my-2"/>
+                            <div class="row">
+                                <div class="mx-auto">
+                                    <button type="submit" class="btn btn-primary">Schedule</button><br/></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </div>
+        </t>
+    </t>

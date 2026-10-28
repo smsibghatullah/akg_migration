@@ -119,8 +119,6 @@ def convert_with_pre(rec, plan, dfields, strict, label):
 mt.convert = convert_with_pre
 
 # ---------------------------------------------------------------- 3b. renamed fields (Odoo 16 -> 20)
-# Original script sirf same-naam wali fields copy karti hai. Odoo 19+ mein kuch fields ka naam badal gaya
-# (jaise sale line ka tax_id -> tax_ids), is liye taxes copy nahi hote the aur Odoo product ke default tax laga deta tha.
 ALIASES = {
     ("sale.order.line", "tax_id"): ["tax_ids"],
     ("sale.order.line", "product_uom"): ["product_uom_id"],
@@ -143,7 +141,6 @@ def build_plan_with_aliases(smodel, dmodel, skip=()):
 
 
 mt.build_plan = build_plan_with_aliases
-# alias wali nayi field names bhi "strict" honi chahiye (tax/uom na mile to document skip ho, galat tax na lage)
 mt.SPECS["sales"]["lines"]["strict"] += ["tax_ids", "product_uom_id"]
 mt.SPECS["purchases"]["lines"]["strict"] += ["tax_ids", "product_uom_id"]
 

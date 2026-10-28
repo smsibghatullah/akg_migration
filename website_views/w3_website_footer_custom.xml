@@ -1,0 +1,86 @@
+<data inherit_id="website.layout" name="Default" active="True">
+    <xpath expr="//div[@id='footer']" position="replace">
+        <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer" style="">
+            <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+                <div class="container">
+                    <div class="row o_grid_mode" data-row-count="4">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+                        
+                        
+                        
+                    <div id="connect" class="o_colored_level o_grid_item g-col-lg-12 g-height-4 col-lg-12" style="grid-area: 1 / 1 / 5 / 13; z-index: 2;">
+                            <h5 class="mb-3" style="text-align: center;"><font class="text-600">AKG Hardware</font><br/></h5>
+                            <ul class="list-unstyled">
+                                <li style="text-align: center;"><font class="text-600"><i class="fa fa-phone fa-fw me-2" contenteditable="false"/></font><span class="o_force_ltr"><a title="" data-bs-original-title="" href="tel:+96897926449"><font class="text-600">+968 97 92 6449</font></a></span><br/></li><li style="text-align: center;"><font class="text-600"><a href="mailto:info@akghardware.com" data-bs-original-title="" title="">info@akghardware.com</a></font></li><li style="text-align: center;"><br/></li>
+                            </ul>
+                            <div class="s_social_media o_not_editable text-center" data-snippet="s_social_media" data-name="Social Media" contenteditable="false">
+                                <h5 class="s_social_media_title d-none">Follow us</h5>
+<a href="/website/social/facebook" class="s_social_media_facebook" target="_blank">
+                                    <i class="fa fa-facebook rounded-circle shadow-sm o_editable_media" contenteditable="false"/>
+                                </a>
+<a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank">
+                                    <i class="fa fa-linkedin rounded-circle shadow-sm o_editable_media" contenteditable="false"/>
+                                </a>
+<a href="/" class="text-800">
+                                    <i class="fa fa-home rounded-circle shadow-sm o_editable_media" contenteditable="false"/>
+                                </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a href="/website/social/youtube" class="s_social_media_youtube" target="_blank">
+                                    <i class="fa rounded-circle shadow-sm fa-youtube o_editable_media" contenteditable="false"/>
+                                </a>
+<a href="/website/social/instagram" class="s_social_media_instagram" target="_blank">
+                                    <i class="fa rounded-circle shadow-sm fa-instagram o_editable_media" contenteditable="false"/>
+                                </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web s_social_media_whatsapp" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa cy-icon o_editable_media fa-whatsapp" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa fa-whatsapp cy-icon o_editable_media" contenteditable="false"/>
+            </a>
+<a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa fa-whatsapp cy-icon o_editable_media" contenteditable="false"/>
+            </a>
+<a href="https://api.whatsapp.com/send?phone=96897926449"><i class="fa fa-whatsapp cy-icon o_editable_media" contenteditable="false"/></a>
+<a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=96897926449">
+                <i class="fa fa-whatsapp cy-icon o_editable_media" contenteditable="false"/>
+            </a>
+            <a class="cy_whatsapp_web" target="_blank" href="https://api.whatsapp.com/send?phone=+96897926449">
+                <i class="fa fa-whatsapp cy-icon o_editable_media" contenteditable="false"/>
+            </a>
+</div>
+                        </div></div>
+                </div>
+            </section>
+        </div>
+    </xpath>
+</data>
